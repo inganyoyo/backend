@@ -1,1 +1,4 @@
 /user-service/.idea/
+/user-service/build/
+/apigateway/build/
+/apigateway/.idea/
