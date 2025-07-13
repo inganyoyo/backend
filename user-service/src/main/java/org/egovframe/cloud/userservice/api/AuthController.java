@@ -32,12 +32,6 @@ public class AuthController {
       @RequestParam String requestPath) {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-    if (authentication == null || !authentication.isAuthenticated()) {
-      log.warn("인증되지 않은 요청");
-      return ResponseEntity.ok(false);
-    }
-
     // 🆕 새로운 메서드 시그니처 사용
     boolean isAuth =
         authorizationService.isAuthorization(authentication, requestPath, httpMethod, serviceId);
@@ -79,6 +73,7 @@ public class AuthController {
   @PostMapping("/api/v1/auth/logout")
   public ResponseEntity<?> logout(
       @RequestHeader(value = "X-Session-ID", required = false) String sessionId) {
+
     if (sessionId != null) {
       authService.logout(sessionId);
     }
@@ -93,11 +88,13 @@ public class AuthController {
   @GetMapping("/api/v1/auth/validate")
   public ResponseEntity<Boolean> validate(
       @RequestHeader(value = "X-Session-ID", required = false) String sessionId) {
+
     if (sessionId == null || sessionId.trim().isEmpty()) {
       return ResponseEntity.ok(false);
     }
 
     User user = authService.getUser(sessionId);
+    log.info(user.toString());
     boolean isValid = (user != null);
 
     log.debug("세션 검증: sessionId={}, valid={}", sessionId.substring(0, 8) + "...", isValid);
@@ -121,4 +118,5 @@ public class AuthController {
     response.put("profile", profile);
     return ResponseEntity.ok(response);
   }
+
 }

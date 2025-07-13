@@ -29,7 +29,7 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
   /**
    * 🆕 Spring Security에서 호출되는 권한 검증 메서드 SecurityFilterChain의 access() 메서드에서 사용하는 SpEL 표현식용
    *
-   * @param authentication Spring Security Authentication 객체
+   * @param authentication Spring Security Authentication 객체 (null일 수 있음)
    * @param requestPath 요청 경로
    * @param httpMethod HTTP 메서드
    * @param serviceId 서비스 ID (X-Service-ID 헤더)
@@ -38,13 +38,16 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
   public boolean isAuthorization(
       Authentication authentication, String requestPath, String httpMethod, String serviceId) {
 
-    // Authentication에서 권한 목록 추출
-    List<String> roles =
-        authentication.getAuthorities().stream()
+//    log.info("권한 검증 시작: authentication={}, path={}, method={}, serviceId={}",
+//             authentication, requestPath, httpMethod, serviceId);
+
+    // 모든 사용자의 권한 추출 (ANONYMOUS, USER, ADMIN 등)
+    List<String> roles = authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .map(this::cleanRole) // ROLE_ 접두사 제거
             .collect(Collectors.toList());
 
+//    log.info("권한 체크: roles={}, path={}, method={}", roles, requestPath, httpMethod);
     return checkPermission(roles, serviceId, httpMethod, requestPath);
   }
 
@@ -149,6 +152,7 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
         normalizedPath);
     return false;
   }
+
 
   /**
    * Spring Security 역할명에서 ROLE_ 접두사 제거

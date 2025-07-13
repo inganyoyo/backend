@@ -52,6 +52,8 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 비활성화
             .and()
+                .anonymous() // 🆕 익명 사용자 지원 명시적 활성화
+            .and()
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class) // 🆕 addFilterBefore 사용
                 .authorizeRequests()
                 .antMatchers(PERMIT_ALL_PATTERNS).permitAll() // 🆕 상수 사용

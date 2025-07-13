@@ -3,21 +3,18 @@ package org.egovframe.cloud.userservice.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.egovframe.cloud.userservice.domain.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.Executor;
-
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 최적화된 인증 서비스
@@ -28,27 +25,25 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class AuthService {
     
-    private final RedisTemplate<String, Object> redisTemplate;
-    private final ObjectMapper objectMapper;
-    private final SessionAsyncService sessionAsyncService;  // 🟢 별도 서비스 주입
-    
-    // 🟢 Thread Pool Executor 주입 (통계용)
-    @Qualifier("sessionAsyncExecutor")
-    private final Executor sessionAsyncExecutor;
-    
-    // 로컬 캐시로 빈번한 Redis 호출 줄이기
-    private Cache<String, User> userCache;
-    private Cache<String, Boolean> sessionExistsCache; // 세션 존재 여부 캐시
-    
     // 테스트용 사용자 정보 (실제로는 외부 시스템이나 파일에서 로드)
     private static final Map<String, String[]> USERS = new HashMap<>();
-    
+
     static {
         // {username, password, email, role}
         USERS.put("user1", new String[]{"user1", "user123", "user1@example.com", "USER"});
         USERS.put("admin", new String[]{"admin", "admin123", "admin@example.com", "ADMIN"});
         USERS.put("system", new String[]{"system", "system123", "system@example.com", "SYSTEM_ADMIN"});
     }
+
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final ObjectMapper objectMapper;
+    private final SessionAsyncService sessionAsyncService;  // 🟢 별도 서비스 주입
+    // 🟢 Thread Pool Executor 주입 (통계용)
+    @Qualifier("sessionAsyncExecutor")
+    private final Executor sessionAsyncExecutor;
+    // 로컬 캐시로 빈번한 Redis 호출 줄이기
+    private Cache<String, User> userCache;
+    private Cache<String, Boolean> sessionExistsCache; // 세션 존재 여부 캐시
     
     @PostConstruct
     public void initCache() {
@@ -296,114 +291,4 @@ public class AuthService {
                 .build();
     }
     
-    /**
-     * 캐시 통계 조회 (모니터링용)
-     */
-    public Map<String, Object> getCacheStats() {
-        Map<String, Object> stats = new HashMap<>();
-        
-        // 사용자 캐시 통계
-        CacheStats userStats = userCache.stats();
-        Map<String, Object> userCacheStats = new HashMap<>();
-        userCacheStats.put("hitCount", userStats.hitCount());
-        userCacheStats.put("missCount", userStats.missCount());
-        userCacheStats.put("hitRate", String.format("%.2f%%", userStats.hitRate() * 100));
-        userCacheStats.put("size", userCache.estimatedSize());
-        
-        // 세션 존재 여부 캐시 통계
-        CacheStats sessionStats = sessionExistsCache.stats();
-        Map<String, Object> sessionCacheStats = new HashMap<>();
-        sessionCacheStats.put("hitCount", sessionStats.hitCount());
-        sessionCacheStats.put("missCount", sessionStats.missCount());
-        sessionCacheStats.put("hitRate", String.format("%.2f%%", sessionStats.hitRate() * 100));
-        sessionCacheStats.put("size", sessionExistsCache.estimatedSize());
-        
-        stats.put("userCache", userCacheStats);
-        stats.put("sessionExistsCache", sessionCacheStats);
-        
-        // 🟢 Thread Pool 통계 추가
-        try {
-            if (sessionAsyncExecutor instanceof org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor) {
-                org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor executor = 
-                    (org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor) sessionAsyncExecutor;
-                
-                Map<String, Object> threadPoolStats = new HashMap<>();
-                threadPoolStats.put("activeCount", executor.getActiveCount());
-                threadPoolStats.put("poolSize", executor.getPoolSize());
-                threadPoolStats.put("corePoolSize", executor.getCorePoolSize());
-                threadPoolStats.put("maxPoolSize", executor.getMaxPoolSize());
-                threadPoolStats.put("queueSize", executor.getQueueSize());
-                threadPoolStats.put("queueCapacity", executor.getQueueCapacity());
-                
-                stats.put("threadPool", threadPoolStats);
-            }
-        } catch (Exception e) {
-            log.debug("Thread Pool 통계 조회 실패: {}", e.getMessage());
-        }
-        
-        return stats;
-    }
-    
-    /**
-     * 캐시 초기화 (관리용)
-     */
-    public void clearCache() {
-        userCache.invalidateAll();
-        sessionExistsCache.invalidateAll();
-        log.info("모든 캐시 초기화 완료");
-    }
-    
-    /**
-     * Redis에서 직접 사용자 조회 (캐시 우회) - 비동기 효과 테스트용
-     */
-    public User getUserDirectFromRedis(String sessionId) {
-        if (sessionId == null || sessionId.trim().isEmpty()) {
-            return null;
-        }
-
-        // 캐시 우회하고 직접 Redis에서 조회
-        String sessionKey = "session:" + sessionId;
-        Object obj = redisTemplate.opsForValue().get(sessionKey);
-
-        if (obj == null) {
-            log.debug("Redis에서 세션 없음: {}", sessionId);
-            return null;
-        }
-
-        User user;
-        try {
-            if (obj instanceof User) {
-                user = (User) obj;
-            } else if (obj instanceof Map) {
-                user = objectMapper.convertValue(obj, User.class);
-            } else {
-                log.warn("알 수 없는 세션 데이터 타입: {}", obj.getClass().getName());
-                return null;
-            }
-            
-            // 사용자 정보 업데이트
-            user.updateLastAccessTime();
-            
-            // 🟢 여기서 TTL 연장 - @Async 효과 확인 가능
-            sessionAsyncService.extendSessionTTLAsync(sessionId, user);
-            
-            log.debug("Redis에서 직접 사용자 정보 조회: {}", user.getUserId());
-            return user;
-            
-        } catch (Exception e) {
-            log.error("사용자 정보 역직렬화 실패: sessionId={}, error={}", sessionId, e.getMessage());
-            return null;
-        }
-    }
-    
-    /**
-     * 특정 세션 캐시 무효화
-     */
-    public void invalidateSessionCache(String sessionId) {
-        if (sessionId != null) {
-            userCache.invalidate(sessionId);
-            sessionExistsCache.invalidate(sessionId);
-            log.debug("세션 캐시 무효화: {}", sessionId);
-        }
-    }
 }

@@ -75,21 +75,42 @@ logging:
     org.springframework.scheduling: info  # 비동기 처리 로그 추가
     root: INFO
 
-# 권한 설정 (permissions.yml에서 로드)
+# 권한 설정 (권한 상속 지원)
+# 상속 관계: SYSTEM_ADMIN ← ADMIN ← USER ← ANONYMOUS
 permissions:
-  USER:
-    - service: "board-service"
-      method: "GET"
-      path: "/api/v1/board/hello"
+  # 🆕 익명 사용자 (비로그인) 권한 - 기본 권한
+  ANONYMOUS:
+    # 🆕 Auth API들 (auth-service에서 제공)
+    - service: "auth-service"
+      method: "POST"
+      path: "/api/v1/auth/login"
+      description: "로그인 API"
+    - service: "auth-service"
+      method: "POST"
+      path: "/api/v1/auth/logout"
+      description: "로그아웃 API"
     - service: "auth-service"
       method: "GET"
       path: "/api/v1/auth/validate"
+      description: "세션 검증 API (Gateway용)"
+    - service: "auth-service"
+      method: "GET"
+      path: "/api/v1/auth/check"
+      description: "권한 체크 API (Gateway용)"
+    - service: "auth-service"
+      method: "GET"
+      path: "/api/v1/auth/validate"
+      description: "세션 검증"
+  # 로그인 사용자 권한 - ANONYMOUS 권한을 자동 상속받음
+  USER:
     - service: "auth-service"
       method: "GET"
       path: "/api/v1/auth/validate-and-authorize"
+      description: "인증 및 권한 검증"
     - service: "user-service"
       method: "GET"
       path: "/api/v1/users/profile"
+      description: "사용자 프로필 조회"
     - service: "user-service"
       method: "PUT"
       path: "/api/v1/users/profile"
@@ -97,7 +118,7 @@ permissions:
     - service: "board-service"
       method: "GET"
       path: "/api/v1/boards/**"
-      description: "게시판 조회"
+      description: "모든 게시판 조회 (공개 + 비공개)"
     - service: "board-service"
       method: "POST"
       path: "/api/v1/boards/*/posts"
@@ -107,6 +128,7 @@ permissions:
       path: "/api/v1/test"
       description: "테스트 API 호출"
 
+  # 관리자 권한 - USER 권한을 자동 상속받음
   ADMIN:
     - service: "*"
       method: "GET"
@@ -125,6 +147,7 @@ permissions:
       path: "/api/v1/**"
       description: "모든 DELETE 요청"
 
+  # 시스템 관리자 권한 - ADMIN 권한을 자동 상속받음
   SYSTEM_ADMIN:
     - service: "*"
       method: "*"
