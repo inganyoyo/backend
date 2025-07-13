@@ -50,7 +50,7 @@ public class SecurityConfig {
             .and()
                 .formLogin().disable() // 폼 로그인 완전 비활성화
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 비활성화
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .anonymous() // 🆕 익명 사용자 지원 명시적 활성화
             .and()

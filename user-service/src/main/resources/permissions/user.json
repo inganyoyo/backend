@@ -1,0 +1,37 @@
+{
+  "role": "USER",
+  "description": "로그인 사용자 권한 - ANONYMOUS 권한을 자동 상속받음",
+  "inherits": ["ANONYMOUS"],
+  "permissions": [
+    {
+      "service": "auth-service",
+      "method": "GET",
+      "path": "/api/v1/auth/validate-and-authorize",
+      "description": "인증 및 권한 검증"
+    },
+    {
+      "service": "user-service",
+      "method": "GET",
+      "path": "/api/v1/users/profile",
+      "description": "사용자 프로필 조회"
+    },
+    {
+      "service": "board-service",
+      "method": "GET",
+      "path": "/api/v1/boards/**",
+      "description": "모든 게시판 조회 (공개 + 비공개)"
+    },
+    {
+      "service": "board-service",
+      "method": "POST",
+      "path": "/api/v1/boards/*/posts",
+      "description": "게시글 작성"
+    },
+    {
+      "service": "user-service",
+      "method": "GET",
+      "path": "/api/v1/test",
+      "description": "테스트 API 호출"
+    }
+  ]
+}

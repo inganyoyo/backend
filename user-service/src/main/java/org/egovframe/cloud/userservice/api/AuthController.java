@@ -32,6 +32,7 @@ public class AuthController {
       @RequestParam String requestPath) {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    log.info(authentication.toString() + " - " + requestPath + " - " + httpMethod + " - " + serviceId);
     // 🆕 새로운 메서드 시그니처 사용
     boolean isAuth =
         authorizationService.isAuthorization(authentication, requestPath, httpMethod, serviceId);
@@ -53,7 +54,7 @@ public class AuthController {
     }
 
     String sessionId = authService.login(username, password);
-
+    log.info("sessionId "+sessionId);
     if (sessionId == null) {
       Map<String, Object> response = new HashMap<>();
       response.put("success", false);

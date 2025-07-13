@@ -1,0 +1,31 @@
+{
+  "role": "ADMIN",
+  "description": "관리자 권한 - USER 권한을 자동 상속받음",
+  "inherits": ["USER", "ANONYMOUS"],
+  "permissions": [
+    {
+      "service": "*",
+      "method": "GET",
+      "path": "/api/v1/**",
+      "description": "모든 GET 요청"
+    },
+    {
+      "service": "*",
+      "method": "POST",
+      "path": "/api/v1/**",
+      "description": "모든 POST 요청"
+    },
+    {
+      "service": "*",
+      "method": "PUT",
+      "path": "/api/v1/**",
+      "description": "모든 PUT 요청"
+    },
+    {
+      "service": "*",
+      "method": "DELETE",
+      "path": "/api/v1/**",
+      "description": "모든 DELETE 요청"
+    }
+  ]
+}

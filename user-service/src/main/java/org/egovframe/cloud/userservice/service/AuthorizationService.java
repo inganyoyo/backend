@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.egovframe.cloud.userservice.config.PermissionConfig;
+import org.egovframe.cloud.userservice.config.PermissionJsonConfig;
 import org.egovframe.cloud.userservice.domain.User;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -24,7 +24,7 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
   private static final String SERVICE_ID_HEADER = "X-Service-ID";
   private static final String DEFAULT_SERVICE_ID = "user-service";
   private final AuthService authService;
-  private final PermissionConfig permissionConfig;
+  private final PermissionJsonConfig permissionJsonConfig;
 
   /**
    * 🆕 Spring Security에서 호출되는 권한 검증 메서드 SecurityFilterChain의 access() 메서드에서 사용하는 SpEL 표현식용
@@ -135,11 +135,9 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
     // 각 역할에 대해 권한 체크 (하나라도 권한이 있으면 허용)
     for (String role : roles) {
       boolean hasPermission =
-          permissionConfig.hasPermission(role, serviceId, httpMethod, normalizedPath);
+          permissionJsonConfig.hasPermission(role, serviceId, httpMethod, normalizedPath);
 
       if (hasPermission) {
-        //                log.info("권한 검증 성공: 역할[{}], 서비스[{}], 메소드[{}], 경로[{}]",
-        //                        role, serviceId, httpMethod, normalizedPath);
         return true;
       }
     }
@@ -153,6 +151,13 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
     return false;
   }
 
+//
+//  /**
+//   * 🆕 특정 역할이 상속받는 모든 권한 목록 반환 (디버깅/관리용)
+//   */
+//  public List<org.egovframe.cloud.userservice.domain.Permission> getAllPermissionsForRole(String role) {
+//    return permissionJsonConfig.getAllPermissionsForRole(role);
+//  }
 
   /**
    * Spring Security 역할명에서 ROLE_ 접두사 제거

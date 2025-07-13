@@ -117,7 +117,7 @@ public class TestPageController {
                 .append("const username=document.getElementById('username').value;")
                 .append("const password=document.getElementById('password').value;")
                 .append("try{")
-                .append("const response=await fetch('/auth-service/api/v1/auth/login',{")
+                .append("const response=await fetch('/user-service/api/v1/auth/login',{")
                 .append("method:'POST',headers:{'Content-Type':'application/json'},")
                 .append("body:JSON.stringify({username,password})});")
                 .append("const data=await response.json();")
@@ -128,7 +128,7 @@ public class TestPageController {
 
         html.append("async function doLogout(){")
                 .append("try{")
-                .append("const response=await fetch('/auth-service/api/v1/auth/logout',{method:'POST'});")
+                .append("const response=await fetch('/user-service/api/v1/auth/logout',{method:'POST'});")
                 .append("const data=await response.json();")
                 .append("document.getElementById('authResult').textContent=JSON.stringify(data,null,2);")
                 .append("}catch(e){")

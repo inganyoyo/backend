@@ -15,7 +15,8 @@ public final class SecurityConstants {
             "/v3/api-docs/**",     // API 문서
             "/swagger*/**",        // Swagger
             "/webjars/**",         // Swagger 리소스
-            "/error"               // 에러 페이지 허용
+            "/error",              // 에러 페이지 허용
+            "/api/v1/auth/check"   // 🆕 Gateway 권한 체크 API (내부 API)
     };
     
     private SecurityConstants() {

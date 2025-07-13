@@ -1,5 +1,11 @@
 package org.egovframe.cloud.userservice.filter;
 
+import java.io.IOException;
+import java.util.Collections;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.egovframe.cloud.userservice.domain.User;
@@ -10,13 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * 세션 기반 인증 필터
@@ -36,6 +35,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         // 1. X-Session-ID 헤더에서 세션 ID 추출
         String sessionId = request.getHeader("X-Session-ID");
+        
+        log.debug("🔍 AuthenticationFilter - URI: {}, Method: {}, X-Session-ID: {}", 
+                 request.getRequestURI(), request.getMethod(), 
+                 sessionId != null ? sessionId.substring(0, Math.min(8, sessionId.length())) + "..." : "없음");
 
         if (sessionId != null && !sessionId.trim().isEmpty()) {
             try {
@@ -53,12 +56,17 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                     // 4. SecurityContext에 인증 정보 설정
                     SecurityContextHolder.getContext().setAuthentication(auth);
 
-
+                } else {
+                    response.setHeader("X-Session-Expired", "true");
                 }
             } catch (Exception e) {
                 log.warn("세션 검증 중 오류 발생: sessionId={}, error={}",
                         sessionId.substring(0, Math.min(8, sessionId.length())) + "...", e.getMessage());
+                // 🆕 세션 오류 시 응답 헤더 추가  
+                response.setHeader("X-Session-Expired", "true");
             }
+        } else {
+            log.debug("🚫 X-Session-ID 헤더 없음 - 익명 사용자로 처리");
         }
 
         // 다음 필터로 진행

@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * org.egovframe.cloud.apigateway.filter.AuthResponseFilter
  * <p>
- * 로그인 응답에서 sessionId를 쿠키로 설정하는 필터
+ * 로그인 응답에서 sessionId를 쿠키로 설정하고, 세션 만료 시 쿠키를 제거하는 필터
  *
  * @version 1.0
  * @since 2025/07/14
@@ -42,18 +42,23 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-
-        // 로그인 또는 로그아웃 요청인지 확인
-        if (!isAuthRequest(request)) {
-            return chain.filter(exchange);
-        }
-
-        log.info("Processing auth request: {}", request.getPath());
-
-        // 응답을 가로채서 sessionId를 쿠키로 설정
+        
+        // 🆕 세션 만료 체크를 위해 모든 요청에 대해 응답을 확인
         ServerHttpResponseDecorator decoratedResponse = new ServerHttpResponseDecorator(exchange.getResponse()) {
             @Override
             public Mono<Void> writeWith(org.reactivestreams.Publisher<? extends DataBuffer> body) {
+                
+                // 🆕 세션 만료 또는 오류 헤더 체크 (모든 응답에 대해)
+                String sessionExpired = getDelegate().getHeaders().getFirst("X-Session-Expired");
+
+                // 기존 인증 요청 처리는 그대로 유지
+                if (!isAuthRequest(request) || "false".equals(sessionExpired)) {
+                    return super.writeWith(body);
+                }
+
+                log.info("Processing auth request: {}", request.getPath());
+
+                // 응답을 가로채서 sessionId를 쿠키로 설정
                 if (body instanceof Flux) {
                     Flux<? extends DataBuffer> fluxBody = (Flux<? extends DataBuffer>) body;
                     return super.writeWith(fluxBody.collectList().map(dataBuffers -> {
@@ -67,7 +72,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
                         }
 
                         String responseBody = responseBodyBuilder.toString();
-                        log.info("Login response body: {}", responseBody);
+                        log.info("Auth response body: {}", responseBody);
 
                         // JSON에서 성공 여부 확인하고 쿠키 처리
                         try {
@@ -79,20 +84,22 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
                                         && jsonNode.get("success").asBoolean()) {
 
                                     String sessionId = jsonNode.get("sessionId").asText();
-                                    log.info("Login successful, setting session cookie: {}", sessionId);
+                                    log.info("Login successful, setting session cookie: {}", 
+                                            sessionId.substring(0, Math.min(8, sessionId.length())) + "...");
 
                                     // 세션 쿠키 설정
                                     ResponseCookie sessionCookie = ResponseCookie.from("GSNS-SESSION", sessionId)
                                             .httpOnly(true)
-                                            .secure(true) // HTTPS 환경에서는 true로 설정
+                                            .secure(false) // 개발환경에서는 false, 운영환경에서는 true
                                             .sameSite("Strict")
                                             .path("/")
-                                            .maxAge(-1)
+                                            .maxAge(-1) // 브라우저 세션 종료 시까지 유지
                                             .build();
 
                                     getDelegate().addCookie(sessionCookie);
+                                    log.info("Session cookie set successfully");
                                 }
-                            } else if (isLogoutRequest(request)) {
+                            } else if (isLogoutRequest(request) || "true".equals(sessionExpired)) {
                                 // 로그아웃 처리
                                 if (jsonNode.has("success") && jsonNode.get("success").asBoolean()) {
                                     log.info("Logout successful, removing session cookie");
@@ -107,6 +114,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
                                             .build();
 
                                     getDelegate().addCookie(deleteCookie);
+                                    log.info("Session cookie cleared successfully");
                                 }
                             }
                         } catch (Exception e) {
@@ -135,8 +143,8 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String method = request.getMethod().toString();
 
         boolean isAuth = "POST".equals(method) &&
-                (path.contains("/auth-service/api/v1/auth/login") ||
-                        path.contains("/auth-service/api/v1/auth/logout"));
+                (path.contains("/user-service/api/v1/auth/login") ||
+                        path.contains("/user-service/api/v1/auth/logout"));
         log.debug("Request path: {}, method: {}, isAuth: {}", path, method, isAuth);
         return isAuth;
     }
@@ -151,7 +159,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String path = request.getPath().toString();
         String method = request.getMethod().toString();
 
-        boolean isLogin = "POST".equals(method) && path.contains("/auth-service/api/v1/auth/login");
+        boolean isLogin = "POST".equals(method) && path.contains("/user-service/api/v1/auth/login");
         log.debug("Request path: {}, method: {}, isLogin: {}", path, method, isLogin);
         return isLogin;
     }
@@ -166,7 +174,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String path = request.getPath().toString();
         String method = request.getMethod().toString();
 
-        boolean isLogout = "POST".equals(method) && path.contains("/auth-service/api/v1/auth/logout");
+        boolean isLogout = "POST".equals(method) && path.contains("/user-service/api/v1/auth/logout");
         log.debug("Request path: {}, method: {}, isLogout: {}", path, method, isLogout);
         return isLogout;
     }

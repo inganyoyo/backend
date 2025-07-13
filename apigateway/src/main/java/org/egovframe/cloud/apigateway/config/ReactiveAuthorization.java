@@ -59,7 +59,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
 
         // 경로에서 서비스명 추출 및 실제 경로 분리
         String fullPath = requestPath.toString();
-
+        log.info("Request Path: {}", fullPath);
         ServicePathResult serviceAndPath = extractServiceAndPath(fullPath);
 
         // auth-service에는 실제 경로만 전달 (서비스명 제거)

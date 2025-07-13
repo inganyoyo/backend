@@ -1,10 +1,8 @@
 package org.egovframe.cloud.userservice;
 
-import org.egovframe.cloud.userservice.config.PermissionConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -22,7 +20,6 @@ import org.springframework.context.annotation.ComponentScan;
   "org.egovframe.cloud.userservice"
 }) // org.egovframe.cloud.common package 포함하기 위해
 @EntityScan({"org.egovframe.cloud.servlet.domain", "org.egovframe.cloud.userservice.domain"})
-@EnableConfigurationProperties(PermissionConfig.class)
 @SpringBootApplication
 public class UserServiceApplication {
 

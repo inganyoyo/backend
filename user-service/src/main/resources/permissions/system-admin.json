@@ -1,0 +1,13 @@
+{
+  "role": "SYSTEM_ADMIN",
+  "description": "시스템 관리자 권한 - ADMIN 권한을 자동 상속받음",
+  "inherits": ["ADMIN", "USER", "ANONYMOUS"],
+  "permissions": [
+    {
+      "service": "*",
+      "method": "*",
+      "path": "/**",
+      "description": "시스템 전체 권한"
+    }
+  ]
+}

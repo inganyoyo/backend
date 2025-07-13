@@ -1,0 +1,66 @@
+{
+  "role": "ANONYMOUS",
+  "description": "익명 사용자 (비로그인) 권한 - 기본 권한",
+  "permissions": [
+    {
+      "service": "auth-service",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "description": "로그인 API"
+    },
+    {
+      "service": "auth-service",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "description": "로그아웃 API"
+    },
+    {
+      "service": "auth-service",
+      "method": "GET",
+      "path": "/api/v1/auth/validate",
+      "description": "세션 검증 API (Gateway용)"
+    },
+    {
+      "service": "user-service",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "description": "로그인 API (user-service 임시)"
+    },
+    {
+      "service": "user-service",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "description": "로그아웃 API (user-service 임시)"
+    },
+    {
+      "service": "user-service",
+      "method": "GET",
+      "path": "/api/v1/auth/validate",
+      "description": "세션 검증 API (user-service 임시)"
+    },
+    {
+      "service": "user-service",
+      "method": "GET",
+      "path": "/api/v1/users/public-info",
+      "description": "공개 사용자 정보 조회"
+    },
+    {
+      "service": "board-service",
+      "method": "GET",
+      "path": "/api/v1/board/hello",
+      "description": "게시판 Hello API (익명 접근 가능)"
+    },
+    {
+      "service": "board-service",
+      "method": "GET",
+      "path": "/api/v1/boards/public/**",
+      "description": "공개 게시판 조회"
+    },
+    {
+      "service": "*",
+      "method": "GET",
+      "path": "/api/v1/*/health",
+      "description": "서비스 헬스체크"
+    }
+  ]
+}
