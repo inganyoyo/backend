@@ -1,0 +1,1304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="AutomaticModuleUnloader">
+    <loaded-modules>
+      <module name="user-service.test" />
+      <module name="user-service" />
+      <module name="user-service.main" />
+    </loaded-modules>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="46e4f9de-63fa-4071-9366-b63829838b05" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/JacksonConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/BoardServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/board/BoardApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/board/dto/BoardListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/board/dto/BoardResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/board/dto/BoardSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/board/dto/BoardUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/comment/CommentApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/comment/dto/CommentListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/comment/dto/CommentResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/comment/dto/CommentSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/comment/dto/CommentUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/PostsApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/dto/PostsDeleteRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/dto/PostsListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/dto/PostsResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/dto/PostsSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/dto/PostsSimpleResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/dto/PostsSimpleSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/api/posts/dto/PostsUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/config/SqlQueryConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/board/Board.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/board/BoardRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/board/BoardRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/board/BoardRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/code/Code.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/comment/Comment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/comment/CommentId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/comment/CommentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/comment/CommentRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/comment/CommentRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/Posts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsRead.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsReadId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsReadRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsReadRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsReadRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/posts/PostsRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/domain/user/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/service/board/BoardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/service/comment/CommentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/service/posts/PostsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/java/org/egovframe/cloud/boardservice/util/HttpUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/test/java/org/egovframe/cloud/boardservice/api/board/BoardApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/test/java/org/egovframe/cloud/boardservice/api/comment/CommentApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/test/java/org/egovframe/cloud/boardservice/api/posts/PostsApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/test/java/org/egovframe/cloud/boardservice/util/RestResponsePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../board-service/src/test/resources/application-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/board-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/board-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/portal-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/portal-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/reserve-check-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/reserve-check-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/reserve-item-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/reserve-item-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/reserve-request-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/reserve-request-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/user-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/config/user-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/java/org/egovframe/cloud/config/ConfigApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/application-prod.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/src/test/java/org/egovframe/cloud/config/ConfigApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/src/main/java/org/egovframe/cloud/discovery/DiscoveryApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/src/main/java/org/egovframe/cloud/discovery/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/src/test/java/org/egovframe/cloud/discovery/DiscoveryApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/PortalServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/PortalApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/AttachmentApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentBase64RequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentDownloadResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentEditorResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentFileResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentImageResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentTempSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentUploadRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/attachment/dto/AttachmentUploadResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/banner/BannerApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/banner/dto/BannerImageResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/banner/dto/BannerListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/banner/dto/BannerRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/banner/dto/BannerResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/banner/dto/BannerSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/banner/dto/BannerUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/CodeApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/CodeDetailApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeDetailListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeDetailRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeDetailResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeDetailSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeDetailUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/code/dto/CodeUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/content/ContentApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/content/dto/ContentListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/content/dto/ContentResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/content/dto/ContentSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/content/dto/ContentUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/MenuApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/MenuRoleApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuDnDRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuRoleRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuRoleResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuSideResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuTreeRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuTreeResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/MenuUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/menu/dto/SiteResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/message/MessageApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/message/dto/MessageListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/policy/PolicyApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/policy/dto/PolicyResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/policy/dto/PolicySaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/policy/dto/PolicyUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/privacy/PrivacyApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/privacy/dto/PrivacyListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/privacy/dto/PrivacyResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/privacy/dto/PrivacySaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/privacy/dto/PrivacyUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/statistics/StatisticsApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/statistics/dto/StatisticsResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/api/statistics/dto/StatisticsYMRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/client/BoardServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/client/decoder/CustomErrorDecoder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/client/dto/BoardResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/config/CustomFeignConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/config/EventStreamConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/config/MessageSourceFiles.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/config/Resilience4JConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/config/StorageConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/attachment/Attachment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/attachment/AttachmentId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/attachment/AttachmentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/attachment/AttachmentRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/attachment/AttachmentRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/banner/Banner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/banner/BannerRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/banner/BannerRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/banner/BannerRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/board/Board.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/code/Code.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/code/CodeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/code/CodeRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/code/CodeRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/content/Content.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/content/ContentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/content/ContentRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/content/ContentRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/Menu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/MenuRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/MenuRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/MenuRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/MenuRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/MenuRoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/MenuRoleRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/MenuRoleRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/Site.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/menu/SiteRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/message/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/message/MessageRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/message/MessageRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/message/MessageRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/policy/Policy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/policy/PolicyRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/policy/PolicyRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/policy/PolicyRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/privacy/Privacy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/privacy/PrivacyRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/privacy/PrivacyRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/privacy/PrivacyRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/statistics/Statistics.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/statistics/StatisticsRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/statistics/StatisticsRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/statistics/StatisticsRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/user/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/domain/user/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/attachment/AttachmentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/banner/BannerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/code/CodeDetailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/code/CodeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/content/ContentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/menu/MenuRoleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/menu/MenuService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/policy/PolicyService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/privacy/PrivacyService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/service/statistics/StatisticsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/utils/FileStorageUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/utils/FtpClientDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/utils/FtpStorageUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/utils/PortalUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/java/org/egovframe/cloud/portalservice/utils/StorageUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/PortalServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/attachment/AttachmentApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/banner/BannerApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/code/CodeApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/code/CodeDetailApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/content/ContentApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/menu/MenuApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/menu/MenuRoleApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/message/MessageApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/policy/PolicyApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/privacy/PrivacyApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/api/statistics/StatisticsApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/config/ExceptionResponseTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/config/MessageSourceConfigTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/config/MessageSourceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/domain/attachment/AttachmentRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/domain/code/CodeRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/domain/menu/MenuRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/domain/menu/MenuRoleRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/domain/message/MessageRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/domain/policy/PolicyRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/domain/statistics/StatisticsRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/java/org/egovframe/cloud/portalservice/util/RestResponsePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../portal-service/src/test/resources/application-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/ReserveCheckSeviceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/api/ReserveApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/api/dto/ReserveCancelRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/api/dto/ReserveListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/api/dto/ReserveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/api/dto/ReserveResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/api/dto/ReserveSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/api/dto/ReserveUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/client/ReserveItemServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/client/UserServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/client/dto/ReserveItemRelationResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/client/dto/ReserveItemResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/client/dto/UserResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/config/Resilience4JConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/Reserve.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/ReserveItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/ReserveRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/ReserveRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/ReserveRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/ReserveStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/ReserveValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/domain/location/Location.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/service/ReserveService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/validator/ReserveSaveValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/java/org/egovframe/cloud/reservechecksevice/validator/annotation/ReserveSaveValid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/main/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/java/org/egovframe/cloud/reservechecksevice/ReserveCheckSeviceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/java/org/egovframe/cloud/reservechecksevice/api/ReserveApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/java/org/egovframe/cloud/reservechecksevice/config/R2dbcConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/java/org/egovframe/cloud/reservechecksevice/util/RestResponsePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/java/org/egovframe/cloud/reservechecksevice/util/WithCustomMockUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/java/org/egovframe/cloud/reservechecksevice/util/WithMockCustomUserSecurityContextFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/resources/application-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-check-service/src/test/resources/schema-h2.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/ReserveItemServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/location/LocationApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/location/dto/LocationResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/location/dto/LocationSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/location/dto/LocationUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/ReserveItemApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveItemListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveItemMainResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveItemRelationResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveItemRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveItemResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveItemSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveItemUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/dto/ReserveSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/config/RequestMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/config/ReserveEventConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/config/Resilience4JConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/code/Code.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/location/Location.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/location/LocationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/reserveItem/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/reserveItem/ReserveItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/reserveItem/ReserveItemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/reserveItem/ReserveItemRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/domain/reserveItem/ReserveItemRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/service/location/LocationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/service/reserveItem/ReserveItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/validator/ReserveItemSaveValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/java/org/egovframe/cloud/reserveitemservice/validator/annotation/ReserveItemSaveValid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/main/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/java/org/egovframe/cloud/reserveitemservice/ReserveItemServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/java/org/egovframe/cloud/reserveitemservice/api/location/LocationApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/java/org/egovframe/cloud/reserveitemservice/api/reserveItem/ReserveItemApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/java/org/egovframe/cloud/reserveitemservice/config/R2dbcConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/resources/application-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-item-service/src/test/resources/schema-h2.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/ReserveRequestServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/api/ReserveApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/api/dto/ReserveResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/api/dto/ReserveSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/config/MessageListenerContainerFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/config/RequestMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/config/ReserveEventConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/domain/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/domain/Reserve.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/domain/ReserveRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/domain/ReserveRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/domain/ReserveRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/domain/ReserveStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/domain/ReserveValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/java/org/egovframe/cloud/reserverequestservice/service/ReserveService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/main/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/java/org/egovframe/cloud/reserverequestservice/ReserveRequestServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/java/org/egovframe/cloud/reserverequestservice/api/ReserveApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/java/org/egovframe/cloud/reserverequestservice/config/R2dbcConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/java/org/egovframe/cloud/reserverequestservice/config/WithCustomMockUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/java/org/egovframe/cloud/reserverequestservice/config/WithMockCustomUserSecurityContextFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/resources/application-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reserve-request-service/src/test/resources/schema-h2.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/UserServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/MessageSourceApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/AuthorizationApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/RoleApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/RoleAuthorizationApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/AuthorizationListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/AuthorizationResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/AuthorizationSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/AuthorizationUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/RoleAuthorizationDeleteRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/RoleAuthorizationListRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/RoleAuthorizationListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/RoleAuthorizationResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/RoleAuthorizationSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/role/dto/RoleListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/UserApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/SocialUserRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/SocialUserResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserEmailRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserFindPasswordSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserFindPasswordUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserInfoUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserJoinRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserLoginRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserPasswordMatchRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserPasswordUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserUpdateInfoRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/api/user/dto/UserVerifyRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/AuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/CacheConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/CacheEventLogger.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/CustomOAuth2SuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/CustomOAuth2UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/RestTemplateConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/TokenProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/UserPasswordChangeEmailTemplate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/dto/OAuthAttributes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/dto/SessionUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/config/dto/SocialUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/log/LoginLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/log/LoginLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/Authorization.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/AuthorizationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/AuthorizationRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/AuthorizationRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleAuthorization.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleAuthorizationId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleAuthorizationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleAuthorizationRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleAuthorizationRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/role/RoleRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserFindPassword.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserFindPasswordId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserFindPasswordRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserFindPasswordRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserFindPasswordRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/domain/user/UserStateCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/service/role/AuthorizationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/service/role/RoleAuthorizationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/service/role/RoleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/egovframe/cloud/userservice/service/user/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ehcache.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/egovframe/cloud/userservice/api/role/AuthorizationApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/egovframe/cloud/userservice/api/role/RoleApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/egovframe/cloud/userservice/api/role/RoleAuthorizationApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/egovframe/cloud/userservice/api/user/UserApiControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/board-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/board-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/portal-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/portal-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/reserve-check-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/reserve-check-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/reserve-item-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/reserve-item-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/reserve-request-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/reserve-request-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/user-service-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config/user-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/app/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/app/mesh/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/app/service/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/elk/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/elk/kibana/config/kibana.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/elk/logstash/config/logstash.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/elk/logstash/pipeline/logstash.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/mysql/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/mysql/init/init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/mysql/msaportal.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/mysql/reservation.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/opensearch/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/opensearch/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/opensearch/logstash/config/logstash.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/opensearch/logstash/pipeline/logstash.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose/opensearch/send-message-sample.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/.babelrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/.env.local.sample" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/.prettierrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/DockerfileK8sPipeline" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/jest.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/jest.setup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/next-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/next-i18next.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/next.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/public/images/adminLogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/public/images/favicon-96x96.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/public/locales/en/common.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/public/locales/ko/common.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/public/vercel.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/server/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/@types/global.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/App/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/AttachList/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Auth/LoginForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Buttons/CustomButtons.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Buttons/DetailButtons.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Buttons/GridButtons.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Buttons/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Confirm/ConfirmDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Confirm/ConfirmPopover.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Confirm/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ControlledField/ControlledDateRangePicker.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ControlledField/ControlledRadioField.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ControlledField/ControlledSwitchField.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ControlledField/ControlledTextField.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ControlledField/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Copyright.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/CustomAlert/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/CustomBarChart/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/CustomTreeView/CustomTreeItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/CustomTreeView/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DialogPopup/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DisableTextField/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DraggableTreeMenu/DraaggableTreeBuilder.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DraggableTreeMenu/DraaggableTreeMenuItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DraggableTreeMenu/TreeJson.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DraggableTreeMenu/TreeSubButtons.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DraggableTreeMenu/TreeUtils.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/DraggableTreeMenu/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/EditForm/MenuEditForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/EditForm/ValidationAlert.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/EditForm/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Editor/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Layout/Bread.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Layout/Footer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Layout/Header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Layout/Profile.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Layout/SideBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Layout/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Loader/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/LoginLayout/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Menu/MenuItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Menu/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/RadioGroupField/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/ReserveClientInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/ReserveEduInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/ReserveEquipInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/ReserveInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/ReserveInofView.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/ReserveItemInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/ReserveSpaceInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Reserve/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ReserveItem/ReserveItemAdditional.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ReserveItem/ReserveItemBasic.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ReserveItem/ReserveItemManager.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ReserveItem/ReserveItemMethod.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/ReserveItem/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Search/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Table/CustomDataGrid.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Table/DataGridPagination.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Table/Pagination.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Tabs/Horizontal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Tabs/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Upload/FileList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Upload/FileUpload.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Upload/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Wrapper/GlobalError.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Wrapper/SSRSafeSuspense.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/Wrapper/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/comment/form.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/comment/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/components/comment/list.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/constants/env.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/constants/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/hooks/useLocalStorage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/hooks/useMounted.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/hooks/usePage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/hooks/useSearchType.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/hooks/useUser.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/libs/Storage/emailStorage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/libs/Storage/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/libs/date.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/libs/i18n.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/404/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/_app/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/_document/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/_error/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/api/editor/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/api/proxy/[...path].ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/api/v1/messages.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/api/v1/token.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/attachment/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/auth/login.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/auth/logout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/authorization/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/authorization/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/banner/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/banner/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/board/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/board/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/code/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/code/detail/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/code/detail/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/code/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/content/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/content/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/location/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/location/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/menu/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/menu/role/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/policy/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/policy/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/posts/[board]/edit/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/posts/[board]/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/posts/[board]/view/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/privacy/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/privacy/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/reload/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/reserve-item/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/reserve-item/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/reserve/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/reserve/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/reserve/item.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/role-authorization/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/role/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/statistics/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/user/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/pages/user/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Attachment.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Authorization.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Banner.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Board.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Code.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Comment.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Content.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/File.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Location.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Login.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Menu.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/MenuRole.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Policy.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Posts.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Privacy.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Reserve.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/ReserveItem.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Role.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/RoleAuthorization.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/Statistics.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/User.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/common.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/service/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/stores/condition.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/stores/detailbuttons.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/stores/error.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/stores/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/stores/menus.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/stores/page.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/stores/tree.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/styles/darkTheme.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/styles/global.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/styles/shadows.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/styles/theme.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/styles/typography.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/src/utils/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/test/mock.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/test/test-utils.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/admin/tsconfig.server.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/.babelrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/.env.local.sample" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/.prettierrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/DockerfileK8s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/DockerfileK8sPipeline" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/jest.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/jest.setup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/next-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/next-i18next.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/next.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/locales/en/common.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/locales/ko/common.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/btn/btn_search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/etc/bullet_h5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/etc/intro_img01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/etc/intro_img01_mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/etc/intro_img02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/etc/intro_img02_mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_calenda.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_change.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_detail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_download.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_end.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_error.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_fail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_google.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_guide.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_join.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_kakao.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_mark01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_naver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_pass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_reserv.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_reset.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_success.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/icon/icon_top.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/layout/arrow_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/layout/footer_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/layout/h1_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/layout/h1_logo_mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/layout/logo_mail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/layout/logo_mois.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/layout/logo_nia.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/banner_open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_icon01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_icon02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_icon03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_icon04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_reserv_bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_slide_bg01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_slide_bg02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/main_slide_bg03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/images/main/support_bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/layout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/lg/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/btn/btn_search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/etc/bullet_h5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/etc/intro_img01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/etc/intro_img01_mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/etc/intro_img02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/etc/intro_img02_mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_calenda.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_change.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_detail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_download.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_end.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_error.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_fail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_google.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_guide.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_join.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_kakao.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_mark01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_naver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_pass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_reserv.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_reset.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/icon/icon_success.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/layout/arrow_select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/layout/footer_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/layout/h1_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/layout/h1_logo_mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/layout/logo_mail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/layout/logo_mois.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/layout/logo_nia.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/banner_open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/main_icon01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/main_icon02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/main_icon03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/main_icon04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/main_slide_bg01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/main_slide_bg02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/images/main/main_slide_bg03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/layout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/styles/sm/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/public/vercel.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/server/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/@types/global.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/ActiveLink/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/App/GlobalStyles.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/App/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/AttachList/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Auth/LoginForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Auth/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/BoardList/FAQBoardList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/BoardList/NormalBoardList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/BoardList/QnABoardList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/BoardList/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Buttons/BottomButtons.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Buttons/GoogleLoginButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Buttons/KakaoLoginButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Buttons/NaverLoginButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Buttons/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Comments/AddComments.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Comments/CommentsList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Comments/EditComments.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Comments/ViewComments.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Comments/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/CustomAlert/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/CustomConfirm/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/CustomSwiper/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/EditForm/NormalEditForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/EditForm/QnAEditForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/EditForm/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Editor/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Errors/ErrorPage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Errors/ErrorPopup.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Errors/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Inputs/SelectBox.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Inputs/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Layout/Body.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Layout/Breadcrumb.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Layout/Footer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Layout/Header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Layout/NoLeftBody.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Layout/SideBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Layout/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Loader/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Main/MainLG.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Main/MainSM.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Main/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Password/PasswordChange.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Password/PasswordConfirm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Password/PasswordDone.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Password/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/ReserveComplete.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/ReserveDateRangeField.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/ReserveEdit.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/ReserveEventSource.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/ReserveInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/ReserveItemAdditional.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/ReserveItemInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Reserve/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Search/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Sitemap/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/TableList/CollapseRow.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/TableList/CollapsibleTable.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/TableList/CustomPagination.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/TableList/DataGridPagination.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/TableList/DataGridTable.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/TableList/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Upload/FileList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Upload/FileUpload.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Upload/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/UserInfo/UserInfoDone.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/UserInfo/UserInfoModified.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/UserInfo/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/ValidationAlert/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Wrapper/GlobalError.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Wrapper/SSRSafeSuspense.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/Wrapper/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/WriteDLFields/DLWrapper.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/components/WriteDLFields/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/constants/env.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/constants/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/useInputs.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/useLocalStorage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/useMounted.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/usePage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/useSearchTypes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/useTextarea.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/useUser.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/hooks/useWindowSize.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/libs/Storage/emailStorage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/libs/Storage/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/libs/date.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/libs/i18n.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/404/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/_app/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/_document/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/_error/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/api/editor/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/api/health.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/api/login/[...path].ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/api/v1/messages.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/api/v1/token.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/find/password/change.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/find/password/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/join/complete.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/join/form.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/join/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/login/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/login/naver.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/auth/logout/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/board/[skin]/[board]/edit/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/board/[skin]/[board]/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/board/[skin]/[board]/view/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/content/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/privacy/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/reload/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/reserve/[category]/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/reserve/[category]/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/user/info/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/user/leave/bye.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/user/leave/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/user/password/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/user/reserve/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/user/reserve/cancel/[id].tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/pages/user/reserve/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Banner.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Board.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Content.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/File.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Login.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Menu.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Policy.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Privacy.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Reserve.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/Statistics.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/User.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/common.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/service/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/stores/condition.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/stores/error.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/stores/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/stores/menus.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/stores/page.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/stores/user.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/styles/theme.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/src/utils/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/test/mocks.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/test/test-utils.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/test/utils.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/portal/tsconfig.server.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/practice-image/banner01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/practice-image/banner02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../images/admin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../images/frontend.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../images/jwt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../images/login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../images/msa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/README-en.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/apigateway/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/apigateway/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/apigateway/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/apigateway/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/board-service/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/board-service/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/board-service/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/config/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/config/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/discovery/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/discovery/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/discovery/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/kustomization.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/portal-service/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/portal-service/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/portal-service/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-check-service/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-check-service/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-check-service/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-item-service/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-item-service/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-item-service/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-request-service/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-request-service/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/reserve-request-service/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/user-service/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/user-service/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/backend/user-service/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/admin/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/admin/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/admin/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/admin/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/kustomization.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/portal/autoscaler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/portal/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/portal/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/frontend/portal/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/applications/kustomization.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/configmaps/backend-configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/configmaps/common-configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/databases/mysql/configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/databases/mysql/init/initdb.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/databases/mysql/pv.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/databases/mysql/pvc.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/databases/mysql/secret.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/databases/mysql/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/databases/mysql/statefulset.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/namespace.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/pv.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/pvc.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/role.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/rolebinding.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/sa.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/jenkins/statefulset.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/kustomization.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/elasticsearch/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/elasticsearch/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/kibana/configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/kibana/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/kibana/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/kibana/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/logstash/configmap.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/logstash/deplyment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/logging/elk/logstash/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/nfs/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/nfs/nfs-client.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/nfs/nfs-server.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/nfs/sa.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/nfs/sc.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/rabbitmq/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/rabbitmq/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/rabbitmq/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/vagrant/Vagrantfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/zipkin/deployment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/zipkin/ingress/ingress.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/environments/zipkin/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/storage/nfs/kustomization.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/storage/nfs/pvc-nfs.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/storage/openstack/kustomization.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../k8s/storage/openstack/pvc-egovcp.yaml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$USER_HOME$/egovframe-msa-edu/backend/module-common">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/../apigateway">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;inganyoyo&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/eGovFramework/egovframe-msa-edu.git&quot;,
+    &quot;accountId&quot;: &quot;8d836a7d-195f-4a53-9014-855a15942f37&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2zhQLt7UcnvHiTZkCTWkvEVi6kX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Gradle.Build user-service.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.user-service [:org.egovframe.cloud.authservice.AuthServiceApplication.main()].executor": "Run",
+    "Gradle.user-service [:org.egovframe.cloud.userservice.UserServiceApplication.main()].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.AuthServiceApplication.executor": "Run",
+    "Spring Boot.UserServiceApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/juhyunlee/workspace.edu/egovframe-msa-edu/backend/user-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.4827586",
+    "run.configurations.included.in.services": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.UserServiceApplication">
+    <configuration name="AuthServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.egovframe.cloud.authservice.AuthServiceApplication" />
+      <module name="auth-service.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.egovframe.cloud.authservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.egovframe.cloud.userservice.UserServiceApplication" />
+      <module name="user-service.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.egovframe.cloud.userservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="auth-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.egovframe.cloud.authservice.AuthServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="user-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.egovframe.cloud.userservice.UserServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.UserServiceApplication" />
+        <item itemvalue="Application.AuthServiceApplication" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="46e4f9de-63fa-4071-9366-b63829838b05" name="Changes" comment="" />
+      <created>1752180771442</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1752180771442</updated>
+      <workItem from="1752180772499" duration="5943000" />
+      <workItem from="1752187829107" duration="10010000" />
+      <workItem from="1752233333267" duration="1908000" />
+      <workItem from="1752235249244" duration="4046000" />
+      <workItem from="1752241453378" duration="2716000" />
+      <workItem from="1752244187860" duration="3000" />
+      <workItem from="1752244754766" duration="17075000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnloadedModulesList">
+    <module name="module-common.main" />
+    <module name="module-common.querydsl" />
+    <module name="module-common.test" />
+  </component>
+</project>

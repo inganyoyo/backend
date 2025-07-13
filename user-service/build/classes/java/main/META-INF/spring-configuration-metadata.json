@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "permissions",
+      "type": "org.egovframe.cloud.userservice.config.PermissionConfig",
+      "sourceType": "org.egovframe.cloud.userservice.config.PermissionConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "permissions.a-d-m-i-n",
+      "type": "java.util.List<org.egovframe.cloud.userservice.domain.Permission>",
+      "sourceType": "org.egovframe.cloud.userservice.config.PermissionConfig"
+    },
+    {
+      "name": "permissions.all-permissions",
+      "type": "java.util.Map<java.lang.String,java.util.List<org.egovframe.cloud.userservice.domain.Permission>>",
+      "sourceType": "org.egovframe.cloud.userservice.config.PermissionConfig"
+    },
+    {
+      "name": "permissions.s-y-s-t-e-m-a-d-m-i-n",
+      "type": "java.util.List<org.egovframe.cloud.userservice.domain.Permission>",
+      "sourceType": "org.egovframe.cloud.userservice.config.PermissionConfig"
+    },
+    {
+      "name": "permissions.u-s-e-r",
+      "type": "java.util.List<org.egovframe.cloud.userservice.domain.Permission>",
+      "sourceType": "org.egovframe.cloud.userservice.config.PermissionConfig"
+    }
+  ],
+  "hints": []
+}

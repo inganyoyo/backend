@@ -1,0 +1,132 @@
+server:
+  port: 8001
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+
+spring:
+  application:
+    name: user-service
+  
+  # Jackson 설정 (UTF-8 및 한글 처리)
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+      write-dates-with-zone-id: false
+      write-durations-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: Asia/Seoul
+    locale: ko_KR
+  
+  # 메시지 소스 인코딩
+  messages:
+    encoding: UTF-8
+  
+  # Redis 설정 (성능 최적화)
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 5000ms                 # 3000ms → 5000ms로 증가 (네트워크 지연 대응)
+    lettuce:
+      pool:
+        max-active: 20              # 8 → 20으로 증가 (동시 연결 수 증가)
+        max-wait: 2000ms            # -1ms → 2000ms로 설정 (대기 시간 제한)
+        max-idle: 10                # 8 → 10으로 증가 (유휴 연결 증가)
+        min-idle: 2                 # 0 → 2로 설정 (미리 연결 유지)
+      shutdown-timeout: 200ms       # 추가: Graceful Shutdown
+  
+  # Session 설정
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace: spring:session
+    timeout: 1800 # 30분
+  
+  # Cache 설정 (성능 최적화)
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=5000,expireAfterWrite=10m,expireAfterAccess=5m  # 성능 향상된 설정
+
+
+# Actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, refresh
+  endpoint:
+    health:
+      show-details: always
+
+# 로깅 설정
+logging:
+  level:
+    org.egovframe.cloud.userservice: info
+    org.springframework.security: info
+    org.springframework.scheduling: info  # 비동기 처리 로그 추가
+    root: INFO
+
+# 권한 설정 (permissions.yml에서 로드)
+permissions:
+  USER:
+    - service: "board-service"
+      method: "GET"
+      path: "/api/v1/board/hello"
+    - service: "auth-service"
+      method: "GET"
+      path: "/api/v1/auth/validate"
+    - service: "auth-service"
+      method: "GET"
+      path: "/api/v1/auth/validate-and-authorize"
+    - service: "user-service"
+      method: "GET"
+      path: "/api/v1/users/profile"
+    - service: "user-service"
+      method: "PUT"
+      path: "/api/v1/users/profile"
+      description: "사용자 프로필 수정"
+    - service: "board-service"
+      method: "GET"
+      path: "/api/v1/boards/**"
+      description: "게시판 조회"
+    - service: "board-service"
+      method: "POST"
+      path: "/api/v1/boards/*/posts"
+      description: "게시글 작성"
+    - service: "user-service"
+      method: "GET"
+      path: "/api/v1/test"
+      description: "테스트 API 호출"
+
+  ADMIN:
+    - service: "*"
+      method: "GET"
+      path: "/api/v1/**"
+      description: "모든 GET 요청"
+    - service: "*"
+      method: "POST"
+      path: "/api/v1/**"
+      description: "모든 POST 요청"
+    - service: "*"
+      method: "PUT"
+      path: "/api/v1/**"
+      description: "모든 PUT 요청"
+    - service: "*"
+      method: "DELETE"
+      path: "/api/v1/**"
+      description: "모든 DELETE 요청"
+
+  SYSTEM_ADMIN:
+    - service: "*"
+      method: "*"
+      path: "/**"
+      description: "시스템 전체 권한"

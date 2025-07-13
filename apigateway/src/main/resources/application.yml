@@ -1,0 +1,132 @@
+server:
+  port: 8010
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+  # 에러 페이지 설정 (상세 에러 정보 숨김)
+  error:
+    whitelabel:
+      enabled: false
+    include-stacktrace: never
+    include-exception: false
+    include-message: never
+
+# 마이크로서비스 URL 설정
+auth-service:
+  url: http://localhost:8001
+user-service:
+  url: http://localhost:8001
+portal-service:
+  url: http://localhost:8003
+board-service:
+  url: http://localhost:8002
+reserve-item-service:
+  url: http://localhost:8005
+reserve-check-service:
+  url: http://localhost:8006
+reserve-request-service:
+  url: http://localhost:8007
+
+spring:
+  application:
+    name: apigateway
+  
+  # Jackson 설정 (UTF-8 및 한글 처리)
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    generator:
+      escape-non-ascii: false
+  
+  # 메시지 소스 인코딩
+  messages:
+    encoding: UTF-8
+    basename: messages
+
+  
+  # WebFlux 인코딩 설정
+  codec:
+    max-in-memory-size: 1MB
+  
+  # WebFlux 에러 처리 설정
+  webflux:
+    problemdetails:
+      enabled: false
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${auth-service.url}
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            # auth-service는 쿠키를 유지해야 함 (Cookie 헤더 제거하지 않음)
+            - RewritePath=/auth-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: ${user-service.url}
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: portal-service
+          uri: ${portal-service.url}
+          predicates:
+            - Path=/portal-service/**
+          filters:
+            - RewritePath=/portal-service/(?<segment>.*), /$\{segment}
+        - id: board-service
+          uri: ${board-service.url}
+          predicates:
+            - Path=/board-service/**
+          filters:
+            - RewritePath=/board-service/(?<segment>.*), /$\{segment}
+        - id: reserve-item-service
+          uri: ${reserve-item-service.url}
+          predicates:
+            - Path=/reserve-item-service/**
+          filters:
+            - RewritePath=/reserve-item-service/(?<segment>.*), /$\{segment}
+        - id: reserve-check-service
+          uri: ${reserve-check-service.url}
+          predicates:
+            - Path=/reserve-check-service/**
+          filters:
+            - RewritePath=/reserve-check-service/(?<segment>.*), /$\{segment}
+        - id: reserve-request-service
+          uri: ${reserve-request-service.url}
+          predicates:
+            - Path=/reserve-request-service/**
+          filters:
+            - RewritePath=/reserve-request-service/(?<segment>.*), /$\{segment}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<segment>.*), /$\{segment}/v3/api-docs
+      default-filters:
+        - name: GlobalFilter
+          args:
+            preLogger: true
+            postLogger: true
+
+info:
+  app:
+    name: Spring Cloud Gateway
+    description: API 라우팅 및 보안, 모니터링/메트릭 등의 기능을 간단하고 효과적인 방법으로 제공
+
+# 로그 레벨 설정 (상세 에러 로그 제어)
+logging:
+  level:
+    org.egovframe.cloud.apigateway.exception: WARN
+    org.springframework.cloud.gateway: WARN
+    io.netty: WARN
+    reactor.netty: WARN
