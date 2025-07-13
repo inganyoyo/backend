@@ -2,6 +2,7 @@ package org.egovframe.cloud.apigateway.filter;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.egovframe.cloud.apigateway.config.GlobalConstant;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpCookie;
@@ -13,6 +14,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.egovframe.cloud.apigateway.config.GlobalConstant.SESSION_COOKIE_NAME;
+import static org.egovframe.cloud.apigateway.config.GlobalConstant.SESSION_HEADER_NAME;
 
 /**
  * org.egovframe.cloud.apigateway.filter.GlobalFilter
@@ -27,9 +31,6 @@ import java.util.Set;
 @Component
 public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
 
-    private static final String SESSION_COOKIE_NAME = "GSNS-SESSION";
-    private static final String SESSION_HEADER_NAME = "X-Session-ID";
-    private static final String SESSION_SERVICE_NAME = "X-Service-ID";
 
     public GlobalFilter() {
         super(Config.class);
@@ -95,7 +96,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
 
         // X-Service-Name 헤더 추가
         if (StringUtils.hasLength(serviceName)) {
-            mutatedRequest.header(SESSION_SERVICE_NAME, serviceName);
+            mutatedRequest.header(GlobalConstant.HEADER_SERVICE_NAME, serviceName);
         }
 
         return mutatedRequest.build();

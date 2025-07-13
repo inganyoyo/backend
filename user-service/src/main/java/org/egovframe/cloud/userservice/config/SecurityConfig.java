@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class) // 🆕 addFilterBefore 사용
                 .authorizeRequests()
                 .antMatchers(PERMIT_ALL_PATTERNS).permitAll() // 🆕 상수 사용
-                .anyRequest().access("@authorizationService.isAuthorization(authentication, request.requestURI, request.method, request.getHeader('X-Service-ID'))"); // 🆕 필요한 파라미터만 전달
+                .anyRequest().access("@authorizationService.isAuthorization(authentication, request.requestURI, request.method, request.getHeader('X-Service-ID'))");
 
 
         return http.build();

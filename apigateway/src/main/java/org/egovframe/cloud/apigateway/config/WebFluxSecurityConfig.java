@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static org.egovframe.cloud.apigateway.config.GlobalConstant.PERMITALL_ANTPATTERNS;
+
 /**
  * org.egovframe.cloud.apigateway.config.WebFluxSecurityConfig
  * <p>
@@ -36,18 +38,7 @@ import java.util.Map;
 @Slf4j
 @EnableWebFluxSecurity // Spring Security 설정들을 활성화시켜 준다
 public class WebFluxSecurityConfig {
-    private final static String[] PERMITALL_ANTPATTERNS = {
-            ReactiveAuthorization.AUTHORIZATION_URI, "/", "/csrf",
-            "/auth-service/api/v1/auth/login", // 로그인은 권한 확인 불필요
-            "/auth-service/api/v1/auth/logout", // 로그인아웃은 권한 확인 불필요
-            "/auth-service/api/v1/auth/validate", // 세션 검증 API 허용
-            "/test", "/test/**", // 테스트 페이지 허용
-//            "/user-service/login", "/?*-service/api/v1/messages/**", "/api/v1/messages/**",
-//            "/?*-service/actuator/?*", "/actuator/?*",
-//            "/v3/api-docs/**", "/?*-service/v3/api-docs", "/swagger*/**", "/webjars/**"
 
-    };
-    private final static String USER_JOIN_ANTPATTERNS = "/user-service/api/v1/users";
     private final ObjectMapper objectMapper;
     private final MessageSource messageSource;
 

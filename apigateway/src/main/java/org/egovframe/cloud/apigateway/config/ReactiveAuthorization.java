@@ -88,13 +88,13 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
                     .get()
                     .headers(httpHeaders -> {
                         if (StringUtils.hasLength(finalSessionId)) {
-                            httpHeaders.add("X-Session-ID", finalSessionId);
+                            httpHeaders.add(GlobalConstant.SESSION_HEADER_NAME, finalSessionId);
                         }
                         // 🆕 서비스명을 헤더로 추가
                         if (StringUtils.hasLength(serviceName)) {
                             log.info(serviceName);
                             log.info(fullPath);
-                            httpHeaders.add("X-Service-ID", serviceName); // 🔥 수정: 실제 서비스명 사용
+                            httpHeaders.add(GlobalConstant.HEADER_SERVICE_NAME, serviceName); // 🔥 수정: 실제 서비스명 사용
                         }
                     })
                     .retrieve().bodyToMono(Boolean.class);
