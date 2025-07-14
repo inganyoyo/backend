@@ -105,7 +105,7 @@ public class TestPageController {
                 .append("<option value='GET'>GET</option>")
                 .append("<option value='POST'>POST</option>")
                 .append("</select>")
-                .append("<input type='text' id='url' placeholder='URL' value='/board-service/api/v1/board/hello'>")
+                .append("<input type='text' id='url' placeholder='URL' value='/board-service/api/board/hello'>")
                 .append("<textarea id='body' placeholder='Request Body (JSON)'></textarea>")
                 .append("<button onclick='sendRequest()'>요청 보내기</button>")
                 .append("<div id='result' class='response'></div>")
@@ -117,7 +117,7 @@ public class TestPageController {
                 .append("const username=document.getElementById('username').value;")
                 .append("const password=document.getElementById('password').value;")
                 .append("try{")
-                .append("const response=await fetch('/user-service/api/v1/auth/login',{")
+                .append("const response=await fetch('/auth-service/api/auth/login',{")
                 .append("method:'POST',headers:{'Content-Type':'application/json'},")
                 .append("body:JSON.stringify({username,password})});")
                 .append("const data=await response.json();")
@@ -128,7 +128,7 @@ public class TestPageController {
 
         html.append("async function doLogout(){")
                 .append("try{")
-                .append("const response=await fetch('/user-service/api/v1/auth/logout',{method:'POST'});")
+                .append("const response=await fetch('/auth-service/api/auth/logout',{method:'POST'});")
                 .append("const data=await response.json();")
                 .append("document.getElementById('authResult').textContent=JSON.stringify(data,null,2);")
                 .append("}catch(e){")
@@ -137,7 +137,7 @@ public class TestPageController {
 
         html.append("async function checkAuth(){")
                 .append("try{")
-                .append("const response=await fetch('/auth-service/api/v1/auth/validate');")
+                .append("const response=await fetch('/auth-service/api/auth/validate');")
                 .append("const data=await response.json();")
                 .append("document.getElementById('authResult').textContent=JSON.stringify(data,null,2);")
                 .append("}catch(e){")
@@ -146,7 +146,7 @@ public class TestPageController {
 
         html.append("async function getProfile(){")
                 .append("try{")
-                .append("const response=await fetch('/user-service/api/v1/users/profile');")
+                .append("const response=await fetch('/user-service/api/users/profile');")
                 .append("const data=await response.json();")
                 .append("document.getElementById('profileResult').textContent=JSON.stringify(data,null,2);")
                 .append("}catch(e){")
@@ -155,7 +155,7 @@ public class TestPageController {
 
         html.append("async function getAllUsers(){")
                 .append("try{")
-                .append("const response=await fetch('/user-service/api/v1/users');")
+                .append("const response=await fetch('/user-service/api/users');")
                 .append("const data=await response.json();")
                 .append("document.getElementById('profileResult').textContent=JSON.stringify(data,null,2);")
                 .append("}catch(e){")

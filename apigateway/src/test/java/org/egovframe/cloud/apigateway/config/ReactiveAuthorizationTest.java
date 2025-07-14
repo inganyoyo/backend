@@ -26,7 +26,7 @@ class ReactiveAuthorizationTest {
         // when, then
         webTestClient
                 .get()
-                .uri("/user-service/api/v1/users")
+                .uri("/user-service/api/users")
                 .header(HttpHeaders.AUTHORIZATION, notValidToken)
                 .exchange().expectStatus().isUnauthorized()
         ;

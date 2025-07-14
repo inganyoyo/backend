@@ -208,8 +208,8 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
   /**
    * 간단한 Ant 패턴 매칭 구현
    *
-   * @param pattern Ant 패턴 (예: /api/v1/auth/**)
-   * @param path 실제 경로 (예: /api/v1/auth/login)
+   * @param pattern Ant 패턴 (예: /api/auth/**)
+   * @param path 실제 경로 (예: /api/auth/login)
    * @return 매칭 여부
    */
   private boolean matchesAntPattern(String pattern, String path) {

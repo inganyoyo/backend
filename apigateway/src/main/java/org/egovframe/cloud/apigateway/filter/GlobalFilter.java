@@ -109,9 +109,9 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
      * @return String 서비스 이름 (추출 실패 시 null)
      * <p>
      * 예시:
-     * - /user-service/api/v1/users/profile -> user-service
-     * - /board-service/api/v1/boards -> board-service
-     * - /auth-service/api/v1/auth/login -> auth-service
+     * - /user-service/api/users/profile -> user-service
+     * - /board-service/api/boards -> board-service
+     * - /auth-service/api/auth/login -> auth-service
      */
     private String extractServiceNameFromPath(String path) {
         if (path == null || path.trim().isEmpty()) {

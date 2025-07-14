@@ -37,7 +37,7 @@ import java.util.List;
 public class ReactiveAuthorization implements ReactiveAuthorizationManager<AuthorizationContext> {
 
     // auth-service의 인증/인가 API
-    public static final String AUTHORIZATION_URI = "/auth-service" + "/api/v1/auth/check";
+    public static final String AUTHORIZATION_URI = "/auth-service" + "/api/auth/check";
     @Value("${auth-service.url:http://localhost:8001}")
     private String AUTH_SERVICE_URL;
 
@@ -63,7 +63,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
         ServicePathResult serviceAndPath = extractServiceAndPath(fullPath);
 
         // auth-service에는 실제 경로만 전달 (서비스명 제거)
-        String baseUrl = AUTH_SERVICE_URL + "/api/v1/auth/check"
+        String baseUrl = AUTH_SERVICE_URL + "/api/auth/check"
                 + "?httpMethod=" + httpMethod
                 + "&requestPath=" + serviceAndPath.getRequestPath(); // 🆕 실제 경로만 전달
 
@@ -111,7 +111,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
     /**
      * 전체 경로에서 서비스명과 실제 경로를 분리한다
      *
-     * @param fullPath 전체 경로 (예: /user-service/api/v1/users/profile)
+     * @param fullPath 전체 경로 (예: /user-service/api/users/profile)
      * @return ServicePathResult 서비스명과 요청 경로를 포함한 결과 객체
      */
     private ServicePathResult extractServiceAndPath(String fullPath) {

@@ -56,6 +56,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                     // 4. SecurityContext에 인증 정보 설정
                     SecurityContextHolder.getContext().setAuthentication(auth);
 
+                    log.info("X-Session-Expired TURE");
                 } else {
                     response.setHeader("X-Session-Expired", "true");
                 }

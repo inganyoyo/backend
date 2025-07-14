@@ -25,7 +25,7 @@ public class AuthController {
   /**
    * 권한 체크 (API Gateway용 - SecurityContext 기반) AuthenticationFilter에서 이미 SecurityContext가 설정되어 있음
    */
-  @GetMapping("/api/v1/auth/check")
+  @GetMapping("/api/auth/check")
   public ResponseEntity<Boolean> checkAuthorization(
       @RequestHeader(value = "X-Service-ID", required = false) String serviceId,
       @RequestParam String httpMethod,
@@ -41,7 +41,7 @@ public class AuthController {
   }
 
   /** 로그인 */
-  @PostMapping("/api/v1/auth/login")
+  @PostMapping("/api/auth/login")
   public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
     String username = loginRequest.get("username");
     String password = loginRequest.get("password");
@@ -71,7 +71,7 @@ public class AuthController {
   }
 
   /** 로그아웃 */
-  @PostMapping("/api/v1/auth/logout")
+  @PostMapping("/api/auth/logout")
   public ResponseEntity<?> logout(
       @RequestHeader(value = "X-Session-ID", required = false) String sessionId) {
 
@@ -86,7 +86,7 @@ public class AuthController {
   }
 
   /** 세션 검증 (Boolean 반환 - API Gateway 호환) */
-  @GetMapping("/api/v1/auth/validate")
+  @GetMapping("/api/auth/validate")
   public ResponseEntity<Boolean> validate(
       @RequestHeader(value = "X-Session-ID", required = false) String sessionId) {
 
@@ -103,7 +103,7 @@ public class AuthController {
   }
 
   /** 사용자 프로필 조회 (Spring Security로 인증 처리됨) */
-  @GetMapping("/api/v1/users/profile")
+  @GetMapping("/api/users/profile")
   public ResponseEntity<?> getProfile(@AuthenticationPrincipal User user) {
 
     Map<String, Object> profile = new HashMap<>();

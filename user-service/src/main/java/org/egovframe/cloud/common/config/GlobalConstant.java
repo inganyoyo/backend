@@ -17,9 +17,9 @@ package org.egovframe.cloud.common.config;
  * </pre>
  */
 public interface GlobalConstant {
-  final String AUTHORIZATION_URI = "/api/v1/authorizations/check";
-  final String REFRESH_TOKEN_URI = "/api/v1/users/token/refresh";
-  final String MESSAGES_URI = "/api/v1/messages/**";
+  final String AUTHORIZATION_URI = "/api/authorizations/check";
+  final String REFRESH_TOKEN_URI = "/apiusers/token/refresh";
+  final String MESSAGES_URI = "/api/messages/**";
   final String LOGIN_URI = "/login";
   final String[] SECURITY_PERMITALL_ANTPATTERNS = {
     AUTHORIZATION_URI,
@@ -28,7 +28,7 @@ public interface GlobalConstant {
     LOGIN_URI,
     "/actuator/**",
     "/v3/api-docs/**",
-    "/api/v1/images/**",
+    "/api/images/**",
     "/swagger-ui.html"
   };
   final String USER_SERVICE_URI = "/user-service";

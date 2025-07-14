@@ -19,7 +19,7 @@ class MessageSourceConfigTest {
     @Test
     public void 메세지를_외부위치에서_읽어온다() throws Exception {
         // when
-        String message = restTemplate.getForObject("/api/v1/messages/common.login/ko", String.class);
+        String message = restTemplate.getForObject("/api/messages/common.login/ko", String.class);
 
         // then
         assertThat(message).isEqualTo("로그인");

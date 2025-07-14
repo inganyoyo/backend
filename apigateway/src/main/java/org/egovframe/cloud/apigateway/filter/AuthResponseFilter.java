@@ -50,9 +50,9 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
                 
                 // 🆕 세션 만료 또는 오류 헤더 체크 (모든 응답에 대해)
                 String sessionExpired = getDelegate().getHeaders().getFirst("X-Session-Expired");
-
+                log.info("sessionExpired : " + sessionExpired);
                 // 기존 인증 요청 처리는 그대로 유지
-                if (!isAuthRequest(request) || "false".equals(sessionExpired)) {
+                if (!isAuthRequest(request) && "false".equals(sessionExpired)) {
                     return super.writeWith(body);
                 }
 
@@ -143,8 +143,8 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String method = request.getMethod().toString();
 
         boolean isAuth = "POST".equals(method) &&
-                (path.contains("/user-service/api/v1/auth/login") ||
-                        path.contains("/user-service/api/v1/auth/logout"));
+                (path.contains("/auth-service/api/auth/login") ||
+                        path.contains("/auth-service/api/auth/logout"));
         log.debug("Request path: {}, method: {}, isAuth: {}", path, method, isAuth);
         return isAuth;
     }
@@ -159,7 +159,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String path = request.getPath().toString();
         String method = request.getMethod().toString();
 
-        boolean isLogin = "POST".equals(method) && path.contains("/user-service/api/v1/auth/login");
+        boolean isLogin = "POST".equals(method) && path.contains("/auth-service/api/auth/login");
         log.debug("Request path: {}, method: {}, isLogin: {}", path, method, isLogin);
         return isLogin;
     }
@@ -174,7 +174,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String path = request.getPath().toString();
         String method = request.getMethod().toString();
 
-        boolean isLogout = "POST".equals(method) && path.contains("/user-service/api/v1/auth/logout");
+        boolean isLogout = "POST".equals(method) && path.contains("/auth-service/api/auth/logout");
         log.debug("Request path: {}, method: {}, isLogout: {}", path, method, isLogout);
         return isLogout;
     }
