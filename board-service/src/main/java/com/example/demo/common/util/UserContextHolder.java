@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.common.util;
 
+import com.example.demo.common.domain.UserContext;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -80,11 +80,11 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
                             JsonNode jsonNode = objectMapper.readTree(responseBody);
 
                             if (isLoginRequest(request)) {
-                                // 로그인 처리
-                                if (jsonNode.has("sessionId") && jsonNode.has("success")
-                                        && jsonNode.get("success").asBoolean()) {
+                                // 🆕 ApiResponse 구조에 맞게 수정: data.sessionId로 접근
+                                if (jsonNode.has("success") && jsonNode.get("success").asBoolean() 
+                                        && jsonNode.has("data") && jsonNode.get("data").has("sessionId")) {
 
-                                    String sessionId = jsonNode.get("sessionId").asText();
+                                    String sessionId = jsonNode.get("data").get("sessionId").asText();
                                     log.info("Login successful, setting session cookie: {}", 
                                             sessionId.substring(0, Math.min(8, sessionId.length())) + "...");
 
@@ -101,7 +101,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
                                     log.info("Session cookie set successfully");
                                 }
                             } else if (isLogoutRequest(request) || "true".equals(sessionExpired)) {
-                                // 로그아웃 처리
+                                // 🆕 ApiResponse 구조: success 필드 확인
                                 if (jsonNode.has("success") && jsonNode.get("success").asBoolean()) {
                                     log.info("Logout successful, removing session cookie");
 

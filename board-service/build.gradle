@@ -29,10 +29,9 @@ ext {
 dependencies {
 //    implementation files('../module-common/build/libs/module-common-4.3.0-plain.jar') // @ComponentScan(basePackages={"org.egovframe.cloud"}) 추가해야 적용된다
 //    implementation 'org.egovframe.cloud:module-common:4.3.0'
-//    implementation('org.egovframe.rte:org.egovframe.rte.fdl.cmmn:4.3.0') {
-//        exclude group: 'org.egovframe.rte', module: 'org.egovframe.rte.fdl.logging'
-//    }
-
+    implementation('org.egovframe.rte:org.egovframe.rte.fdl.cmmn:4.3.0') {
+        exclude group: 'org.egovframe.rte', module: 'org.egovframe.rte.fdl.logging'
+    }
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'

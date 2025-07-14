@@ -100,7 +100,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
 
             AuthCheckResponse authResponse = body.toFuture().get();
             granted = authResponse.isAuthorized(); // 🆕 변경
-
+            log.info("authResponse"+authResponse);
             if(granted) {
                 // 🆕 사용자 정보 로깅 (필요시 다른 서비스로 전달도 가능)
                 if (authResponse.getUser() != null) {

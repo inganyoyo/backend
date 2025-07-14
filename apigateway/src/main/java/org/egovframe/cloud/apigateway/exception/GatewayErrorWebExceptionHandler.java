@@ -83,23 +83,19 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
         String message = messageSource.getMessage(errorCode.getMessage(), null, LocaleContextHolder.getLocale());
         
-        Map<String, Object> errorAttributes = new LinkedHashMap<>();
-        errorAttributes.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        errorAttributes.put("status", httpStatus.value());
-        errorAttributes.put("code", errorCode.getCode());
-        errorAttributes.put("message", message);
-        errorAttributes.put("path", path);
+        // ApiResponse 구조 사용
+        org.egovframe.cloud.apigateway.dto.ApiResponse<Void> apiResponse = 
+            org.egovframe.cloud.apigateway.dto.ApiResponse.error(message, errorCode.getCode());
 
         try {
-            String json = objectMapper.writeValueAsString(errorAttributes);
+            String json = objectMapper.writeValueAsString(apiResponse);
             DataBuffer buffer = response.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
             return response.writeWith(Mono.just(buffer));
         } catch (JsonProcessingException e) {
             log.error("Error writing JSON response", e);
             String fallbackJson = String.format(
-                "{\"timestamp\":\"%s\",\"status\":%d,\"code\":\"%s\",\"message\":\"%s\",\"path\":\"%s\"}",
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                httpStatus.value(), errorCode.getCode(), message, path
+                "{\"success\":false,\"message\":\"%s\",\"errorCode\":\"%s\",\"timestamp\":\"%s\"}",
+                message, errorCode.getCode(), LocalDateTime.now()
             );
             DataBuffer buffer = response.bufferFactory().wrap(fallbackJson.getBytes(StandardCharsets.UTF_8));
             return response.writeWith(Mono.just(buffer));

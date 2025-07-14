@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.common.config;
 
+import com.example.demo.common.domain.UserContext;
+import com.example.demo.common.util.UserContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
