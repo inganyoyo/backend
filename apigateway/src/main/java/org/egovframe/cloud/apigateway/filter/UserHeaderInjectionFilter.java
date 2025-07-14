@@ -15,12 +15,12 @@ public class UserHeaderInjectionFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("UserHeaderInjectionFilter start");
         // 🆕 AuthorizationManager에서 저장한 사용자 정보 조회
         User user = exchange.getAttribute("USER_INFO");
 
         if (user != null) {
-            log.info("Adding user headers: X-User-ID={}, X-User-Role={}",
-                    user.getUserId(), user.getRole());
+            log.info("Adding user headers: {}",user);
 
             // 🆕 요청에 사용자 정보 헤더 추가
             ServerHttpRequest mutatedRequest = exchange.getRequest().mutate()
@@ -28,6 +28,7 @@ public class UserHeaderInjectionFilter implements GlobalFilter, Ordered {
                     .header("X-User-Role", user.getRole())
                     .header("X-User-Email", user.getEmail()) // 필요시 추가
                     .header("X-Username", user.getUsername()) // 필요시 추가
+                    .header("X-Session-ID", user.getSessionId()) // 필요시 추가
                     .build();
 
             // 🆕 수정된 요청으로 교체해서 다운스트림 서비스로 전달

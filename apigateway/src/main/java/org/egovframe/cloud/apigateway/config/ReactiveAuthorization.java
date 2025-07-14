@@ -54,13 +54,14 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> authentication,
                                              AuthorizationContext context) {
+        log.info("ReactiveAuthorization start");
         ServerHttpRequest request = context.getExchange().getRequest();
         RequestPath requestPath = request.getPath();
         HttpMethod httpMethod = request.getMethod();
 
         // 경로에서 서비스명 추출 및 실제 경로 분리
         String fullPath = requestPath.toString();
-        log.info("Request Path: {}", fullPath);
+
         ServicePathResult serviceAndPath = extractServiceAndPath(fullPath);
 
         // auth-service에는 실제 경로만 전달 (서비스명 제거)
@@ -68,8 +69,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
                 + "?httpMethod=" + httpMethod
                 + "&requestPath=" + serviceAndPath.getRequestPath();
 
-        log.info("Extracted service: {}, path: {}, baseUrl: {}",
-                serviceAndPath.getServiceName(), serviceAndPath.getRequestPath(), baseUrl);
+
 
         String sessionId = "";
 
@@ -77,7 +77,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
         if (request.getCookies().containsKey("GSNS-SESSION")) {
             sessionId = request.getCookies().getFirst("GSNS-SESSION").getValue();
         } else {
-            log.info("GSNS-SESSION cookie not found - user not authenticated");
+
         }
 
         boolean granted = false;
@@ -93,8 +93,6 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
                             httpHeaders.add(GlobalConstant.SESSION_HEADER_NAME, finalSessionId);
                         }
                         if (StringUtils.hasLength(serviceName)) {
-                            log.info(serviceName);
-                            log.info(fullPath);
                             httpHeaders.add(GlobalConstant.HEADER_SERVICE_NAME, serviceName);
                         }
                     })
@@ -103,22 +101,23 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
             AuthCheckResponse authResponse = body.toFuture().get();
             granted = authResponse.isAuthorized(); // 🆕 변경
 
-            // 🆕 사용자 정보 로깅 (필요시 다른 서비스로 전달도 가능)
-            if (authResponse.getUser() != null) {
-                log.info("Authenticated user: user={}",
-                        authResponse.getUser());
-
-                // 🆕 Exchange에 사용자 정보 저장 (GlobalFilter에서 사용하기 위해)
+            if(granted) {
+                // 🆕 사용자 정보 로깅 (필요시 다른 서비스로 전달도 가능)
                 if (authResponse.getUser() != null) {
-                    context.getExchange().getAttributes().put("USER_INFO", authResponse.getUser());
-                    log.info("User info stored in exchange: userId={}, role={}",
-                            authResponse.getUser().getUserId(),
-                            authResponse.getUser().getRole());
-                } else {
-                    log.info("No user info to store - user not authenticated");
+                    log.info("Authenticated user: user={}",
+                            authResponse.getUser());
+
+                    // 🆕 Exchange에 사용자 정보 저장 (GlobalFilter에서 사용하기 위해)
+                    if (authResponse.getUser() != null) {
+                        context.getExchange().getAttributes().put("USER_INFO", authResponse.getUser());
+                        log.info("User info stored in exchange: userId={}, role={}",
+                                authResponse.getUser().getUserId(),
+                                authResponse.getUser().getRole());
+                    } else {
+                        log.info("No user info to store - user not authenticated");
+                    }
                 }
             }
-
             log.info("Security AuthorizationDecision granted={}", granted);
         } catch (Exception e) {
             log.error("auth-service에 요청 중 오류 : {}", e.getMessage());

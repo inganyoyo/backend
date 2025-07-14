@@ -37,15 +37,17 @@ public class CommonGatewayFilter extends AbstractGatewayFilterFactory<CommonGate
     }
 
     /**
-     * GlobalFilter를 생성하여 설정을 적용한다
+     * CommonGatewayFilter 생성하여 설정을 적용한다
      *
      * @param config 필터 설정 객체
      * @return GatewayFilter 설정된 게이트웨이 필터
      */
     @Override
     public GatewayFilter apply(Config config) {
+
         // Pre filter
         return ((exchange, chain) -> {
+            log.info("CommonGatewayFilter start");
             // Netty 비동기 방식 서버 사용시에는 ServerHttpRequest 를 사용해야 한다.
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();

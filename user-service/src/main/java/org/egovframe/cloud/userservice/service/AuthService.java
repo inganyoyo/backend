@@ -93,6 +93,7 @@ public class AuthService {
                 .username(userInfo[0])
                 .email(userInfo[2])
                 .role(userInfo[3])
+                .sessionId(sessionId)
                 .build();
         
         // Redis에 세션 저장 (30분 TTL)

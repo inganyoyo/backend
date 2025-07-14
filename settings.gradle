@@ -9,4 +9,4 @@ include 'module-common'
 project(':user-service').projectDir = new File(settingsDir, 'user-service')
 project(':apigateway').projectDir = new File(settingsDir, 'apigateway')
 project(':board-service').projectDir = new File(settingsDir, 'board-service')
-project(':module-common').projectDir = new File(settingsDir, 'module-common')
+//project(':module-common').projectDir = new File(settingsDir, 'module-common')

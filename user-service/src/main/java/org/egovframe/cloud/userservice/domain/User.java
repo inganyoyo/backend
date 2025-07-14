@@ -27,6 +27,7 @@ public class User implements Serializable {
     private String username;
     private String email;
     private String role;
+    private String sessionId;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
@@ -45,11 +46,12 @@ public class User implements Serializable {
      * @param role 사용자 역할
      */
     @Builder
-    public User(String userId, String username, String email, String role) {
+    public User(String userId, String username, String email, String role, String sessionId) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.role = role;
+        this.sessionId = sessionId;
         this.loginTime = LocalDateTime.now();
         this.lastAccessTime = LocalDateTime.now();
     }

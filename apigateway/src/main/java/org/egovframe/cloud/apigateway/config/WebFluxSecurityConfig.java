@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
+import org.springframework.security.web.server.authentication.HttpStatusServerEntryPoint;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
 import reactor.core.publisher.Mono;
@@ -65,15 +66,32 @@ public class WebFluxSecurityConfig {
                 .headers().frameOptions().disable()
                 .and()
                 .formLogin().disable()
-                .httpBasic().disable()
+                .httpBasic().authenticationEntryPoint(new HttpStatusServerEntryPoint(HttpStatus.UNAUTHORIZED)) // login dialog disabled & 401 HttpStatus return
+                .and()
                 .authorizeExchange()
                 .pathMatchers(PERMITALL_ANTPATTERNS).permitAll()
                 .anyExchange().access(check)
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint()) // 인증 실패 시 JSON
-                .accessDeniedHandler(customAccessDeniedHandler()); // 인가 실패 시 JSON
+                .accessDeniedHandler(customAccessDeniedHandler()); // 인가 실패 시 JSON;
         return http.build();
+
+        //
+//        http
+//                .csrf().disable()
+//                .headers().frameOptions().disable()
+//                .and()
+//                .formLogin().disable()
+//                .httpBasic().disable()
+//                .authorizeExchange()
+//                .pathMatchers(PERMITALL_ANTPATTERNS).permitAll()
+//                .anyExchange().access(check)
+//                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(customAuthenticationEntryPoint()) // 인증 실패 시 JSON
+//                .accessDeniedHandler(customAccessDeniedHandler()); // 인가 실패 시 JSON
+//        return http.build();
     }
 
     /**
@@ -90,7 +108,7 @@ public class WebFluxSecurityConfig {
 
             ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
             String message = messageSource.getMessage(errorCode.getMessage(), null, LocaleContextHolder.getLocale());
-            log.info("customAuthenticationEntryPoint() errorCode={}, message={}", errorCode, message);
+
             Map<String, Object> body = new LinkedHashMap<>();
             body.put("timestamp", LocalDateTime.now());
             body.put("status", errorCode.getStatus());

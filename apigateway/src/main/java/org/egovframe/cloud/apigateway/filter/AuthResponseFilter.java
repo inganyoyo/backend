@@ -41,6 +41,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("AuthResponseFilter start");
         ServerHttpRequest request = exchange.getRequest();
         
         // 🆕 세션 만료 체크를 위해 모든 요청에 대해 응답을 확인
