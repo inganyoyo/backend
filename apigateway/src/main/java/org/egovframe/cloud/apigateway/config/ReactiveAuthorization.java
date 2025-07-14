@@ -187,15 +187,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
      * @return boolean 알려진 서비스 여부
      */
     private boolean isKnownService(String serviceName) {
-        List<String> knownServices = Arrays.asList(
-                "user-service",
-                "board-service",
-                "auth-service",
-                "portal-service",
-                "reserve-service"
-        );
-
-        return knownServices.contains(serviceName);
+        return GlobalConstant.isKnownService(serviceName);
     }
 
     /**

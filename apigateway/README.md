@@ -298,12 +298,24 @@ public class WebFluxSecurityConfig {
 
 ```mermaid
 graph LR
-    Request[요청] --> CommonFilter[CommonGatewayFilter]
+    Request[요청] --> ReactiveAuth[ReactiveAuthorization]
+    ReactiveAuth --> AuthFilter[AuthResponseFilter]
+    AuthFilter --> CommonFilter[CommonGatewayFilter]
     CommonFilter --> UserHeaderFilter[UserHeaderInjectionFilter]
-    UserHeaderFilter --> AuthFilter[AuthResponseFilter]
-    AuthFilter --> BackendService[백엔드 서비스]
-    BackendService --> Response[응답]
+    UserHeaderFilter --> BackendService[백엔드 서비스]
+    BackendService --> CommonEnd[CommonGatewayFilter End]
+    CommonEnd --> AuthResponse[AuthResponseFilter Response]
+    AuthResponse --> Response[응답]
 ```
+
+**실행 순서 상세:**
+1. **ReactiveAuthorization**: 보안 및 인증 검증
+2. **AuthResponseFilter**: 인증 응답 처리 시작
+3. **CommonGatewayFilter**: 공통 필터 로직 (로깅, 헤더 변환)
+4. **UserHeaderInjectionFilter**: 사용자 정보 헤더 주입
+5. **백엔드 서비스 호출**
+6. **CommonGatewayFilter End**: 응답 로깅 및 후처리
+7. **AuthResponseFilter Response**: 최종 인증 응답 처리
 
 ### 🚀 CommonGatewayFilter
 

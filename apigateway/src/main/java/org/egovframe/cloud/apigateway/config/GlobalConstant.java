@@ -1,5 +1,10 @@
 package org.egovframe.cloud.apigateway.config;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * org.egovframe.cloud.common.config.Constants
  *
@@ -14,6 +19,7 @@ package org.egovframe.cloud.apigateway.config;
  *     수정일        수정자           수정내용
  *  ----------    --------    ---------------------------
  *  2021/07/19    jaeyeolkim  최초 생성
+ *  2025/07/14    개발팀      서비스 목록 통일 추가
  * </pre>
  */
 public interface GlobalConstant {
@@ -21,6 +27,30 @@ public interface GlobalConstant {
   final String SESSION_COOKIE_NAME = "GSNS-SESSION";
   final String SESSION_HEADER_NAME = "X-Session-ID";
   final String HEADER_SERVICE_NAME = "X-Service-ID";
+
+  // 🆕 통일된 서비스 목록
+  final Set<String> KNOWN_SERVICES = Collections.unmodifiableSet(
+          new HashSet<>(Arrays.asList(
+                  "user-service",
+                  "board-service",
+                  "auth-service",
+                  "portal-service",
+                  "reserve-service",
+                  "reserve-item-service",
+                  "reserve-check-service",
+                  "reserve-request-service"
+          ))
+  );
+
+  /**
+   * 주어진 서비스명이 알려진 서비스인지 확인한다
+   *
+   * @param serviceName 확인할 서비스명
+   * @return boolean 알려진 서비스 여부
+   */
+  static boolean isKnownService(String serviceName) {
+    return KNOWN_SERVICES.contains(serviceName);
+  }
 
   final String MESSAGES_URI = "/api/messages/**";
   final String LOGIN_URI = "/login";

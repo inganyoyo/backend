@@ -19,8 +19,14 @@ import java.util.Map;
 public class TestController {
 
     @GetMapping(value = "/api/board/hello", produces = "application/json")
-    public ResponseEntity<Map<String, Object>> helloGet(@RequestHeader(value = "X-User-ID", required = false) String userId) {
-        log.info("helloGet " + userId);
+    public ResponseEntity<Map<String, Object>> helloGet(
+            @RequestHeader(value = "X-User-ID", required = false) String userId,
+            @RequestHeader(value = "X-Session-ID", required = false) String sessionId
+    ) {
+        UserContext user = UserContextHolder.getContext();
+
+        log.info("userId = {}, sessionId = {}", userId, sessionId);
+        log.info("user = {} ",user);
         log.info("GET /hello 호출됨");
 
         Map<String, Object> response = new HashMap<>();

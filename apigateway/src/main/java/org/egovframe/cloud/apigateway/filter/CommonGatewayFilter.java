@@ -96,7 +96,7 @@ public class CommonGatewayFilter extends AbstractGatewayFilterFactory<CommonGate
             log.debug("No session cookie found");
         }
 
-        // X-Service-Name 헤더 추가
+        // X-Service-ID 헤더 추가
         if (StringUtils.hasLength(serviceName)) {
             mutatedRequest.header(GlobalConstant.HEADER_SERVICE_NAME, serviceName);
         }
@@ -151,16 +151,7 @@ public class CommonGatewayFilter extends AbstractGatewayFilterFactory<CommonGate
      * @return boolean 알려진 서비스 여부
      */
     private boolean isKnownService(String serviceName) {
-        // Java 1.8 방식으로 서비스 목록 정의
-        Set<String> knownServices = new HashSet<>();
-        knownServices.add("user-service");
-        knownServices.add("board-service");
-        knownServices.add("auth-service");
-        knownServices.add("portal-service");
-        knownServices.add("reserve-service");
-        knownServices.add("api-gateway");
-
-        return knownServices.contains(serviceName);
+        return GlobalConstant.isKnownService(serviceName);
     }
 
     @Data

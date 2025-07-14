@@ -22,13 +22,12 @@ public class UserHeaderInjectionFilter implements GlobalFilter, Ordered {
         if (user != null) {
             log.info("Adding user headers: {}",user);
 
-            // 🆕 요청에 사용자 정보 헤더 추가
+            // 🆕 요청에 사용자 정보 헤더 추가 (X-Session-ID는 CommonGatewayFilter에서 이미 처리됨)
             ServerHttpRequest mutatedRequest = exchange.getRequest().mutate()
                     .header("X-User-ID", user.getUserId())
                     .header("X-User-Role", user.getRole())
                     .header("X-User-Email", user.getEmail()) // 필요시 추가
                     .header("X-Username", user.getUsername()) // 필요시 추가
-                    .header("X-Session-ID", user.getSessionId()) // 필요시 추가
                     .build();
 
             // 🆕 수정된 요청으로 교체해서 다운스트림 서비스로 전달
