@@ -1,0 +1,12 @@
+rootProject.name = 'egovframe-msa'
+
+include 'user-service'
+include 'apigateway'
+include 'board-service'
+include 'module-common'
+
+// 각 프로젝트의 디렉토리 경로 설정
+project(':user-service').projectDir = new File(settingsDir, 'user-service')
+project(':apigateway').projectDir = new File(settingsDir, 'apigateway')
+project(':board-service').projectDir = new File(settingsDir, 'board-service')
+project(':module-common').projectDir = new File(settingsDir, 'module-common')

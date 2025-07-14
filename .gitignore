@@ -8,3 +8,17 @@
 아카이브.zip
 
 *.class
+
+.gradle/7.4/checksums/
+
+.gradle/7.4/dependencies-accessors/
+
+.gradle/7.4/executionHistory/
+
+.gradle/7.4/fileChanges/
+
+.gradle/7.4/fileHashes/
+
+.gradle/buildOutputCleanup/
+
+.idea/
