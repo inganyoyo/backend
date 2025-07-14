@@ -5,9 +5,11 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.egovframe.cloud.userservice.domain.User;
+import org.egovframe.cloud.userservice.dto.AuthCheckResponse;
 import org.egovframe.cloud.userservice.service.AuthService;
 import org.egovframe.cloud.userservice.service.AuthorizationService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,18 +28,28 @@ public class AuthController {
    * 권한 체크 (API Gateway용 - SecurityContext 기반) AuthenticationFilter에서 이미 SecurityContext가 설정되어 있음
    */
   @GetMapping("/api/auth/check")
-  public ResponseEntity<Boolean> checkAuthorization(
+  public ResponseEntity<AuthCheckResponse> checkAuthorization(
       @RequestHeader(value = "X-Service-ID", required = false) String serviceId,
       @RequestParam String httpMethod,
       @RequestParam String requestPath) {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     log.info(authentication.toString() + " - " + requestPath + " - " + httpMethod + " - " + serviceId);
-    // 🆕 새로운 메서드 시그니처 사용
-    boolean isAuth =
-        authorizationService.isAuthorization(authentication, requestPath, httpMethod, serviceId);
 
-    return ResponseEntity.ok(isAuth);
+    boolean isAuth = authorizationService.isAuthorization(authentication, requestPath, httpMethod, serviceId);
+
+    User user = null;
+    if (authentication instanceof UsernamePasswordAuthenticationToken) {
+      Object principal = authentication.getPrincipal();
+      if (principal instanceof User) {
+        user = (User) principal;
+      }
+    }
+
+    return ResponseEntity.ok(AuthCheckResponse.builder()
+            .isAuthorized(isAuth)
+            .user(user)
+            .build());
   }
 
   /** 로그인 */

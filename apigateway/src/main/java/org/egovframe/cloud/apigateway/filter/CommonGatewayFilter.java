@@ -29,10 +29,10 @@ import static org.egovframe.cloud.apigateway.config.GlobalConstant.SESSION_HEADE
  */
 @Slf4j
 @Component
-public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
+public class CommonGatewayFilter extends AbstractGatewayFilterFactory<CommonGatewayFilter.Config> {
 
 
-    public GlobalFilter() {
+    public CommonGatewayFilter() {
         super(Config.class);
     }
 

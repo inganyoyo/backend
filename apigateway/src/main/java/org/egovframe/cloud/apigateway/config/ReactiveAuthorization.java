@@ -3,6 +3,7 @@ package org.egovframe.cloud.apigateway.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.egovframe.cloud.apigateway.dto.AuthCheckResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.RequestPath;
@@ -65,7 +66,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
         // auth-service에는 실제 경로만 전달 (서비스명 제거)
         String baseUrl = AUTH_SERVICE_URL + "/api/auth/check"
                 + "?httpMethod=" + httpMethod
-                + "&requestPath=" + serviceAndPath.getRequestPath(); // 🆕 실제 경로만 전달
+                + "&requestPath=" + serviceAndPath.getRequestPath();
 
         log.info("Extracted service: {}, path: {}, baseUrl: {}",
                 serviceAndPath.getServiceName(), serviceAndPath.getRequestPath(), baseUrl);
@@ -82,23 +83,42 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
         boolean granted = false;
         try {
             String finalSessionId = sessionId;
-            String serviceName = serviceAndPath.getServiceName(); // 서비스명
+            String serviceName = serviceAndPath.getServiceName();
 
-            Mono<Boolean> body = WebClient.create(baseUrl)
+            // 🆕 AuthCheckResponse로 변경
+            Mono<AuthCheckResponse> body = WebClient.create(baseUrl)
                     .get()
                     .headers(httpHeaders -> {
                         if (StringUtils.hasLength(finalSessionId)) {
                             httpHeaders.add(GlobalConstant.SESSION_HEADER_NAME, finalSessionId);
                         }
-                        // 🆕 서비스명을 헤더로 추가
                         if (StringUtils.hasLength(serviceName)) {
                             log.info(serviceName);
                             log.info(fullPath);
-                            httpHeaders.add(GlobalConstant.HEADER_SERVICE_NAME, serviceName); // 🔥 수정: 실제 서비스명 사용
+                            httpHeaders.add(GlobalConstant.HEADER_SERVICE_NAME, serviceName);
                         }
                     })
-                    .retrieve().bodyToMono(Boolean.class);
-            granted = body.toFuture().get().booleanValue();
+                    .retrieve().bodyToMono(AuthCheckResponse.class); // 🆕 변경
+
+            AuthCheckResponse authResponse = body.toFuture().get();
+            granted = authResponse.isAuthorized(); // 🆕 변경
+
+            // 🆕 사용자 정보 로깅 (필요시 다른 서비스로 전달도 가능)
+            if (authResponse.getUser() != null) {
+                log.info("Authenticated user: user={}",
+                        authResponse.getUser());
+
+                // 🆕 Exchange에 사용자 정보 저장 (GlobalFilter에서 사용하기 위해)
+                if (authResponse.getUser() != null) {
+                    context.getExchange().getAttributes().put("USER_INFO", authResponse.getUser());
+                    log.info("User info stored in exchange: userId={}, role={}",
+                            authResponse.getUser().getUserId(),
+                            authResponse.getUser().getRole());
+                } else {
+                    log.info("No user info to store - user not authenticated");
+                }
+            }
+
             log.info("Security AuthorizationDecision granted={}", granted);
         } catch (Exception e) {
             log.error("auth-service에 요청 중 오류 : {}", e.getMessage());

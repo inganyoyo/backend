@@ -113,7 +113,7 @@ spring:
           filters:
             - RewritePath=/v3/api-docs/(?<segment>.*), /$\{segment}/v3/api-docs
       default-filters:
-        - name: GlobalFilter
+        - name: CommonGatewayFilter
           args:
             preLogger: true
             postLogger: true

@@ -1,4 +1,4 @@
-//package org.egovframe.cloud.userservice.dto;
+package org.egovframe.cloud.apigateway.dto;//package org.egovframe.cloud.userservice.dto;
 //
 //import lombok.AllArgsConstructor;
 //import lombok.Builder;
