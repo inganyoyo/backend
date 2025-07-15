@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException; // 🆕 추가
 
 import java.nio.file.AccessDeniedException;
 import java.util.stream.Collectors;
@@ -43,21 +44,21 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   protected ResponseEntity<ApiResponse<Void>> handleMethodArgumentNotValidException(
-      MethodArgumentNotValidException e) {
+          MethodArgumentNotValidException e) {
     log.error("handleMethodArgumentNotValidException", e);
-    
-    String message = messageSource.getMessage(ErrorCode.INVALID_INPUT_VALUE.getMessage(), null, 
-        LocaleContextHolder.getLocale());
-    
+
+    String message = messageSource.getMessage(ErrorCode.INVALID_INPUT_VALUE.getMessage(), null,
+            LocaleContextHolder.getLocale());
+
     // 필드 에러 정보를 메시지에 추가
     String fieldErrors = e.getBindingResult().getFieldErrors().stream()
-        .map(error -> error.getField() + ": " + error.getDefaultMessage())
-        .collect(Collectors.joining(", "));
-    
+            .map(error -> error.getField() + ": " + error.getDefaultMessage())
+            .collect(Collectors.joining(", "));
+
     if (!fieldErrors.isEmpty()) {
       message += " [" + fieldErrors + "]";
     }
-    
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.INVALID_INPUT_VALUE.getCode());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
@@ -72,19 +73,19 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(BindException.class)
   protected ResponseEntity<ApiResponse<Void>> handleBindException(BindException e) {
     log.error("handleBindException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.INVALID_INPUT_VALUE.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     // 필드 에러 정보를 메시지에 추가
     String fieldErrors = e.getBindingResult().getFieldErrors().stream()
-        .map(error -> error.getField() + ": " + error.getDefaultMessage())
-        .collect(Collectors.joining(", "));
-    
+            .map(error -> error.getField() + ": " + error.getDefaultMessage())
+            .collect(Collectors.joining(", "));
+
     if (!fieldErrors.isEmpty()) {
       message += " [" + fieldErrors + "]";
     }
-    
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.INVALID_INPUT_VALUE.getCode());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
@@ -97,12 +98,12 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(HttpClientErrorException.UnprocessableEntity.class)
   protected ResponseEntity<ApiResponse<Void>> handleUnprocessableEntityException(
-      HttpClientErrorException.UnprocessableEntity e) {
+          HttpClientErrorException.UnprocessableEntity e) {
     log.error("handleUnprocessableEntityException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.UNPROCESSABLE_ENTITY.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.UNPROCESSABLE_ENTITY.getCode());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
@@ -115,12 +116,17 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   protected ResponseEntity<ApiResponse<Void>> handleHttpRequestMethodNotSupportedException(
-      HttpRequestMethodNotSupportedException e) {
+          HttpRequestMethodNotSupportedException e) {
     log.error("handleHttpRequestMethodNotSupportedException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.METHOD_NOT_ALLOWED.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
+    // 지원하는 메서드 정보 추가
+    if (e.getSupportedMethods() != null && e.getSupportedMethods().length > 0) {
+      message += " [지원되는 메서드: " + String.join(", ", e.getSupportedMethods()) + "]";
+    }
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.METHOD_NOT_ALLOWED.getCode());
     return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
   }
@@ -133,18 +139,40 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   protected ResponseEntity<ApiResponse<Void>> handleMethodArgumentTypeMismatchException(
-      MethodArgumentTypeMismatchException e) {
+          MethodArgumentTypeMismatchException e) {
     log.error("handleMethodArgumentTypeMismatchException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.INVALID_TYPE_VALUE.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     // 타입 미스매치 정보를 메시지에 추가
     String value = e.getValue() != null ? e.getValue().toString() : "";
     message += " [" + e.getName() + ": " + value + "]";
-    
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.INVALID_TYPE_VALUE.getCode());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
+
+  /**
+   * 요청한 API 경로가 존재하지 않는 경우 (404 Not Found)
+   * 🆕 새로 추가된 핸들러
+   *
+   * @param e NoHandlerFoundException
+   * @return ResponseEntity<ApiResponse<Void>>
+   */
+  @ExceptionHandler(NoHandlerFoundException.class)
+  protected ResponseEntity<ApiResponse<Void>> handleNoHandlerFoundException(
+          NoHandlerFoundException e) {
+    log.error("handleNoHandlerFoundException: {} {}", e.getHttpMethod(), e.getRequestURL());
+
+    String message = messageSource.getMessage(ErrorCode.NOT_FOUND.getMessage(), null,
+            LocaleContextHolder.getLocale());
+
+    // 요청 정보를 메시지에 추가하여 더 명확하게
+    message += " [" + e.getHttpMethod() + " " + e.getRequestURL() + "]";
+
+    final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.NOT_FOUND.getCode());
+    return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
   }
 
   /**
@@ -156,10 +184,10 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(NotFoundException.class)
   protected ResponseEntity<ApiResponse<Void>> handleNotFoundException(NotFoundException e) {
     log.error("handleNotFoundException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.NOT_FOUND.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.NOT_FOUND.getCode());
     return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
   }
@@ -173,10 +201,10 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(AccessDeniedException.class)
   protected ResponseEntity<ApiResponse<Void>> handleAccessDeniedException(AccessDeniedException e) {
     log.error("handleAccessDeniedException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.ACCESS_DENIED.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.ACCESS_DENIED.getCode());
     return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.ACCESS_DENIED.getStatus()));
   }
@@ -189,12 +217,12 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(HttpClientErrorException.Unauthorized.class)
   protected ResponseEntity<ApiResponse<Void>> handleUnauthorizedException(
-      HttpClientErrorException.Unauthorized e) {
+          HttpClientErrorException.Unauthorized e) {
     log.error("handleUnauthorizedException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.UNAUTHORIZED.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.UNAUTHORIZED.getCode());
     return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.UNAUTHORIZED.getStatus()));
   }
@@ -207,7 +235,7 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(BusinessMessageException.class)
   protected ResponseEntity<ApiResponse<Void>> handleBusinessMessageException(
-      BusinessMessageException e) {
+          BusinessMessageException e) {
     log.error("handleBusinessMessageException", e);
     final ErrorCode errorCode = e.getErrorCode();
     final String customMessage = e.getCustomMessage();
@@ -225,10 +253,10 @@ public class GlobalExceptionHandler {
   protected ResponseEntity<ApiResponse<Void>> handleBusinessException(BusinessException e) {
     log.error("handleBusinessException", e);
     final ErrorCode errorCode = e.getErrorCode();
-    
+
     String message = messageSource.getMessage(errorCode.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     final ApiResponse<Void> response = ApiResponse.error(message, errorCode.getCode());
     return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
   }
@@ -242,10 +270,10 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(Exception.class)
   protected ResponseEntity<ApiResponse<Void>> handleException(Exception e) {
     log.error("handleException", e);
-    
+
     String message = messageSource.getMessage(ErrorCode.INTERNAL_SERVER_ERROR.getMessage(), null,
-        LocaleContextHolder.getLocale());
-    
+            LocaleContextHolder.getLocale());
+
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.INTERNAL_SERVER_ERROR.getCode());
     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
   }
