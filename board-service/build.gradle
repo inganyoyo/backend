@@ -51,8 +51,8 @@ dependencies {
     // implementation 'org.ehcache:ehcache'
     // implementation 'javax.cache:cache-api' // expiry를 위해 필요
 
-    // openapi docs
-    implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.7.0'
+    // openapi docs with UI
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     // lombok
