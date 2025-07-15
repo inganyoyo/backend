@@ -1,6 +1,7 @@
 package com.example.demo.common.exception;
 
 
+import com.example.demo.common.exception.dto.CommonErrorCode;
 import com.example.demo.common.exception.dto.ErrorCode;
 
 /**
@@ -28,7 +29,7 @@ public class BusinessMessageException extends BusinessException {
      * @param customMessage
      */
     public BusinessMessageException(String customMessage) {
-        super(ErrorCode.BUSINESS_CUSTOM_MESSAGE, customMessage);
+        super(CommonErrorCode.BUSINESS_CUSTOM_MESSAGE, customMessage);
     }
 
 }

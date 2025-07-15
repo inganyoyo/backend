@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.common.dto.ApiResponse;
 import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.BusinessMessageException;
+import com.example.demo.common.exception.dto.CommonErrorCode;
+import com.example.demo.common.exception.dto.CustomErrorCode;
 import com.example.demo.common.exception.dto.ErrorCode;
 import com.example.demo.common.util.ResponseUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -155,7 +157,7 @@ public class SampleController {
 
         // 중복 체크 예시
         if ("duplicate@test.com".equals(request.getEmail())) {
-            throw new BusinessException(ErrorCode.DUPLICATE_INPUT_INVALID);
+            throw new BusinessException(CommonErrorCode.DUPLICATE_INPUT_INVALID);
         }
 
         UserResponse user = new UserResponse(3L, request.getName(), request.getEmail(), request.getAge());
@@ -197,7 +199,7 @@ public class SampleController {
 
         if (id == 1L) {
             // 삭제 제약 조건 예외
-            throw new BusinessException(ErrorCode.DB_CONSTRAINT_DELETE);
+            throw new BusinessException(CommonErrorCode.DB_CONSTRAINT_DELETE);
         }
 
         return ResponseUtil.ok("사용자가 성공적으로 삭제되었습니다.");
@@ -219,7 +221,7 @@ public class SampleController {
 
         switch (type) {
             case "business":
-                throw new BusinessException(ErrorCode.ENTITY_NOT_FOUND);
+                throw new BusinessException(CommonErrorCode.ENTITY_NOT_FOUND);
             case "message":
                 throw new BusinessMessageException("사용자 정의 에러 메시지입니다.");
             case "runtime":

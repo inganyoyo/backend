@@ -8,6 +8,8 @@ import com.example.demo.board.dto.BoardDto;
 import com.example.demo.board.dto.BoardSearchRequest;
 import com.example.demo.board.dto.PagedResponse;
 import com.example.demo.common.exception.BusinessException;
+import com.example.demo.common.exception.dto.CommonErrorCode;
+import com.example.demo.common.exception.dto.CustomErrorCode;
 import com.example.demo.common.exception.dto.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -190,7 +192,7 @@ public class BoardService {
      */
     private void validateSearchKeyword(String keyword) {
         if (TEST_ERROR_KEYWORD.equalsIgnoreCase(keyword)) {
-            throw new BusinessException(ErrorCode.BOARD_LIST_ERROR);
+            throw new BusinessException(CustomErrorCode.BOARD_LIST_ERROR);
         }
     }
     
@@ -304,7 +306,7 @@ public class BoardService {
      */
     private void validateServiceErrorTest(Long id) {
         if (TEST_SERVICE_ERROR_ID.equals(id)) {
-            throw new BusinessException(ErrorCode.SYSTEM_MAINTENANCE);
+            throw new BusinessException(CustomErrorCode.SYSTEM_MAINTENANCE);
         }
     }
     
@@ -314,7 +316,7 @@ public class BoardService {
     private Board findBoardById(Long id) {
         Board board = boardStorage.get(id);
         if (board == null) {
-            throw new BusinessException(ErrorCode.ENTITY_NOT_FOUND);
+            throw new BusinessException(CommonErrorCode.ENTITY_NOT_FOUND);
         }
         return board;
     }
@@ -324,7 +326,7 @@ public class BoardService {
      */
     private void validateBoardType(Board board, BoardType expectedType) {
         if (board.getBoardType() != expectedType) {
-            throw new BusinessException(ErrorCode.BOARD_TYPE_MISMATCH);
+            throw new BusinessException(CustomErrorCode.BOARD_TYPE_MISMATCH);
         }
     }
     
@@ -359,11 +361,11 @@ public class BoardService {
      */
     private void validateCreateRequest(BoardDto boardDto) {
         if (boardDto.getTitle().toLowerCase().contains(TEST_ERROR_KEYWORD)) {
-            throw new BusinessException(ErrorCode.INVALID_TITLE_CONTENT);
+            throw new BusinessException(CustomErrorCode.INVALID_TITLE_CONTENT);
         }
         
         if (TEST_ADMIN_AUTHOR.equalsIgnoreCase(boardDto.getAuthor())) {
-            throw new BusinessException(ErrorCode.ADMIN_WRITE_FORBIDDEN);
+            throw new BusinessException(CustomErrorCode.ADMIN_WRITE_FORBIDDEN);
         }
     }
     
@@ -400,7 +402,7 @@ public class BoardService {
      */
     private void validateUpdateRequest(BoardDto boardDto) {
         if (boardDto.getContent().toLowerCase().contains(TEST_FORBIDDEN_CONTENT)) {
-            throw new BusinessException(ErrorCode.FORBIDDEN_CONTENT);
+            throw new BusinessException(CustomErrorCode.FORBIDDEN_CONTENT);
         }
     }
     
@@ -426,7 +428,7 @@ public class BoardService {
      */
     private void validateDeleteRequest(Long id) {
         if (UNDELETABLE_BOARD_ID.equals(id)) {
-            throw new BusinessException(ErrorCode.DELETE_FORBIDDEN);
+            throw new BusinessException(CustomErrorCode.DELETE_FORBIDDEN);
         }
     }
     

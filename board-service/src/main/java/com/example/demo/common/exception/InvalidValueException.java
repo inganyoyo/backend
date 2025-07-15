@@ -1,6 +1,7 @@
 package com.example.demo.common.exception;
 
 
+import com.example.demo.common.exception.dto.CommonErrorCode;
 import com.example.demo.common.exception.dto.ErrorCode;
 
 /**
@@ -24,7 +25,7 @@ import com.example.demo.common.exception.dto.ErrorCode;
 public class InvalidValueException extends BusinessException {
 
     public InvalidValueException(String value) {
-        super(value, ErrorCode.INVALID_INPUT_VALUE);
+        super(value, CommonErrorCode.INVALID_INPUT_VALUE);
     }
 
     public InvalidValueException(String value, ErrorCode errorCode) {

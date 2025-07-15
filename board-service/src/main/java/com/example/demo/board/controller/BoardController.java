@@ -7,6 +7,7 @@ import com.example.demo.board.dto.BoardSearchRequest;
 import com.example.demo.board.dto.PagedResponse;
 import com.example.demo.board.service.BoardService;
 import com.example.demo.common.exception.BusinessException;
+import com.example.demo.common.exception.dto.CustomErrorCode;
 import com.example.demo.common.exception.dto.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -182,7 +183,7 @@ public class BoardController {
     private BoardType validateAndParseBoardType(String boardType) {
         BoardType type = BoardType.fromCode(boardType);
         if (type == null) {
-            throw new BusinessException(ErrorCode.INVALID_BOARD_TYPE);
+            throw new BusinessException(CustomErrorCode.INVALID_BOARD_TYPE);
         }
         return type;
     }
