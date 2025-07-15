@@ -9,7 +9,7 @@ import com.example.demo.board.service.BoardService;
 import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.code.CustomErrorCode;
 import com.example.demo.common.code.SuccessCode;
-import com.example.demo.common.util.ResponseUtil;
+import com.example.demo.common.util.SuccessResponseUtil;
 import com.example.demo.common.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
-import java.util.Map;
 
 /**
  * 게시판 컨트롤러 (리소스 중심, boardType path variable 방식)
@@ -31,7 +30,7 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService boardService;
-    private final ResponseUtil responseUtil;
+    private final SuccessResponseUtil successResponseUtil;
     private final MessageUtil messageUtil;
     
     // 테스트용 상수
@@ -61,7 +60,7 @@ public class BoardController {
         // 템플릿 기반 메시지 생성
         String domainName = getDomainName(type);
         
-        return responseUtil.success(SuccessCode.LIST_RETRIEVED)
+        return successResponseUtil.success(SuccessCode.LIST_RETRIEVED)
                 .data(response)
                 .args(domainName)
                 .build();
@@ -87,7 +86,7 @@ public class BoardController {
         // 템플릿 기반 메시지 생성
         String domainName = getDomainName(type);
         
-        return responseUtil.success(SuccessCode.ITEM_RETRIEVED)
+        return successResponseUtil.success(SuccessCode.ITEM_RETRIEVED)
                 .data(response)
                 .args(domainName)
                 .build();
@@ -115,7 +114,7 @@ public class BoardController {
         String domainName = getDomainName(type);
         String actionName = getActionName("create");
         
-        return responseUtil.created(SuccessCode.ACTION_SUCCESS)
+        return successResponseUtil.created(SuccessCode.ACTION_SUCCESS)
                 .data(response)
                 .args(domainName, actionName)
                 .build();
@@ -143,7 +142,7 @@ public class BoardController {
         String domainName = getDomainName(type);
         String actionName = getActionName("update");
         
-        return responseUtil.success(SuccessCode.ACTION_SUCCESS)
+        return successResponseUtil.success(SuccessCode.ACTION_SUCCESS)
                 .data(response)
                 .args(domainName, actionName)
                 .build();
@@ -170,7 +169,7 @@ public class BoardController {
         String domainName = getDomainName(type);
         String actionName = getActionName("delete");
         
-        return responseUtil.success(SuccessCode.ACTION_SUCCESS)
+        return successResponseUtil.success(SuccessCode.ACTION_SUCCESS)
                 .args(domainName, actionName)
                 .build();
     }
@@ -211,7 +210,7 @@ public class BoardController {
         String domainName = messageUtil.getMessage("domain.test");
         String actionName = messageUtil.getMessage("action.complete");
         
-        return responseUtil.success(SuccessCode.ACTION_SUCCESS)
+        return successResponseUtil.success(SuccessCode.ACTION_SUCCESS)
                 .args(domainName, actionName)
                 .build();
     }
@@ -235,7 +234,7 @@ public class BoardController {
         BoardType type = validateAndParseBoardType(boardType);
         boolean isAuthor = boardService.isBoardAuthor(boardNo, authorName);
         
-        return responseUtil.success(SuccessCode.ITEM_RETRIEVED)
+        return successResponseUtil.success(SuccessCode.ITEM_RETRIEVED)
                 .data(isAuthor)
                 .build();
     }
@@ -252,7 +251,7 @@ public class BoardController {
 
         long count = boardService.getPostCountByAuthor(authorName);
         
-        return responseUtil.success(SuccessCode.ITEM_RETRIEVED)
+        return successResponseUtil.success(SuccessCode.ITEM_RETRIEVED)
                 .data(count)
                 .build();
     }

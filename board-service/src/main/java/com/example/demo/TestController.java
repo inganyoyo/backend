@@ -3,7 +3,7 @@ package com.example.demo;
 import com.example.demo.common.domain.UserContext;
 import com.example.demo.common.dto.ApiResponse;
 import com.example.demo.common.code.SuccessCode;
-import com.example.demo.common.util.ResponseUtil;
+import com.example.demo.common.util.SuccessResponseUtil;
 import com.example.demo.common.util.MessageUtil;
 import com.example.demo.common.util.UserContextHolder;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.Map;
 @RestController
 public class TestController {
 
-    private final ResponseUtil responseUtil;
+    private final SuccessResponseUtil successResponseUtil;
     private final MessageUtil messageUtil;
 
     @GetMapping(value = "/api/board/hello", produces = "application/json")
@@ -44,7 +44,7 @@ public class TestController {
         response.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         response.put("userContext", user);
 
-        return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+        return successResponseUtil.success(SuccessCode.OPERATION_COMPLETED)
                 .data(response)
                 .args(messageUtil.getMessage("action.hello"))
                 .build();
@@ -55,7 +55,7 @@ public class TestController {
         log.info("GET /hello2 호출됨");
         String message = "Hello World (GET) 안녕하세요! hello2 한글 테스트입니다. 🚀";
         
-        return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+        return successResponseUtil.success(SuccessCode.OPERATION_COMPLETED)
                 .data(message)
                 .args(messageUtil.getMessage("action.hello2"))
                 .build();
@@ -66,7 +66,7 @@ public class TestController {
         log.info("POST /hello 호출됨");
         String message = "Hello World (POST) 안녕하세요! 한글 POST 테스트입니다.";
         
-        return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+        return successResponseUtil.success(SuccessCode.OPERATION_COMPLETED)
                 .data(message)
                 .args(messageUtil.getMessage("action.post"))
                 .build();

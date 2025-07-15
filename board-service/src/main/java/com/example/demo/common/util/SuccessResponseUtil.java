@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
  * - ResponseUtil.success(successCode).args(args...).build()  // 데이터 없음
  */
 @Component
-public class ResponseUtil {
+public class SuccessResponseUtil {
     
     private final MessageUtil messageUtil;
     
-    public ResponseUtil(MessageUtil messageUtil) {
+    public SuccessResponseUtil(MessageUtil messageUtil) {
         this.messageUtil = messageUtil;
     }
     

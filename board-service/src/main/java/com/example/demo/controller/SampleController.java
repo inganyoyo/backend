@@ -5,7 +5,7 @@ import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.BusinessMessageException;
 import com.example.demo.common.code.CommonErrorCode;
 import com.example.demo.common.code.SuccessCode;
-import com.example.demo.common.util.ResponseUtil;
+import com.example.demo.common.util.SuccessResponseUtil;
 import com.example.demo.common.util.MessageUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,11 +28,11 @@ import javax.validation.constraints.NotNull;
 @Tag(name = "샘플 API", description = "API 응답 구조 테스트용 샘플 API")
 public class SampleController {
 
-    private final ResponseUtil responseUtil;
+    private final SuccessResponseUtil successResponseUtil;
     private final MessageUtil messageUtil;
     
-    public SampleController(ResponseUtil responseUtil, MessageUtil messageUtil) {
-        this.responseUtil = responseUtil;
+    public SampleController(SuccessResponseUtil successResponseUtil, MessageUtil messageUtil) {
+        this.successResponseUtil = successResponseUtil;
         this.messageUtil = messageUtil;
     }
 
@@ -98,7 +98,7 @@ public class SampleController {
             case "runtime":
                 throw new RuntimeException("런타임 예외 테스트");
             default:
-                return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+                return successResponseUtil.success(SuccessCode.OPERATION_COMPLETED)
                         .data("정상 응답")
                         .args(messageUtil.getMessage("domain.test"), 
                               messageUtil.getMessage("action.complete"))
