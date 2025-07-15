@@ -32,11 +32,12 @@ public enum ErrorCode {
     REQUIRE_USER_JOIN(412, "E012", "err.user.notexists"), // Server Error
     UNPROCESSABLE_ENTITY(422, "E020", "err.unprocessable.entity"), // Unprocessable Entity
     INTERNAL_SERVER_ERROR(500, "E999", "err.internal.server"), // Server Error
+    SERVICE_UNAVAILABLE(503, "E021", "err.service.unavailable"), // Service Unavailable
 
     // business error code
     BUSINESS_CUSTOM_MESSAGE(400, "B001", ""), // 사용자 정의 메시지를 넘기는 business exception
     DUPLICATE_INPUT_INVALID(400, "B002", "err.duplicate.input.value"), // 중복된 값을 입력하였습니다
-    DB_CONSTRAINT_DELETE(400, "B003", "err.duplicate.input.value") // 참조하는 데이터가 있어서 삭제할 수 없습니다
+    DB_CONSTRAINT_DELETE(400, "B003", "err.constraint.delete") // 참조하는 데이터가 있어서 삭제할 수 없습니다
     ;
 
 
