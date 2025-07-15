@@ -1,8 +1,8 @@
 package com.example.demo.common.config;
 
 import com.example.demo.common.dto.ApiResponse;
-import com.example.demo.common.exception.dto.CommonErrorCode;
-import com.example.demo.common.exception.dto.ErrorCode;
+import com.example.demo.common.code.CommonErrorCode;
+import com.example.demo.common.code.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -55,7 +55,7 @@ public class CustomErrorController implements ErrorController {
         switch (statusCode) {
             case 404:
                 errorCode = CommonErrorCode.NOT_FOUND;
-                errorMessage = messageSource.getMessage(CommonErrorCode.NOT_FOUND.getMessage(), null,
+                errorMessage = messageSource.getMessage(CommonErrorCode.NOT_FOUND.getMessageKey(), null,
                         LocaleContextHolder.getLocale());
                 
                 // 요청 정보를 메시지에 추가
@@ -66,7 +66,7 @@ public class CustomErrorController implements ErrorController {
                 
             case 405:
                 errorCode = CommonErrorCode.METHOD_NOT_ALLOWED;
-                errorMessage = messageSource.getMessage(CommonErrorCode.METHOD_NOT_ALLOWED.getMessage(), null,
+                errorMessage = messageSource.getMessage(CommonErrorCode.METHOD_NOT_ALLOWED.getMessageKey(), null,
                         LocaleContextHolder.getLocale());
                         
                 // 요청 정보를 메시지에 추가
@@ -77,19 +77,19 @@ public class CustomErrorController implements ErrorController {
                 
             case 403:
                 errorCode = CommonErrorCode.ACCESS_DENIED;
-                errorMessage = messageSource.getMessage(CommonErrorCode.ACCESS_DENIED.getMessage(), null,
+                errorMessage = messageSource.getMessage(CommonErrorCode.ACCESS_DENIED.getMessageKey(), null,
                         LocaleContextHolder.getLocale());
                 break;
                 
             case 401:
                 errorCode = CommonErrorCode.UNAUTHORIZED;
-                errorMessage = messageSource.getMessage(CommonErrorCode.UNAUTHORIZED.getMessage(), null,
+                errorMessage = messageSource.getMessage(CommonErrorCode.UNAUTHORIZED.getMessageKey(), null,
                         LocaleContextHolder.getLocale());
                 break;
                 
             default:
                 errorCode = CommonErrorCode.INTERNAL_SERVER_ERROR;
-                errorMessage = messageSource.getMessage(CommonErrorCode.INTERNAL_SERVER_ERROR.getMessage(), null,
+                errorMessage = messageSource.getMessage(CommonErrorCode.INTERNAL_SERVER_ERROR.getMessageKey(), null,
                         LocaleContextHolder.getLocale());
                 
                 // 예외 정보가 있으면 추가

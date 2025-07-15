@@ -7,11 +7,12 @@ import com.example.demo.board.dto.BoardSearchRequest;
 import com.example.demo.board.dto.PagedResponse;
 import com.example.demo.board.service.BoardService;
 import com.example.demo.common.exception.BusinessException;
-import com.example.demo.common.exception.dto.CustomErrorCode;
-import com.example.demo.common.exception.dto.ErrorCode;
+import com.example.demo.common.code.CustomErrorCode;
+import com.example.demo.common.code.SuccessCode;
+import com.example.demo.common.util.ResponseUtil;
+import com.example.demo.common.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,8 @@ import javax.validation.constraints.Positive;
 public class BoardController {
 
     private final BoardService boardService;
+    private final ResponseUtil responseUtil;
+    private final MessageUtil messageUtil;
     
     // 테스트용 상수
     private static final Long TEST_NOT_FOUND_ID = 9999L;
@@ -53,8 +56,11 @@ public class BoardController {
         
         // 서비스 호출
         PagedResponse<BoardDto> response = boardService.getBoards(type, searchRequest);
-
-        return ResponseEntity.ok(ApiResponse.success(getListSuccessMessage(type), response));
+        
+        // 템플릿 기반 메시지 생성
+        String domainName = getDomainName(type);
+        
+        return responseUtil.okWithData(SuccessCode.LIST_RETRIEVED, response, domainName);
     }
 
     /**
@@ -73,8 +79,11 @@ public class BoardController {
         BoardType type = validateAndParseBoardType(boardType);
 
         BoardDto response = boardService.getBoardById(boardNo, type);
-
-        return ResponseEntity.ok(ApiResponse.success(getDetailSuccessMessage(type), response));
+        
+        // 템플릿 기반 메시지 생성
+        String domainName = getDomainName(type);
+        
+        return responseUtil.okWithData(SuccessCode.ITEM_RETRIEVED, response, domainName);
     }
 
     /**
@@ -94,9 +103,12 @@ public class BoardController {
 
         boardDto.setBoardType(type);
         BoardDto response = boardService.createBoard(boardDto);
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.success(getCreateSuccessMessage(type), response));
+        
+        // 템플릿 기반 메시지 생성
+        String domainName = getDomainName(type);
+        String actionName = getActionName("create");
+        
+        return responseUtil.createdWithData(SuccessCode.ACTION_SUCCESS, response, domainName, actionName);
     }
 
     /**
@@ -116,8 +128,12 @@ public class BoardController {
         BoardType type = validateAndParseBoardType(boardType);
 
         BoardDto response = boardService.updateBoard(boardNo, boardDto, type);
-
-        return ResponseEntity.ok(ApiResponse.success(getUpdateSuccessMessage(type), response));
+        
+        // 템플릿 기반 메시지 생성
+        String domainName = getDomainName(type);
+        String actionName = getActionName("update");
+        
+        return responseUtil.okWithData(SuccessCode.ACTION_SUCCESS, response, domainName, actionName);
     }
 
     /**
@@ -136,8 +152,12 @@ public class BoardController {
         BoardType type = validateAndParseBoardType(boardType);
 
         boardService.deleteBoard(boardNo, type);
-
-        return ResponseEntity.ok(ApiResponse.success(getDeleteSuccessMessage(type)));
+        
+        // 템플릿 기반 메시지 생성
+        String domainName = getDomainName(type);
+        String actionName = getActionName("delete");
+        
+        return responseUtil.okMessage(SuccessCode.ACTION_SUCCESS, domainName, actionName);
     }
 
     /**
@@ -172,7 +192,11 @@ public class BoardController {
                 throw new RuntimeException("알 수 없는 예외가 발생했습니다.");
         }
 
-        return ResponseEntity.ok(ApiResponse.success("테스트 완료"));
+        // 템플릿 기반 메시지 생성
+        String domainName = messageUtil.getMessage("domain.test");
+        String actionName = messageUtil.getMessage("action.complete");
+        
+        return responseUtil.okMessage(SuccessCode.ACTION_SUCCESS, domainName, actionName);
     }
 
     // === Private 헬퍼 메서드들 ===
@@ -182,54 +206,26 @@ public class BoardController {
      */
     private BoardType validateAndParseBoardType(String boardType) {
         BoardType type = BoardType.fromCode(boardType);
+        log.info(type.getCode());
         if (type == null) {
             throw new BusinessException(CustomErrorCode.INVALID_BOARD_TYPE);
         }
         return type;
     }
-
+    
     /**
-     * 성공 메시지 생성
+     * 도메인 이름 조회 (템플릿용)
      */
-    private String getSuccessMessage(BoardType boardType, String action) {
-        String prefix = boardType == BoardType.NOTICE ? "공지사항" : "자유게시판 글";
-        return prefix + "이 성공적으로 " + action + "되었습니다.";
+    private String getDomainName(BoardType boardType) {
+        String domainKey = (boardType == BoardType.NOTICE) ? 
+                "domain.board.notice" : "domain.board.free";
+        return messageUtil.getMessage(domainKey);
     }
-
+    
     /**
-     * 목록 조회 성공 메시지
+     * 액션 이름 조회 (템플릿용)
      */
-    private String getListSuccessMessage(BoardType boardType) {
-        String prefix = boardType == BoardType.NOTICE ? "공지사항" : "자유게시판";
-        return prefix + " 목록을 성공적으로 조회했습니다.";
-    }
-
-    /**
-     * 상세 조회 성공 메시지
-     */
-    private String getDetailSuccessMessage(BoardType boardType) {
-        String prefix = boardType == BoardType.NOTICE ? "공지사항" : "자유게시판 글";
-        return prefix + "을 성공적으로 조회했습니다.";
-    }
-
-    /**
-     * 생성 성공 메시지
-     */
-    private String getCreateSuccessMessage(BoardType boardType) {
-        return getSuccessMessage(boardType, "등록");
-    }
-
-    /**
-     * 수정 성공 메시지
-     */
-    private String getUpdateSuccessMessage(BoardType boardType) {
-        return getSuccessMessage(boardType, "수정");
-    }
-
-    /**
-     * 삭제 성공 메시지
-     */
-    private String getDeleteSuccessMessage(BoardType boardType) {
-        return getSuccessMessage(boardType, "삭제");
+    private String getActionName(String action) {
+        return messageUtil.getMessage("action." + action);
     }
 }

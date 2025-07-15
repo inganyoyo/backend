@@ -1,8 +1,7 @@
 package com.example.demo.common.exception;
 
 
-import com.example.demo.common.exception.dto.CommonErrorCode;
-import com.example.demo.common.exception.dto.ErrorCode;
+import com.example.demo.common.code.CommonErrorCode;
 
 /**
  * org.egovframe.cloud.common.exception.BusinessMessageException

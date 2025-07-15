@@ -2,7 +2,9 @@ package com.example.demo;
 
 import com.example.demo.common.domain.UserContext;
 import com.example.demo.common.dto.ApiResponse;
+import com.example.demo.common.code.SuccessCode;
 import com.example.demo.common.util.ResponseUtil;
+import com.example.demo.common.util.MessageUtil;
 import com.example.demo.common.util.UserContextHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,9 @@ import java.util.Map;
 @RestController
 public class TestController {
 
+    private final ResponseUtil responseUtil;
+    private final MessageUtil messageUtil;
+
     @GetMapping(value = "/api/board/hello", produces = "application/json")
     public ResponseEntity<ApiResponse<Map<String, Object>>> helloGet(
             @RequestHeader(value = "X-User-ID", required = false) String userId,
@@ -39,7 +44,8 @@ public class TestController {
         response.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         response.put("userContext", user);
 
-        return ResponseUtil.ok("요청이 성공적으로 처리되었습니다.", response);
+        return responseUtil.okWithData(SuccessCode.OPERATION_COMPLETED, response, 
+                messageUtil.getMessage("action.hello"));
     }
 
     @GetMapping(value = "/api/v1/board/hello2")
@@ -47,7 +53,8 @@ public class TestController {
         log.info("GET /hello2 호출됨");
         String message = "Hello World (GET) 안녕하세요! hello2 한글 테스트입니다. 🚀";
         
-        return ResponseUtil.ok("Hello2 요청 성공", message);
+        return responseUtil.okWithData(SuccessCode.OPERATION_COMPLETED, message, 
+                messageUtil.getMessage("action.hello2"));
     }
 
     @PostMapping(value = "/api/v1/board/hello")
@@ -55,6 +62,7 @@ public class TestController {
         log.info("POST /hello 호출됨");
         String message = "Hello World (POST) 안녕하세요! 한글 POST 테스트입니다.";
         
-        return ResponseUtil.ok("POST 요청 성공", message);
+        return responseUtil.okWithData(SuccessCode.OPERATION_COMPLETED, message, 
+                messageUtil.getMessage("action.post"));
     }
 }

@@ -1,14 +1,87 @@
 package com.example.demo.common.util;
 
 import com.example.demo.common.dto.ApiResponse;
+import com.example.demo.common.code.SuccessCode;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 /**
  * HTTP 응답 생성을 위한 유틸리티 클래스
  * 일관된 응답 형태를 제공하고 코드의 가독성을 향상
+ * 
+ * - Static methods: 기존 호환성을 위한 하드코딩 방식
+ * - Instance methods: SuccessCode를 사용한 개선된 방식
  */
+@Component
 public class ResponseUtil {
+    
+    private final MessageUtil messageUtil;
+    
+    public ResponseUtil(MessageUtil messageUtil) {
+        this.messageUtil = messageUtil;
+    }
+    
+    // ===================== Instance Methods (SuccessCode 사용) =====================
+    
+    /**
+     * 200 OK - 성공 응답 (SuccessCode와 데이터 포함)
+     */
+    public <T> ResponseEntity<ApiResponse<T>> ok(SuccessCode successCode, T data) {
+        String message = messageUtil.getMessage(successCode.getMessageKey(), 
+                null, LocaleContextHolder.getLocale());
+        return ResponseEntity.ok(ApiResponse.success(message, data));
+    }
+    
+    /**
+     * 200 OK - 성공 응답 (SuccessCode와 데이터, 템플릿 인자 포함)
+     */
+    public <T> ResponseEntity<ApiResponse<T>> okWithData(SuccessCode successCode, T data, Object... args) {
+        String message = messageUtil.getMessage(successCode.getMessageKey(), 
+                args, LocaleContextHolder.getLocale());
+        return ResponseEntity.ok(ApiResponse.success(message, data));
+    }
+    
+    /**
+     * 200 OK - 성공 응답 (SuccessCode만)
+     */
+    public <T> ResponseEntity<ApiResponse<T>> ok(SuccessCode successCode) {
+        String message = messageUtil.getMessage(successCode.getMessageKey(), 
+                null, LocaleContextHolder.getLocale());
+        return ResponseEntity.ok(ApiResponse.success(message));
+    }
+    
+    /**
+     * 200 OK - 성공 응답 (SuccessCode와 템플릿 인자, 데이터 없음)
+     */
+    public <T> ResponseEntity<ApiResponse<T>> okMessage(SuccessCode successCode, Object... args) {
+        String message = messageUtil.getMessage(successCode.getMessageKey(), 
+                args, LocaleContextHolder.getLocale());
+        return ResponseEntity.ok(ApiResponse.success(message));
+    }
+    
+    /**
+     * 201 Created - 생성 성공 응답
+     */
+    public <T> ResponseEntity<ApiResponse<T>> created(SuccessCode successCode, T data) {
+        String message = messageUtil.getMessage(successCode.getMessageKey(), 
+                null, LocaleContextHolder.getLocale());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success(message, data));
+    }
+    
+    /**
+     * 201 Created - 생성 성공 응답 (템플릿 인자 포함)
+     */
+    public <T> ResponseEntity<ApiResponse<T>> createdWithData(SuccessCode successCode, T data, Object... args) {
+        String message = messageUtil.getMessage(successCode.getMessageKey(), 
+                args, LocaleContextHolder.getLocale());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success(message, data));
+    }
+    
+    // ===================== Static Methods (기존 호환성 유지) =====================
     
     /**
      * 200 OK - 성공 응답 (데이터 포함)

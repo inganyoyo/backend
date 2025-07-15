@@ -8,9 +8,8 @@ import com.example.demo.board.dto.BoardDto;
 import com.example.demo.board.dto.BoardSearchRequest;
 import com.example.demo.board.dto.PagedResponse;
 import com.example.demo.common.exception.BusinessException;
-import com.example.demo.common.exception.dto.CommonErrorCode;
-import com.example.demo.common.exception.dto.CustomErrorCode;
-import com.example.demo.common.exception.dto.ErrorCode;
+import com.example.demo.common.code.CommonErrorCode;
+import com.example.demo.common.code.CustomErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+
 
 /**
  * 게시판 서비스
@@ -306,7 +306,8 @@ public class BoardService {
      */
     private void validateServiceErrorTest(Long id) {
         if (TEST_SERVICE_ERROR_ID.equals(id)) {
-            throw new BusinessException(CustomErrorCode.SYSTEM_MAINTENANCE);
+            log.info("validateServiceErrorTest not found");
+            throw new BusinessException(CommonErrorCode.SYSTEM_MAINTENANCE);
         }
     }
     

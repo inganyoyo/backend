@@ -1,7 +1,7 @@
 package com.example.demo.common.exception;
 
 
-import com.example.demo.common.exception.dto.ErrorCode;
+import com.example.demo.common.code.ErrorCode;
 
 /**
  * org.egovframe.cloud.common.exception.BusinessException
@@ -40,6 +40,7 @@ public class BusinessException extends RuntimeException {
         this.customMessage = customMessage;
     }
 
+
     /**
      * 사전 정의된 에러코드 객체를 넘기는 경우
      *
@@ -52,11 +53,11 @@ public class BusinessException extends RuntimeException {
     }
 
     /**
-     * 사전 정의된 에러코드의 메시지를 서버에 남기고 에러코드 객체를 리턴한다
+     * 사전 정의된 에러코드의 메시지 키를 서버에 남기고 에러코드 객체를 리턴한다
      * @param errorCode 사전 정의된 에러코드
      */
     public BusinessException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
+        super(errorCode.getMessageKey());  // getMessage() -> getMessageKey()로 변경
         this.errorCode = errorCode;
     }
 
