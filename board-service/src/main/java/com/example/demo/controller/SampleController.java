@@ -92,7 +92,7 @@ public class SampleController {
 
         switch (type) {
             case "business":
-                throw new BusinessException(CommonErrorCode.ENTITY_NOT_FOUND);
+                throw BusinessException.builder(CommonErrorCode.ENTITY_NOT_FOUND).build();
             case "message":
                 throw new BusinessMessageException("사용자 정의 에러 메시지입니다.");
             case "runtime":

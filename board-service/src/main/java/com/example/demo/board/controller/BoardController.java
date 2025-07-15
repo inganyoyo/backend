@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
+import java.util.Map;
 
 /**
  * 게시판 컨트롤러 (리소스 중심, boardType path variable 방식)
@@ -199,7 +200,44 @@ public class BoardController {
         return responseUtil.okMessage(SuccessCode.ACTION_SUCCESS, domainName, actionName);
     }
 
-    // === Private 헬퍼 메서드들 ===
+    /**
+     * 아규먼트 기능 테스트용 엔드포인트들
+     */
+    
+    /**
+     * 게시글 작성자 확인 (아규먼트 테스트)
+     * GET /api/boards/{boardType}/{boardNo}/author/{authorName}
+     */
+    @GetMapping("/{boardType}/{boardNo}/author/{authorName}")
+    public ResponseEntity<ApiResponse<Boolean>> checkBoardAuthor(
+            @PathVariable String boardType,
+            @PathVariable @Positive Long boardNo,
+            @PathVariable String authorName) {
+
+        log.info("게시글 작성자 확인 API 호출 - 타입: {}, 번호: {}, 작성자: {}", boardType, boardNo, authorName);
+
+        BoardType type = validateAndParseBoardType(boardType);
+        boolean isAuthor = boardService.isBoardAuthor(boardNo, authorName);
+        
+        return responseUtil.okWithData(SuccessCode.ITEM_RETRIEVED, isAuthor);
+    }
+    
+    /**
+     * 작성자별 게시글 수 조회 (아규먼트 테스트)
+     * GET /api/boards/authors/{authorName}/count
+     */
+    @GetMapping("/authors/{authorName}/count")
+    public ResponseEntity<ApiResponse<Long>> getPostCountByAuthor(
+            @PathVariable String authorName) {
+
+        log.info("작성자별 게시글 수 조회 API 호출 - 작성자: {}", authorName);
+
+        long count = boardService.getPostCountByAuthor(authorName);
+        
+        return responseUtil.okWithData(SuccessCode.ITEM_RETRIEVED, count);
+    }
+    
+
 
     /**
      * boardType 문자열을 BoardType enum으로 변환 (검증 포함)
@@ -208,7 +246,7 @@ public class BoardController {
         BoardType type = BoardType.fromCode(boardType);
         log.info(type.getCode());
         if (type == null) {
-            throw new BusinessException(CustomErrorCode.INVALID_BOARD_TYPE);
+            throw BusinessException.builder(CustomErrorCode.INVALID_BOARD_TYPE).build();
         }
         return type;
     }

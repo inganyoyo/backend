@@ -262,7 +262,9 @@ public class GlobalExceptionHandler {
     if (e.getCustomMessage() != null && !e.getCustomMessage().isEmpty()) {
       message = e.getCustomMessage();
     } else {
-      message = messageUtil.getMessage(errorCode.getMessageKey(), null,
+      // 아규먼트가 있으면 함께 전달, 없으면 null 전달
+      Object[] args = e.getArgs();
+      message = messageUtil.getMessage(errorCode.getMessageKey(), args,
               LocaleContextHolder.getLocale());
     }
 

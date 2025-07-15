@@ -192,7 +192,7 @@ public class BoardService {
      */
     private void validateSearchKeyword(String keyword) {
         if (TEST_ERROR_KEYWORD.equalsIgnoreCase(keyword)) {
-            throw new BusinessException(CustomErrorCode.BOARD_LIST_ERROR);
+            throw BusinessException.builder(CustomErrorCode.BOARD_LIST_ERROR).build();
         }
     }
     
@@ -307,7 +307,7 @@ public class BoardService {
     private void validateServiceErrorTest(Long id) {
         if (TEST_SERVICE_ERROR_ID.equals(id)) {
             log.info("validateServiceErrorTest not found");
-            throw new BusinessException(CommonErrorCode.SYSTEM_MAINTENANCE);
+            throw BusinessException.builder(CommonErrorCode.SYSTEM_MAINTENANCE).build();
         }
     }
     
@@ -317,17 +317,74 @@ public class BoardService {
     private Board findBoardById(Long id) {
         Board board = boardStorage.get(id);
         if (board == null) {
-            throw new BusinessException(CommonErrorCode.ENTITY_NOT_FOUND);
+            // 아규먼트를 사용하여 메시지 템플릿에 "게시글" 전달
+            throw BusinessException.builder(CommonErrorCode.ENTITY_NOT_FOUND).args("게시글").build();
         }
         return board;
     }
     
     /**
+     * 특정 ID의 게시글을 특정 작성자가 작성했는지 확인
+     */
+    public boolean isBoardAuthor(Long boardId, String authorName) {
+        log.info("게시글 작성자 확인 - ID: {}, 작성자: {}", boardId, authorName);
+        
+        Board board = boardStorage.get(boardId);
+        if (board == null) {
+            // ID와 함께 더 자세한 정보 제공
+            throw BusinessException.builder(CommonErrorCode.ENTITY_NOT_FOUND_WITH_ID).args("게시글", boardId).build();
+        }
+        
+        return board.getAuthor().equals(authorName);
+    }
+    
+    /**
+     * 특정 작성자의 게시글 개수 조회
+     */
+    public long getPostCountByAuthor(String authorName) {
+        log.info("작성자별 게시글 수 조회 - 작성자: {}", authorName);
+        
+        if (authorName == null || authorName.trim().isEmpty()) {
+            throw BusinessException.builder(CommonErrorCode.VALIDATION_REQUIRED).args("작성자명").build();
+        }
+        
+        long count = boardStorage.values().stream()
+                .filter(board -> board.getAuthor().equals(authorName))
+                .count();
+                
+        log.info("작성자 '{}' 의 게시글 개수: {}", authorName, count);
+        return count;
+    }
+    
+    /**
+     * 첨부파일 조회
+     */
+    public BoardFile getAttachedFile(Long boardId, Long fileId) {
+        log.info("첨부파일 조회 - 게시글ID: {}, 파일ID: {}", boardId, fileId);
+        
+        // 게시글 존재 확인
+        Board board = findBoardById(boardId);
+        
+        // 파일 존재 확인
+        BoardFile file = fileStorage.get(fileId);
+        if (file == null) {
+
+        }
+        
+        // 해당 게시글의 파일인지 확인
+        if (!file.getBoardId().equals(boardId)) {
+            throw BusinessException.builder(CommonErrorCode.ACCESS_DENIED).build();
+        }
+        
+        return file;
+    }
+
+    /**
      * 게시글 타입 검증
      */
     private void validateBoardType(Board board, BoardType expectedType) {
         if (board.getBoardType() != expectedType) {
-            throw new BusinessException(CustomErrorCode.BOARD_TYPE_MISMATCH);
+
         }
     }
     
@@ -362,11 +419,11 @@ public class BoardService {
      */
     private void validateCreateRequest(BoardDto boardDto) {
         if (boardDto.getTitle().toLowerCase().contains(TEST_ERROR_KEYWORD)) {
-            throw new BusinessException(CustomErrorCode.INVALID_TITLE_CONTENT);
+            throw BusinessException.builder(CustomErrorCode.INVALID_TITLE_CONTENT).build();
         }
         
         if (TEST_ADMIN_AUTHOR.equalsIgnoreCase(boardDto.getAuthor())) {
-            throw new BusinessException(CustomErrorCode.ADMIN_WRITE_FORBIDDEN);
+            throw BusinessException.builder(CustomErrorCode.ADMIN_WRITE_FORBIDDEN).build();
         }
     }
     
@@ -403,7 +460,7 @@ public class BoardService {
      */
     private void validateUpdateRequest(BoardDto boardDto) {
         if (boardDto.getContent().toLowerCase().contains(TEST_FORBIDDEN_CONTENT)) {
-            throw new BusinessException(CustomErrorCode.FORBIDDEN_CONTENT);
+            throw BusinessException.builder(CustomErrorCode.FORBIDDEN_CONTENT).build();
         }
     }
     
@@ -429,7 +486,7 @@ public class BoardService {
      */
     private void validateDeleteRequest(Long id) {
         if (UNDELETABLE_BOARD_ID.equals(id)) {
-            throw new BusinessException(CustomErrorCode.DELETE_FORBIDDEN);
+            throw BusinessException.builder(CustomErrorCode.DELETE_FORBIDDEN).build();
         }
     }
     

@@ -23,42 +23,25 @@ import com.example.demo.common.code.ErrorCode;
  *  2021/07/16    jaeyeolkim  최초 생성
  * </pre>
  */
+
 public class BusinessException extends RuntimeException {
 
-    private String customMessage;
-    private ErrorCode errorCode;
+    private final ErrorCode errorCode;
+    private final String customMessage;
+    private final Object[] args;
 
-    /**
-     * 사용자 정의 메시지를 받아 처리하는 경우
-     *
-     * @param errorCode 400 에러
-     * @param customMessage 사용자에게 표시할 메시지
-     */
-    public BusinessException(ErrorCode errorCode, String customMessage) {
-        super(customMessage);
-        this.errorCode = errorCode;
-        this.customMessage = customMessage;
+    public BusinessException(BusinessException exception) {
+        super(exception.getErrorCode().getMessageKey());
+        this.errorCode = exception.getErrorCode();
+        this.customMessage = exception.getCustomMessage();
+        this.args = exception.getArgs();
     }
 
-
-    /**
-     * 사전 정의된 에러코드 객체를 넘기는 경우
-     *
-     * @param message 서버에 남길 메시지
-     * @param errorCode 사전 정의된 에러코드
-     */
-    public BusinessException(String message, ErrorCode errorCode) {
-        super(message);
-        this.errorCode = errorCode;
-    }
-
-    /**
-     * 사전 정의된 에러코드의 메시지 키를 서버에 남기고 에러코드 객체를 리턴한다
-     * @param errorCode 사전 정의된 에러코드
-     */
-    public BusinessException(ErrorCode errorCode) {
-        super(errorCode.getMessageKey());  // getMessage() -> getMessageKey()로 변경
-        this.errorCode = errorCode;
+    private BusinessException(Builder builder) {
+        super(builder.errorCode.getMessageKey());
+        this.errorCode = builder.errorCode;
+        this.customMessage = builder.customMessage;
+        this.args = builder.args;
     }
 
     public ErrorCode getErrorCode() {
@@ -69,4 +52,35 @@ public class BusinessException extends RuntimeException {
         return customMessage;
     }
 
+    public Object[] getArgs() {
+        return args;
+    }
+
+    public static Builder builder(ErrorCode errorCode) {
+        return new Builder(errorCode);
+    }
+
+    public static class Builder {
+        private final ErrorCode errorCode;
+        private String customMessage;
+        private Object[] args;
+
+        public Builder(ErrorCode errorCode) {
+            this.errorCode = errorCode;
+        }
+
+        public Builder customMessage(String customMessage) {
+            this.customMessage = customMessage;
+            return this;
+        }
+
+        public Builder args(Object... args) {
+            this.args = args;
+            return this;
+        }
+
+        public BusinessException build() {
+            return new BusinessException(this);
+        }
+    }
 }
