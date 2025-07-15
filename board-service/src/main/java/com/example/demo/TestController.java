@@ -44,8 +44,10 @@ public class TestController {
         response.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         response.put("userContext", user);
 
-        return responseUtil.okWithData(SuccessCode.OPERATION_COMPLETED, response, 
-                messageUtil.getMessage("action.hello"));
+        return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+                .data(response)
+                .args(messageUtil.getMessage("action.hello"))
+                .build();
     }
 
     @GetMapping(value = "/api/v1/board/hello2")
@@ -53,8 +55,10 @@ public class TestController {
         log.info("GET /hello2 호출됨");
         String message = "Hello World (GET) 안녕하세요! hello2 한글 테스트입니다. 🚀";
         
-        return responseUtil.okWithData(SuccessCode.OPERATION_COMPLETED, message, 
-                messageUtil.getMessage("action.hello2"));
+        return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+                .data(message)
+                .args(messageUtil.getMessage("action.hello2"))
+                .build();
     }
 
     @PostMapping(value = "/api/v1/board/hello")
@@ -62,7 +66,9 @@ public class TestController {
         log.info("POST /hello 호출됨");
         String message = "Hello World (POST) 안녕하세요! 한글 POST 테스트입니다.";
         
-        return responseUtil.okWithData(SuccessCode.OPERATION_COMPLETED, message, 
-                messageUtil.getMessage("action.post"));
+        return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+                .data(message)
+                .args(messageUtil.getMessage("action.post"))
+                .build();
     }
 }

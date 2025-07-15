@@ -35,7 +35,6 @@ public class BoardDto {
     
     private Long id;
     
-    @NotNull(message = "{validation.board.type.required}", groups = {Create.class})
     private BoardType boardType;
     
     @NotBlank(message = "{validation.title.required}", groups = {Create.class, Update.class})

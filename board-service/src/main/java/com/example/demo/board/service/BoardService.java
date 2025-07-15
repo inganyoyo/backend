@@ -368,12 +368,12 @@ public class BoardService {
         // 파일 존재 확인
         BoardFile file = fileStorage.get(fileId);
         if (file == null) {
-
+            throw BusinessException.builder(CommonErrorCode.ENTITY_NOT_FOUND).args("파일").build();
         }
         
         // 해당 게시글의 파일인지 확인
         if (!file.getBoardId().equals(boardId)) {
-            throw BusinessException.builder(CommonErrorCode.ACCESS_DENIED).build();
+            throw BusinessException.builder(CommonErrorCode.ACCESS_DENIED).args("파일 접근").build();
         }
         
         return file;
@@ -384,7 +384,7 @@ public class BoardService {
      */
     private void validateBoardType(Board board, BoardType expectedType) {
         if (board.getBoardType() != expectedType) {
-
+            throw BusinessException.builder(CustomErrorCode.BOARD_TYPE_MISMATCH).build();
         }
     }
     

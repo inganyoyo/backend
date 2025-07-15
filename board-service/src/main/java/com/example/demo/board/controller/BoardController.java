@@ -61,7 +61,10 @@ public class BoardController {
         // 템플릿 기반 메시지 생성
         String domainName = getDomainName(type);
         
-        return responseUtil.okWithData(SuccessCode.LIST_RETRIEVED, response, domainName);
+        return responseUtil.success(SuccessCode.LIST_RETRIEVED)
+                .data(response)
+                .args(domainName)
+                .build();
     }
 
     /**
@@ -84,7 +87,10 @@ public class BoardController {
         // 템플릿 기반 메시지 생성
         String domainName = getDomainName(type);
         
-        return responseUtil.okWithData(SuccessCode.ITEM_RETRIEVED, response, domainName);
+        return responseUtil.success(SuccessCode.ITEM_RETRIEVED)
+                .data(response)
+                .args(domainName)
+                .build();
     }
 
     /**
@@ -109,7 +115,10 @@ public class BoardController {
         String domainName = getDomainName(type);
         String actionName = getActionName("create");
         
-        return responseUtil.createdWithData(SuccessCode.ACTION_SUCCESS, response, domainName, actionName);
+        return responseUtil.created(SuccessCode.ACTION_SUCCESS)
+                .data(response)
+                .args(domainName, actionName)
+                .build();
     }
 
     /**
@@ -134,7 +143,10 @@ public class BoardController {
         String domainName = getDomainName(type);
         String actionName = getActionName("update");
         
-        return responseUtil.okWithData(SuccessCode.ACTION_SUCCESS, response, domainName, actionName);
+        return responseUtil.success(SuccessCode.ACTION_SUCCESS)
+                .data(response)
+                .args(domainName, actionName)
+                .build();
     }
 
     /**
@@ -158,7 +170,9 @@ public class BoardController {
         String domainName = getDomainName(type);
         String actionName = getActionName("delete");
         
-        return responseUtil.okMessage(SuccessCode.ACTION_SUCCESS, domainName, actionName);
+        return responseUtil.success(SuccessCode.ACTION_SUCCESS)
+                .args(domainName, actionName)
+                .build();
     }
 
     /**
@@ -197,7 +211,9 @@ public class BoardController {
         String domainName = messageUtil.getMessage("domain.test");
         String actionName = messageUtil.getMessage("action.complete");
         
-        return responseUtil.okMessage(SuccessCode.ACTION_SUCCESS, domainName, actionName);
+        return responseUtil.success(SuccessCode.ACTION_SUCCESS)
+                .args(domainName, actionName)
+                .build();
     }
 
     /**
@@ -219,7 +235,9 @@ public class BoardController {
         BoardType type = validateAndParseBoardType(boardType);
         boolean isAuthor = boardService.isBoardAuthor(boardNo, authorName);
         
-        return responseUtil.okWithData(SuccessCode.ITEM_RETRIEVED, isAuthor);
+        return responseUtil.success(SuccessCode.ITEM_RETRIEVED)
+                .data(isAuthor)
+                .build();
     }
     
     /**
@@ -234,7 +252,9 @@ public class BoardController {
 
         long count = boardService.getPostCountByAuthor(authorName);
         
-        return responseUtil.okWithData(SuccessCode.ITEM_RETRIEVED, count);
+        return responseUtil.success(SuccessCode.ITEM_RETRIEVED)
+                .data(count)
+                .build();
     }
     
 

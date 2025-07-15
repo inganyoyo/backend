@@ -92,15 +92,17 @@ public class SampleController {
 
         switch (type) {
             case "business":
-                throw BusinessException.builder(CommonErrorCode.ENTITY_NOT_FOUND).build();
+                throw BusinessException.builder(CommonErrorCode.ENTITY_NOT_FOUND).args("테스트 항목").build();
             case "message":
                 throw new BusinessMessageException("사용자 정의 에러 메시지입니다.");
             case "runtime":
                 throw new RuntimeException("런타임 예외 테스트");
             default:
-                return responseUtil.okWithData(SuccessCode.OPERATION_COMPLETED, "정상 응답",
-                        messageUtil.getMessage("domain.test"), 
-                        messageUtil.getMessage("action.complete"));
+                return responseUtil.success(SuccessCode.OPERATION_COMPLETED)
+                        .data("정상 응답")
+                        .args(messageUtil.getMessage("domain.test"), 
+                              messageUtil.getMessage("action.complete"))
+                        .build();
         }
     }
 }
