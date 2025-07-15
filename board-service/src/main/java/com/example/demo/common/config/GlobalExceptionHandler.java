@@ -5,6 +5,7 @@ import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.BusinessMessageException;
 import com.example.demo.common.exception.dto.ErrorCode;
 
+import com.example.demo.common.util.MessageUtil;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
-  protected final MessageSource messageSource;
+  protected final MessageUtil messageUtil;
 
   /**
    * javax.validation.Valid or @Validated 으로 binding error 발생시 발생한다. HttpMessageConverter 에서 등록한
@@ -48,7 +49,7 @@ public class GlobalExceptionHandler {
           MethodArgumentNotValidException e) {
     log.error("handleMethodArgumentNotValidException", e);
 
-    String message = messageSource.getMessage(ErrorCode.INVALID_INPUT_VALUE.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.INVALID_INPUT_VALUE.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     // 필드 에러 정보를 메시지에 추가
@@ -75,7 +76,7 @@ public class GlobalExceptionHandler {
   protected ResponseEntity<ApiResponse<Void>> handleBindException(BindException e) {
     log.error("handleBindException", e);
 
-    String message = messageSource.getMessage(ErrorCode.INVALID_INPUT_VALUE.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.INVALID_INPUT_VALUE.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     // 필드 에러 정보를 메시지에 추가
@@ -102,7 +103,7 @@ public class GlobalExceptionHandler {
           HttpClientErrorException.UnprocessableEntity e) {
     log.error("handleUnprocessableEntityException", e);
 
-    String message = messageSource.getMessage(ErrorCode.UNPROCESSABLE_ENTITY.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.UNPROCESSABLE_ENTITY.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.UNPROCESSABLE_ENTITY.getCode());
@@ -120,7 +121,7 @@ public class GlobalExceptionHandler {
           HttpRequestMethodNotSupportedException e) {
     log.error("handleHttpRequestMethodNotSupportedException", e);
 
-    String message = messageSource.getMessage(ErrorCode.METHOD_NOT_ALLOWED.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.METHOD_NOT_ALLOWED.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     // 지원하는 메서드 정보 추가
@@ -143,7 +144,7 @@ public class GlobalExceptionHandler {
           MethodArgumentTypeMismatchException e) {
     log.error("handleMethodArgumentTypeMismatchException", e);
 
-    String message = messageSource.getMessage(ErrorCode.INVALID_TYPE_VALUE.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.INVALID_TYPE_VALUE.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     // 타입 미스매치 정보를 메시지에 추가
@@ -166,7 +167,7 @@ public class GlobalExceptionHandler {
           NoHandlerFoundException e) {
     log.error("handleNoHandlerFoundException: {} {}", e.getHttpMethod(), e.getRequestURL());
 
-    String message = messageSource.getMessage(ErrorCode.NOT_FOUND.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.NOT_FOUND.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     // 요청 정보를 메시지에 추가하여 더 명확하게
@@ -186,7 +187,7 @@ public class GlobalExceptionHandler {
   protected ResponseEntity<ApiResponse<Void>> handleNotFoundException(NotFoundException e) {
     log.error("handleNotFoundException", e);
 
-    String message = messageSource.getMessage(ErrorCode.NOT_FOUND.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.NOT_FOUND.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.NOT_FOUND.getCode());
@@ -203,7 +204,7 @@ public class GlobalExceptionHandler {
   protected ResponseEntity<ApiResponse<Void>> handleAccessDeniedException(AccessDeniedException e) {
     log.error("handleAccessDeniedException", e);
 
-    String message = messageSource.getMessage(ErrorCode.ACCESS_DENIED.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.ACCESS_DENIED.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.ACCESS_DENIED.getCode());
@@ -221,7 +222,7 @@ public class GlobalExceptionHandler {
           HttpClientErrorException.Unauthorized e) {
     log.error("handleUnauthorizedException", e);
 
-    String message = messageSource.getMessage(ErrorCode.UNAUTHORIZED.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.UNAUTHORIZED.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.UNAUTHORIZED.getCode());
@@ -262,7 +263,7 @@ public class GlobalExceptionHandler {
     if (e.getCustomMessage() != null && !e.getCustomMessage().isEmpty()) {
       message = e.getCustomMessage();
     } else {
-      message = messageSource.getMessage(errorCode.getMessage(), null,
+      message = messageUtil.getMessage(errorCode.getMessage(), null,
               LocaleContextHolder.getLocale());
     }
 
@@ -280,7 +281,7 @@ public class GlobalExceptionHandler {
   protected ResponseEntity<ApiResponse<Void>> handleException(Exception e) {
     log.error("handleException", e);
 
-    String message = messageSource.getMessage(ErrorCode.INTERNAL_SERVER_ERROR.getMessage(), null,
+    String message = messageUtil.getMessage(ErrorCode.INTERNAL_SERVER_ERROR.getMessage(), null,
             LocaleContextHolder.getLocale());
 
     final ApiResponse<Void> response = ApiResponse.error(message, ErrorCode.INTERNAL_SERVER_ERROR.getCode());
