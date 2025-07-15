@@ -6,7 +6,6 @@ public enum CommonErrorCode implements ErrorCode {
     INVALID_TYPE_VALUE(400, "E002", "err.invalid.type.value"),
     ENTITY_NOT_FOUND(400, "E003", "err.entity.not.found"),
     UNAUTHORIZED(401, "E004", "err.unauthorized"),
-    JWT_EXPIRED(401, "E005", "err.unauthorized"),
     ACCESS_DENIED(403, "E006", "err.access.denied"),
     NOT_FOUND(404, "E010", "err.page.not.found"),
     METHOD_NOT_ALLOWED(405, "E011", "err.method.not.allowed"),
