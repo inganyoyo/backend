@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: demo
+  
+  # 에러 처리 설정
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  
+  # Jackson JSON 설정
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+  
+  # 메시지 인코딩 설정
+  messages:
+    encoding: UTF-8
+
+server:
+  port: 8002
+  
+  # UTF-8 인코딩 설정
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+  
+  # 에러 처리 설정
+  error:
+    include-exception: false
+    include-stacktrace: never
+    include-message: always
+    include-binding-errors: always
+    whitelabel:
+      enabled: false
+
+# SpringDoc OpenAPI 설정
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+    doc-expansion: none
+  packages-to-scan: com.example.demo.controller
+  paths-to-match: /api/**
+
+# 로깅 설정
+logging:
+  level:
+    com.example.demo: DEBUG
+    org.springframework.web: DEBUG
