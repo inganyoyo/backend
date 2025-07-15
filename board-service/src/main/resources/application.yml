@@ -42,21 +42,6 @@ server:
     whitelabel:
       enabled: false
 
-# SpringDoc OpenAPI 설정
-springdoc:
-  api-docs:
-    enabled: true
-    path: /api-docs
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-    operations-sorter: method
-    tags-sorter: alpha
-    display-request-duration: true
-    doc-expansion: none
-  packages-to-scan: com.example.demo.controller
-  paths-to-match: /api/**
-
 # 로깅 설정
 logging:
   level:

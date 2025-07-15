@@ -4,6 +4,7 @@ import com.example.demo.common.dto.ApiResponse;
 import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.BusinessMessageException;
 import com.example.demo.common.exception.dto.ErrorCode;
+
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -227,6 +228,8 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.UNAUTHORIZED.getStatus()));
   }
 
+
+
   /**
    * 사용자에게 표시할 다양한 메시지를 직접 정의하여 처리하는 Business RuntimeException Handler 개발자가 만들어 던지는 런타임 오류를 처리
    *
@@ -254,8 +257,14 @@ public class GlobalExceptionHandler {
     log.error("handleBusinessException", e);
     final ErrorCode errorCode = e.getErrorCode();
 
-    String message = messageSource.getMessage(errorCode.getMessage(), null,
-            LocaleContextHolder.getLocale());
+    // customMessage가 있으면 사용하고, 없으면 기본 메시지 사용
+    String message;
+    if (e.getCustomMessage() != null && !e.getCustomMessage().isEmpty()) {
+      message = e.getCustomMessage();
+    } else {
+      message = messageSource.getMessage(errorCode.getMessage(), null,
+              LocaleContextHolder.getLocale());
+    }
 
     final ApiResponse<Void> response = ApiResponse.error(message, errorCode.getCode());
     return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));

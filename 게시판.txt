@@ -1,0 +1,219 @@
+# 기본 리소스: Resource 형태
+# 공지사항 게시판
+GET /api/boards/notice                             # 공지사항 목록
+GET /api/boards/notice?page=1&size=10              # 공지사항 목록 (페이징)
+GET /api/boards/notice?page=1&size=10&sort=regDate&order=desc  # 공지사항 목록 (페이징 + 정렬)
+GET /api/boards/notice?keyword=검색어               # 공지사항 검색
+GET /api/boards/notice?keyword=검색어&page=1&size=10  # 공지사항 검색 (페이징)
+GET /api/boards/notice?searchType=title&keyword=검색어  # 공지사항 제목 검색
+GET /api/boards/notice?searchType=content&keyword=검색어  # 공지사항 내용 검색
+GET /api/boards/notice/{boardNo}                   # 공지사항 상세
+POST /api/boards/notice                            # 공지사항 등록
+PUT /api/boards/notice/{boardNo}                   # 공지사항 수정
+DELETE /api/boards/notice/{boardNo}                # 공지사항 삭제
+
+# 자유게시판
+GET /api/boards/free                               # 자유게시판 목록
+GET /api/boards/free?page=1&size=10                # 자유게시판 목록 (페이징)
+GET /api/boards/free?page=1&size=10&sort=regDate&order=desc  # 자유게시판 목록 (페이징 + 정렬)
+GET /api/boards/free?keyword=검색어                 # 자유게시판 검색
+GET /api/boards/free?keyword=검색어&page=1&size=10    # 자유게시판 검색 (페이징)
+GET /api/boards/free?searchType=title&keyword=검색어   # 자유게시판 제목 검색
+GET /api/boards/free?searchType=content&keyword=검색어  # 자유게시판 내용 검색
+GET /api/boards/free/{boardNo}                     # 자유게시판 상세
+POST /api/boards/free                              # 자유게시판 등록
+PUT /api/boards/free/{boardNo}                     # 자유게시판 수정
+DELETE /api/boards/free/{boardNo}                  # 자유게시판 삭제
+
+
+-- ==========================================
+-- PostgreSQL 게시판 테이블 설계
+-- ==========================================
+
+-- 1. 게시판 메인 테이블
+CREATE TABLE board (
+    board_no        SERIAL          NOT NULL,           -- 게시글 번호 (PK, 자동증가)
+    board_type      VARCHAR(10)     NOT NULL,           -- 게시판 구분자 (1~5개 게시판 구분)
+    title           VARCHAR(200)    NOT NULL,           -- 제목
+    content         TEXT,                               -- 내용
+    reg_date        TIMESTAMP       DEFAULT NOW(),      -- 등록일자
+    mod_date        TIMESTAMP       DEFAULT NOW(),      -- 수정일자
+    reg_user        VARCHAR(50)     NOT NULL,           -- 등록자
+    mod_user        VARCHAR(50)     NOT NULL,           -- 변경자
+    view_count      INTEGER         DEFAULT 0,          -- 조회수 (옵션)
+    use_yn          CHAR(1)         DEFAULT 'Y',        -- 사용여부 (Y/N)
+
+    CONSTRAINT pk_board PRIMARY KEY (board_no),
+    CONSTRAINT ck_board_type CHECK (board_type IN ('TYPE1', 'TYPE2', 'TYPE3', 'TYPE4', 'TYPE5')),
+    CONSTRAINT ck_use_yn CHECK (use_yn IN ('Y', 'N'))
+);
+
+-- 2. 첨부파일 테이블
+CREATE TABLE board_file (
+    file_no         SERIAL          NOT NULL,           -- 파일 번호 (PK, 자동증가)
+    board_no        INTEGER         NOT NULL,           -- 게시글 번호 (FK)
+    original_name   VARCHAR(255)    NOT NULL,           -- 원본 파일명
+    stored_name     VARCHAR(255)    NOT NULL,           -- 저장된 파일명
+    file_path       VARCHAR(500)    NOT NULL,           -- 파일 경로
+    file_size       BIGINT          NOT NULL,           -- 파일 크기 (bytes)
+    file_ext        VARCHAR(10),                        -- 파일 확장자
+    reg_date        TIMESTAMP       DEFAULT NOW(),      -- 등록일자
+    reg_user        VARCHAR(50)     NOT NULL,           -- 등록자
+    use_yn          CHAR(1)         DEFAULT 'Y',        -- 사용여부 (Y/N)
+
+    CONSTRAINT pk_board_file PRIMARY KEY (file_no),
+    CONSTRAINT fk_board_file_board_no FOREIGN KEY (board_no) REFERENCES board(board_no) ON DELETE CASCADE,
+    CONSTRAINT ck_file_use_yn CHECK (use_yn IN ('Y', 'N'))
+);
+
+-- 3. 인덱스 생성
+CREATE INDEX idx_board_type ON board(board_type);
+CREATE INDEX idx_board_reg_date ON board(reg_date DESC);
+CREATE INDEX idx_board_type_date ON board(board_type, reg_date DESC);
+CREATE INDEX idx_board_file_board_no ON board_file(board_no);
+
+-- 4. 게시판 구분자 코드 테이블 (옵션)
+CREATE TABLE board_type_code (
+    board_type      VARCHAR(10)     NOT NULL,           -- 게시판 구분자
+    type_name       VARCHAR(100)    NOT NULL,           -- 게시판 이름
+    description     VARCHAR(500),                       -- 설명
+    use_yn          CHAR(1)         DEFAULT 'Y',        -- 사용여부
+    sort_order      INTEGER         DEFAULT 1,          -- 정렬순서
+    reg_date        TIMESTAMP       DEFAULT NOW(),      -- 등록일자
+
+    CONSTRAINT pk_board_type_code PRIMARY KEY (board_type),
+    CONSTRAINT ck_type_use_yn CHECK (use_yn IN ('Y', 'N'))
+);
+
+-- 5. 게시판 구분자 기본 데이터 입력
+INSERT INTO board_type_code (board_type, type_name, description, sort_order) VALUES ('TYPE1', '공지사항', '공지사항 게시판', 1);
+INSERT INTO board_type_code (board_type, type_name, description, sort_order) VALUES ('TYPE2', '자유게시판', '자유게시판', 2);
+INSERT INTO board_type_code (board_type, type_name, description, sort_order) VALUES ('TYPE3', '질문답변', '질문답변 게시판', 3);
+INSERT INTO board_type_code (board_type, type_name, description, sort_order) VALUES ('TYPE4', '자료실', '자료실 게시판', 4);
+INSERT INTO board_type_code (board_type, type_name, description, sort_order) VALUES ('TYPE5', '갤러리', '갤러리 게시판', 5);
+
+-- 6. 자동 수정일자 업데이트 함수 및 트리거
+CREATE OR REPLACE FUNCTION update_mod_date()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.mod_date = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_board_update
+    BEFORE UPDATE ON board
+    FOR EACH ROW
+    EXECUTE FUNCTION update_mod_date();
+
+-- ==========================================
+-- 샘플 쿼리
+-- ==========================================
+
+-- 게시글 등록 (첨부파일 없는 경우)
+INSERT INTO board (board_type, title, content, reg_user, mod_user)
+VALUES ('TYPE1', '테스트 제목', '테스트 내용', 'admin', 'admin');
+
+-- 첨부파일 등록
+INSERT INTO board_file (board_no, original_name, stored_name, file_path, file_size, file_ext, reg_user)
+VALUES (1, 'test.pdf', 'test_20250715_001.pdf', '/upload/board/', 1024000, 'pdf', 'admin');
+
+-- 게시판 타입별 게시글 조회
+SELECT b.board_no, b.title, b.reg_date, b.reg_user, b.view_count,
+       (SELECT COUNT(*) FROM board_file bf WHERE bf.board_no = b.board_no AND bf.use_yn = 'Y') AS file_count
+FROM board b
+WHERE b.board_type = 'TYPE1'
+  AND b.use_yn = 'Y'
+ORDER BY b.reg_date DESC;
+
+-- 게시글 상세 조회 (첨부파일 포함)
+SELECT b.board_no, b.board_type, b.title, b.content, b.reg_date, b.mod_date, b.reg_user, b.mod_user, b.view_count,
+       f.file_no, f.original_name, f.file_size, f.file_ext
+FROM board b
+LEFT JOIN board_file f ON b.board_no = f.board_no AND f.use_yn = 'Y'
+WHERE b.board_no = 1
+  AND b.use_yn = 'Y';
+
+-- 게시글 수정 (트리거로 mod_date 자동 업데이트)
+UPDATE board
+SET title = '수정된 제목',
+    content = '수정된 내용',
+    mod_user = 'admin'
+WHERE board_no = 1;
+
+-- 페이징 처리 (PostgreSQL LIMIT/OFFSET)
+SELECT b.board_no, b.title, b.reg_date, b.reg_user, b.view_count
+FROM board b
+WHERE b.board_type = 'TYPE1'
+  AND b.use_yn = 'Y'
+ORDER BY b.reg_date DESC
+LIMIT 10 OFFSET 0;  -- 1페이지 (10개씩)
+
+-- 전체 텍스트 검색 (PostgreSQL 특화)
+SELECT b.board_no, b.title, b.content, b.reg_date
+FROM board b
+WHERE b.use_yn = 'Y'
+  AND (to_tsvector('korean', b.title || ' ' || COALESCE(b.content, '')) @@ plainto_tsquery('korean', '검색어'))
+ORDER BY b.reg_date DESC;
+
+-- ==========================================
+-- PostgreSQL 특화 기능
+-- ==========================================
+
+-- 1. UUID 사용 (선택사항)
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- ALTER TABLE board ADD COLUMN board_uuid UUID DEFAULT uuid_generate_v4();
+
+-- 2. JSON 컬럼 추가 (메타데이터 저장)
+ALTER TABLE board ADD COLUMN metadata JSONB;
+
+-- JSON 데이터 삽입
+UPDATE board
+SET metadata = '{"priority": "high", "tags": ["notice", "important"], "author_info": {"department": "IT"}}'::jsonb
+WHERE board_no = 1;
+
+-- JSON 데이터 조회
+SELECT board_no, title, metadata->'priority' as priority, metadata->'tags' as tags
+FROM board
+WHERE metadata @> '{"priority": "high"}';
+
+-- 3. 배열 타입 사용 (태그 저장)
+ALTER TABLE board ADD COLUMN tags VARCHAR(50)[];
+
+-- 배열 데이터 삽입
+UPDATE board
+SET tags = ARRAY['공지', '중요', 'IT']
+WHERE board_no = 1;
+
+-- 배열 데이터 조회
+SELECT board_no, title, tags
+FROM board
+WHERE 'IT' = ANY(tags);
+
+-- 4. 풀텍스트 검색 인덱스
+CREATE INDEX idx_board_fulltext ON board USING GIN(to_tsvector('korean', title || ' ' || COALESCE(content, '')));
+
+-- ==========================================
+-- 오라클과 PostgreSQL 차이점 요약
+-- ==========================================
+/*
+1. 데이터 타입:
+   - Oracle: NUMBER, VARCHAR2, CLOB, SYSDATE
+   - PostgreSQL: SERIAL, VARCHAR, TEXT, NOW()
+
+2. 시퀀스:
+   - Oracle: 별도 시퀀스 생성 필요
+   - PostgreSQL: SERIAL 타입으로 자동 처리
+
+3. 날짜/시간:
+   - Oracle: DATE, SYSDATE
+   - PostgreSQL: TIMESTAMP, NOW()
+
+4. 문자열:
+   - Oracle: VARCHAR2(4000), CLOB
+   - PostgreSQL: VARCHAR(무제한), TEXT
+
+5. 특화 기능:
+   - PostgreSQL: JSON/JSONB, 배열, 풀텍스트 검색
+   - Oracle: 계층형 쿼리, 분석함수
+*/
