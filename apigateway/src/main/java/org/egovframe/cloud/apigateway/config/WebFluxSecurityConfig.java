@@ -15,6 +15,7 @@ import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
 import reactor.core.publisher.Mono;
@@ -55,19 +56,38 @@ public class WebFluxSecurityConfig {
     @Bean
     public SecurityWebFilterChain configure(ServerHttpSecurity http, ReactiveAuthorizationManager<AuthorizationContext> check) {
         return http
-                .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .authorizeExchange()
-                .pathMatchers(PERMITALL_ANTPATTERNS).permitAll()
-                .anyExchange().access(check)
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(customAccessDeniedHandler())
-                .and()
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .headers(headers -> headers.frameOptions(ServerHttpSecurity.HeaderSpec.FrameOptionsSpec::disable))
+                .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
+                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable) // 기본 인증 완전 비활성화
+                .authorizeExchange(exchanges -> exchanges
+                        .pathMatchers(PERMITALL_ANTPATTERNS).permitAll()
+                        .anyExchange().access(check))
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(customAuthenticationEntryPoint())
+                        .accessDeniedHandler(customAccessDeniedHandler()))
                 .build();
+    }
+
+    /**
+     * 인증 실패 시 JSON 응답을 반환하는 커스텀 EntryPoint를 생성한다
+     * WWW-Authenticate 헤더를 제거하여 브라우저 로그인 다이얼로그를 방지한다
+     *
+     * @return ServerAuthenticationEntryPoint 인증 실패 처리 핸들러
+     */
+    @Bean
+    public ServerAuthenticationEntryPoint customAuthenticationEntryPoint() {
+        return (exchange, ex) -> {
+            ServerHttpResponse response = exchange.getResponse();
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
+            // WWW-Authenticate 헤더 제거로 브라우저 로그인 다이얼로그 방지
+            response.getHeaders().remove("WWW-Authenticate");
+            
+            String json = "{\"success\":false,\"message\":\"인증이 필요합니다\",\"errorCode\":\"UNAUTHORIZED\"}";
+            DataBuffer buffer = response.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
+            return response.writeWith(Mono.just(buffer));
+        };
     }
 
     /**
