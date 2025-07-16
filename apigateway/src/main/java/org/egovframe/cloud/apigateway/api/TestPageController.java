@@ -1,34 +1,25 @@
 package org.egovframe.cloud.apigateway.api;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.egovframe.cloud.apigateway.dto.ApiResponse;
-import org.egovframe.cloud.apigateway.util.ResponseUtil;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * org.egovframe.cloud.apigateway.api.TestPageController
  * <p>
  * 테스트 페이지 컨트롤러
- * 기존 로그인/프로필 기능을 유지하면서 HTTP 요청 테스트 기능 제공
+ * 로그인/프로필/HTTP 요청 테스트 기능 제공 (개발용 - 추후 삭제 예정)
  *
  * @version 1.0
  * @since 2025/07/14
  */
 @Slf4j
-@RequiredArgsConstructor
 @RestController
 public class TestPageController {
 
     /**
-     * 테스트 페이지를 반환한다
+     * 테스트 페이지를 반환한다 (개발용 - 추후 삭제 예정)
      *
      * @return String HTML 형태의 테스트 페이지
      */
@@ -39,65 +30,7 @@ public class TestPageController {
     }
 
     /**
-     * 한글 테스트용 엔드포인트 - Plain Text 형식으로 응답한다
-     *
-     * @return String 한글 메시지
-     */
-    @GetMapping(value = "/hello", produces = "text/plain;charset=UTF-8")
-    public String helloKorean() {
-        log.info("Korean hello test requested");
-        return "안녕하세요! API Gateway에서 보내는 한글 메시지입니다. 🚀";
-    }
-
-    /**
-     * 한글 테스트용 엔드포인트 - JSON 형식으로 응답한다
-     *
-     * @return Mono<ResponseEntity<ApiResponse<Map<String, Object>>>> JSON 형태의 한글 메시지
-     */
-    @GetMapping(value = "/hello-json", produces = "application/json;charset=UTF-8")
-    public Mono<ResponseEntity<ApiResponse<Map<String, Object>>>> helloKoreanJson() {
-        log.info("Korean JSON test requested");
-        
-        Map<String, Object> data = new HashMap<>();
-        data.put("message", "안녕하세요!");
-        data.put("description", "API Gateway 한글 JSON 테스트");
-        data.put("gateway", "egovframe-cloud-apigateway");
-        data.put("version", "1.0");
-        
-        return ResponseUtil.ok("API Gateway에서 보내는 성공 응답입니다.", data);
-    }
-
-    /**
-     * API Gateway 상태 확인 엔드포인트
-     *
-     * @return Mono<ResponseEntity<ApiResponse<Map<String, Object>>>> Gateway 상태 정보
-     */
-    @GetMapping(value = "/api/gateway/status", produces = "application/json;charset=UTF-8")
-    public Mono<ResponseEntity<ApiResponse<Map<String, Object>>>> getGatewayStatus() {
-        log.info("Gateway status check requested");
-        
-        Map<String, Object> status = new HashMap<>();
-        status.put("service", "apigateway");
-        status.put("status", "UP");
-        status.put("timestamp", java.time.LocalDateTime.now());
-        status.put("version", "1.0.0");
-        
-        return ResponseUtil.ok("Gateway가 정상적으로 작동 중입니다.", status);
-    }
-
-    /**
-     * API Gateway 헬스체크 엔드포인트
-     *
-     * @return Mono<ResponseEntity<ApiResponse<String>>> 간단한 헬스체크 응답
-     */
-    @GetMapping(value = "/api/gateway/health", produces = "application/json;charset=UTF-8")
-    public Mono<ResponseEntity<ApiResponse<String>>> healthCheck() {
-        log.info("Health check requested");
-        return ResponseUtil.ok("API Gateway Health Check", "OK");
-    }
-
-    /**
-     * 간단한 로그인 및 프로필 테스트 페이지를 생성한다
+     * 간단한 로그인 및 프로필 테스트 페이지를 생성한다 (개발용)
      *
      * @return String HTML 형태의 테스트 페이지
      */
@@ -160,7 +93,7 @@ public class TestPageController {
                 .append("const username=document.getElementById('username').value;")
                 .append("const password=document.getElementById('password').value;")
                 .append("try{")
-                .append("const response=await fetch('/auth-service/api/auth/login',{")
+                .append("const response=await fetch('/user-service/api/auth/login',{")
                 .append("method:'POST',headers:{'Content-Type':'application/json'},")
                 .append("body:JSON.stringify({username,password})});")
                 .append("const apiResponse=await response.json();")
@@ -175,7 +108,7 @@ public class TestPageController {
 
         html.append("async function doLogout(){")
                 .append("try{")
-                .append("const response=await fetch('/auth-service/api/auth/logout',{method:'POST'});")
+                .append("const response=await fetch('/user-service/api/auth/logout',{method:'POST'});")
                 .append("const apiResponse=await response.json();")
                 .append("if(apiResponse.success){")
                 .append("document.getElementById('authResult').textContent='로그아웃 성공: '+apiResponse.message;")
@@ -188,7 +121,7 @@ public class TestPageController {
 
         html.append("async function checkAuth(){")
                 .append("try{")
-                .append("const response=await fetch('/auth-service/api/auth/validate');")
+                .append("const response=await fetch('/user-service/api/auth/validate');")
                 .append("const isValid=await response.json();")
                 .append("document.getElementById('authResult').textContent='세션 유효성: '+(isValid?'유효':'무효');")
                 .append("}catch(e){")

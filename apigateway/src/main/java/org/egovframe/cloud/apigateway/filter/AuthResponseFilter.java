@@ -144,8 +144,8 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String method = request.getMethod().toString();
 
         boolean isAuth = "POST".equals(method) &&
-                (path.contains("/auth-service/api/auth/login") ||
-                        path.contains("/auth-service/api/auth/logout"));
+                (path.contains("/user-service/api/auth/login") ||
+                        path.contains("/user-service/api/auth/logout"));
         log.debug("Request path: {}, method: {}, isAuth: {}", path, method, isAuth);
         return isAuth;
     }
@@ -160,7 +160,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String path = request.getPath().toString();
         String method = request.getMethod().toString();
 
-        boolean isLogin = "POST".equals(method) && path.contains("/auth-service/api/auth/login");
+        boolean isLogin = "POST".equals(method) && path.contains("/user-service/api/auth/login");
         log.debug("Request path: {}, method: {}, isLogin: {}", path, method, isLogin);
         return isLogin;
     }
@@ -175,7 +175,7 @@ public class AuthResponseFilter implements GlobalFilter, Ordered {
         String path = request.getPath().toString();
         String method = request.getMethod().toString();
 
-        boolean isLogout = "POST".equals(method) && path.contains("/auth-service/api/auth/logout");
+        boolean isLogout = "POST".equals(method) && path.contains("/user-service/api/auth/logout");
         log.debug("Request path: {}, method: {}, isLogout: {}", path, method, isLogout);
         return isLogout;
     }

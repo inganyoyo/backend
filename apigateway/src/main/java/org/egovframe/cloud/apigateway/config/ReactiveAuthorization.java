@@ -69,62 +69,51 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
                 + "?httpMethod=" + httpMethod
                 + "&requestPath=" + serviceAndPath.getRequestPath();
 
-
-
         String sessionId = "";
 
         // 쿠키에서 직접 GSNS-SESSION 추출
         if (request.getCookies().containsKey("GSNS-SESSION")) {
             sessionId = request.getCookies().getFirst("GSNS-SESSION").getValue();
-        } else {
-
         }
 
-        boolean granted = false;
-        try {
-            String finalSessionId = sessionId;
-            String serviceName = serviceAndPath.getServiceName();
+        String finalSessionId = sessionId;
+        String serviceName = serviceAndPath.getServiceName();
 
-            // 🆕 AuthCheckResponse로 변경
-            Mono<AuthCheckResponse> body = WebClient.create(baseUrl)
-                    .get()
-                    .headers(httpHeaders -> {
-                        if (StringUtils.hasLength(finalSessionId)) {
-                            httpHeaders.add(GlobalConstant.SESSION_HEADER_NAME, finalSessionId);
-                        }
-                        if (StringUtils.hasLength(serviceName)) {
-                            httpHeaders.add(GlobalConstant.HEADER_SERVICE_NAME, serviceName);
-                        }
-                    })
-                    .retrieve().bodyToMono(AuthCheckResponse.class); // 🆕 변경
-
-            AuthCheckResponse authResponse = body.toFuture().get();
-            granted = authResponse.isAuthorized(); // 🆕 변경
-            log.info("authResponse"+authResponse);
-            if(granted) {
-                // 🆕 사용자 정보 로깅 (필요시 다른 서비스로 전달도 가능)
-                if (authResponse.getUser() != null) {
-                    log.info("Authenticated user: user={}",
-                            authResponse.getUser());
-
-                    // 🆕 Exchange에 사용자 정보 저장 (GlobalFilter에서 사용하기 위해)
-                    if (authResponse.getUser() != null) {
-                        context.getExchange().getAttributes().put("USER_INFO", authResponse.getUser());
-                        log.info("User info stored in exchange: userId={}, role={}",
+        // 🆕 완전 비동기 처리로 변경
+        return WebClient.create(baseUrl)
+                .get()
+                .headers(httpHeaders -> {
+                    if (StringUtils.hasLength(finalSessionId)) {
+                        httpHeaders.add(GlobalConstant.SESSION_HEADER_NAME, finalSessionId);
+                    }
+                    if (StringUtils.hasLength(serviceName)) {
+                        httpHeaders.add(GlobalConstant.HEADER_SERVICE_NAME, serviceName);
+                    }
+                })
+                .retrieve()
+                .bodyToMono(AuthCheckResponse.class)
+                .map(authResponse -> {
+                    boolean granted = authResponse.isAuthorized();
+                    log.info("authResponse: granted={}", granted);
+                    
+                    if (granted && authResponse.getUser() != null) {
+                        // 🆕 사용자 정보 로깅
+                        log.info("Authenticated user: userId={}, role={}", 
                                 authResponse.getUser().getUserId(),
                                 authResponse.getUser().getRole());
-                    } else {
-                        log.info("No user info to store - user not authenticated");
-                    }
-                }
-            }
-            log.info("Security AuthorizationDecision granted={}", granted);
-        } catch (Exception e) {
-            log.error("auth-service에 요청 중 오류 : {}", e.getMessage());
-            throw new AuthorizationServiceException("인가 요청시 오류 발생");
-        }
 
-        return Mono.just(new AuthorizationDecision(granted));
+                        // 🆕 Exchange에 사용자 정보 저장
+                        context.getExchange().getAttributes().put("USER_INFO", authResponse.getUser());
+                        log.info("User info stored in exchange");
+                    }
+                    
+                    log.info("Security AuthorizationDecision granted={}", granted);
+                    return new AuthorizationDecision(granted);
+                })
+                .onErrorResume(throwable -> {
+                    log.error("인가 서비스 호출 실패: {}", throwable.getMessage());
+                    return Mono.just(new AuthorizationDecision(false));
+                });
     }
 
     /**

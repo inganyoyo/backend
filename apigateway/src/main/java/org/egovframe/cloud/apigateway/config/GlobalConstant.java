@@ -28,17 +28,12 @@ public interface GlobalConstant {
   final String SESSION_HEADER_NAME = "X-Session-ID";
   final String HEADER_SERVICE_NAME = "X-Service-ID";
 
-  // 🆕 통일된 서비스 목록
+  // 🆕 실제 사용하는 서비스 목록만 유지
   final Set<String> KNOWN_SERVICES = Collections.unmodifiableSet(
           new HashSet<>(Arrays.asList(
-                  "user-service",
-                  "board-service",
-                  "auth-service",
-                  "portal-service",
-                  "reserve-service",
-                  "reserve-item-service",
-                  "reserve-check-service",
-                  "reserve-request-service"
+                  "user-service",    // ✅ 인증/사용자 관리
+                  "board-service"    // ✅ 게시판 서비스
+                  // 필요시 추가: portal-service 등
           ))
   );
 

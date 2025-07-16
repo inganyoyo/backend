@@ -20,9 +20,6 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * org.egovframe.cloud.apigateway.exception.GatewayErrorWebExceptionHandler
@@ -123,12 +120,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         if (ex instanceof NotFoundException) {
             return ErrorCode.NOT_FOUND;
         }
-        
-        // Business exceptions
-        if (ex instanceof BusinessException) {
-            return ((BusinessException) ex).getErrorCode();
-        }
-        
+
         // 기타 모든 에러
         return ErrorCode.INTERNAL_SERVER_ERROR;
     }

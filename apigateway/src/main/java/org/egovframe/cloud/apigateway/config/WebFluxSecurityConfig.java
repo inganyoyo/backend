@@ -3,6 +3,7 @@ package org.egovframe.cloud.apigateway.config;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.egovframe.cloud.apigateway.dto.ApiResponse;
 import org.egovframe.cloud.apigateway.exception.dto.ErrorCode;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -21,9 +22,6 @@ import org.springframework.security.web.server.authorization.ServerAccessDeniedH
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static org.egovframe.cloud.apigateway.config.GlobalConstant.PERMITALL_ANTPATTERNS;
 
@@ -46,14 +44,12 @@ public class WebFluxSecurityConfig {
     public WebFluxSecurityConfig(MessageSource messageSource) {
         this.messageSource = messageSource;
         this.objectMapper = new ObjectMapper();
-        // UTF-8 처리를 위한 설정
-        this.objectMapper.configure(com.fasterxml.jackson.core.JsonGenerator.Feature.ESCAPE_NON_ASCII, false);
     }
 
     /**
      * WebFlux 스프링 시큐리티 설정을 구성한다
      *
-     * @param http ServerHttpSecurity 객체
+     * @param http  ServerHttpSecurity 객체
      * @param check 인증/인가 체크 매니저
      * @return SecurityWebFilterChain 설정된 보안 필터 체인
      * @throws Exception 설정 중 오류 발생 시
@@ -74,24 +70,8 @@ public class WebFluxSecurityConfig {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint()) // 인증 실패 시 JSON
-                .accessDeniedHandler(customAccessDeniedHandler()); // 인가 실패 시 JSON;
+                .accessDeniedHandler(customAccessDeniedHandler()); // 인가 실패 시 JSON
         return http.build();
-
-        //
-//        http
-//                .csrf().disable()
-//                .headers().frameOptions().disable()
-//                .and()
-//                .formLogin().disable()
-//                .httpBasic().disable()
-//                .authorizeExchange()
-//                .pathMatchers(PERMITALL_ANTPATTERNS).permitAll()
-//                .anyExchange().access(check)
-//                .and()
-//                .exceptionHandling()
-//                .authenticationEntryPoint(customAuthenticationEntryPoint()) // 인증 실패 시 JSON
-//                .accessDeniedHandler(customAccessDeniedHandler()); // 인가 실패 시 JSON
-//        return http.build();
     }
 
     /**
@@ -109,18 +89,16 @@ public class WebFluxSecurityConfig {
             ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
             String message = messageSource.getMessage(errorCode.getMessage(), null, LocaleContextHolder.getLocale());
 
-            Map<String, Object> body = new LinkedHashMap<>();
-            body.put("timestamp", LocalDateTime.now());
-            body.put("status", errorCode.getStatus());
-            body.put("code", errorCode.getCode());
-            body.put("message", message);
+            // user-service와 동일한 ApiResponse 구조 사용
+            ApiResponse<Void> apiResponse = ApiResponse.error(message, errorCode.getCode());
 
             String json;
             try {
-                json = objectMapper.writeValueAsString(body);
+                json = objectMapper.writeValueAsString(apiResponse);
             } catch (JsonProcessingException e) {
-                json = String.format("{\"timestamp\":\"%s\",\"status\":%d,\"code\":\"%s\",\"message\":\"%s\"}",
-                        LocalDateTime.now(), errorCode.getStatus(), errorCode.getCode(), message);
+                // Fallback JSON
+                json = String.format("{\"success\":false,\"message\":\"%s\",\"errorCode\":\"%s\",\"timestamp\":\"%s\"}",
+                        message, errorCode.getCode(), java.time.LocalDateTime.now());
             }
 
             DataBuffer buffer = response.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
@@ -144,18 +122,16 @@ public class WebFluxSecurityConfig {
             ErrorCode errorCode = ErrorCode.ACCESS_DENIED;
             String message = messageSource.getMessage(errorCode.getMessage(), null, LocaleContextHolder.getLocale());
 
-            Map<String, Object> body = new LinkedHashMap<>();
-            body.put("timestamp", LocalDateTime.now());
-            body.put("status", errorCode.getStatus());
-            body.put("code", errorCode.getCode());
-            body.put("message", message);
+            // user-service와 동일한 ApiResponse 구조 사용
+            ApiResponse<Void> apiResponse = ApiResponse.error(message, errorCode.getCode());
 
             String json;
             try {
-                json = objectMapper.writeValueAsString(body);
+                json = objectMapper.writeValueAsString(apiResponse);
             } catch (JsonProcessingException e) {
-                json = String.format("{\"timestamp\":\"%s\",\"status\":%d,\"code\":\"%s\",\"message\":\"%s\"}",
-                        LocalDateTime.now(), errorCode.getStatus(), errorCode.getCode(), message);
+                // Fallback JSON
+                json = String.format("{\"success\":false,\"message\":\"%s\",\"errorCode\":\"%s\",\"timestamp\":\"%s\"}",
+                        message, errorCode.getCode(), java.time.LocalDateTime.now());
             }
 
             DataBuffer buffer = response.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
