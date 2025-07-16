@@ -16,6 +16,12 @@
       "description": "사용자 프로필 조회"
     },
     {
+      "service": "user-service",
+      "method": "POST",
+      "path": "/api/users/profile",
+      "description": "사용자 프로필 조회"
+    },
+    {
       "service": "board-service",
       "method": "GET",
       "path": "/api/boards/**",

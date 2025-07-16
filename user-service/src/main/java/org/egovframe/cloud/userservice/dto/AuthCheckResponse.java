@@ -13,4 +13,5 @@ import org.egovframe.cloud.userservice.domain.User;
 public class AuthCheckResponse {
     private boolean isAuthorized;
     private User user;
+    int status;
 }

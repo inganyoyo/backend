@@ -47,6 +47,7 @@ public class CommonGatewayFilter extends AbstractGatewayFilterFactory<CommonGate
 
         // Pre filter
         return ((exchange, chain) -> {
+
             log.info("CommonGatewayFilter start");
             // Netty 비동기 방식 서버 사용시에는 ServerHttpRequest 를 사용해야 한다.
             ServerHttpRequest request = exchange.getRequest();
@@ -80,6 +81,7 @@ public class CommonGatewayFilter extends AbstractGatewayFilterFactory<CommonGate
      */
     private ServerHttpRequest addSessionAndServiceHeaders(ServerHttpRequest request) {
         // 쿠키에서 GSNS-SESSION 추출
+
         HttpCookie sessionCookie = request.getCookies().getFirst(SESSION_COOKIE_NAME);
 
         // 요청 경로에서 서비스 이름 추출

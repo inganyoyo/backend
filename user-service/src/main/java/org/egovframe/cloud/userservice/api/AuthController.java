@@ -14,6 +14,7 @@ import org.egovframe.cloud.userservice.domain.User;
 import org.egovframe.cloud.userservice.dto.AuthCheckResponse;
 import org.egovframe.cloud.userservice.service.AuthService;
 import org.egovframe.cloud.userservice.service.AuthorizationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,9 +45,11 @@ public class AuthController {
             @RequestHeader(value = "X-Service-ID", required = false) String serviceId,
             @RequestParam String httpMethod,
             @RequestParam String requestPath) {
-
+        log.info("checkAuthorization --- path: {}, method: {}, serviceId: {}", requestPath, httpMethod, serviceId);
+        
+        // 인증/인가 로직 수행
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info(authentication.toString() + " - " + requestPath + " - " + httpMethod + " - " + serviceId);
+        log.info("Protected path - checking authentication: {}", authentication);
 
         boolean isAuth = authorizationService.isAuthorization(authentication, requestPath, httpMethod, serviceId);
 
@@ -58,9 +61,26 @@ public class AuthController {
             }
         }
 
+        int status;
+
+        if (user == null && !isAuth) {
+            // 인증 실패 (User 객체 없음 = 로그인하지 않음)
+            status = HttpStatus.UNAUTHORIZED.value(); // 401
+            log.info("Authentication failed: no user session");
+        } else if (user != null && !isAuth) {
+            // 인가 실패 (로그인했지만 권한 없음)
+            status = HttpStatus.FORBIDDEN.value(); // 403
+            log.info("Authorization failed: user {} has no permission", user.getUsername());
+        } else {
+            // 인증 + 인가 성공
+            status = HttpStatus.OK.value(); // 200
+            log.info("Access granted: user {} to {}", user != null ? user.getUsername() : "system", requestPath);
+        }
+        
         return ResponseEntity.ok(AuthCheckResponse.builder()
                 .isAuthorized(isAuth)
                 .user(user)
+                .status(status)
                 .build());
     }
 
@@ -170,11 +190,11 @@ public class AuthController {
     }
 
     /**
-     * 사용자 프로필 조회 (Spring Security로 인증 처리됨)
+     * 사용자 프로필 조회 (Spring Security로 인증 처리됨) - GET 방식
      */
     @GetMapping("/api/users/profile")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getProfile(@AuthenticationPrincipal User user) {
-
+        log.info("getProfile");
         Map<String, Object> profile = new HashMap<>();
         profile.put("userId", user.getUserId());
         profile.put("username", user.getUsername());
@@ -187,6 +207,30 @@ public class AuthController {
                 .data(profile)
                 .args("프로필")
                 .build();
+    }
+
+    /**
+     * 사용자 프로필 조회 (Spring Security로 인증 처리됨) - POST 방식
+     */
+    @PostMapping("/api/users/profile")
+    public void getProfilePost(@AuthenticationPrincipal User user, HttpServletResponse response) throws Exception {
+        log.info("getProfilePost");
+
+
+        Map<String, Object> profile = new HashMap<>();
+        profile.put("userId", user.getUserId());
+        profile.put("username", user.getUsername());
+        profile.put("email", user.getEmail());
+        profile.put("role", user.getRole());
+        profile.put("loginTime", user.getLoginTime());
+        profile.put("lastAccessTime", user.getLastAccessTime());
+        profile.put("method", "POST"); // POST 방식임을 표시
+
+        response.sendRedirect("http://localhost:8010/test?POST");
+//        return successResponseUtil.success(SuccessCode.ITEM_RETRIEVED)
+//                .data(profile)
+//                .args("프로필 (POST)")
+//                .build();
     }
 
 

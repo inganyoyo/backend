@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.egovframe.cloud.apigateway.dto.AuthCheckResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.RequestPath;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.access.AuthorizationServiceException;
@@ -45,6 +46,7 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
     /**
      * 요청에 대한 사용자의 권한여부를 체크하여 AuthorizationDecision을 반환한다
      * X-Session-ID 헤더를 auth-service로 전달하여 인증/인가 처리한다
+     * 401(인증 실패)과 403(인가 실패)을 구분하여 처리한다
      *
      * @param authentication 인증 정보
      * @param context 권한 부여 컨텍스트
@@ -79,13 +81,16 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
         String finalSessionId = sessionId;
         String serviceName = serviceAndPath.getServiceName();
 
+        // 🆕 세션이 없어도 user-service에서 공개 경로 체크하도록 요청 전송
+        log.info("Session check: sessionId={}, serviceName={}", 
+                StringUtils.hasLength(finalSessionId) ? "present" : "absent", serviceName);
+
         // 🆕 완전 비동기 처리로 변경
         return WebClient.create(baseUrl)
                 .get()
                 .headers(httpHeaders -> {
-                    if (StringUtils.hasLength(finalSessionId)) {
-                        httpHeaders.add(GlobalConstant.SESSION_HEADER_NAME, finalSessionId);
-                    }
+                    // 세션이 있으면 헤더에 추가, 없으면 빈 문자열로 전송
+                    httpHeaders.add(GlobalConstant.SESSION_HEADER_NAME, finalSessionId);
                     if (StringUtils.hasLength(serviceName)) {
                         httpHeaders.add(GlobalConstant.HEADER_SERVICE_NAME, serviceName);
                     }
@@ -94,17 +99,35 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
                 .bodyToMono(AuthCheckResponse.class)
                 .map(authResponse -> {
                     boolean granted = authResponse.isAuthorized();
-                    log.info("authResponse: granted={}", granted);
+                    int statusCode = authResponse.getStatus();
+                    
+                    log.info("Auth service response - status: {}, granted: {}", statusCode, granted);
                     
                     if (granted && authResponse.getUser() != null) {
-                        // 🆕 사용자 정보 로깅
+                        // 인증/인가 성공 (200)
                         log.info("Authenticated user: userId={}, role={}", 
                                 authResponse.getUser().getUserId(),
                                 authResponse.getUser().getRole());
-
-                        // 🆕 Exchange에 사용자 정보 저장
                         context.getExchange().getAttributes().put("USER_INFO", authResponse.getUser());
                         log.info("User info stored in exchange");
+                    } else if (!granted) {
+                        // 실패 케이스 - user-service의 status 코드 활용
+                        if (statusCode == HttpStatus.UNAUTHORIZED.value()) {
+                            // 401: 인증 실패 (세션 없음 또는 유효하지 않음)
+                            log.info("Authentication failed - status: 401");
+                            context.getExchange().getAttributes().put("AUTH_ERROR_TYPE", "AUTHENTICATION_REQUIRED");
+                            context.getExchange().getAttributes().put("AUTH_STATUS_CODE", statusCode);
+                        } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
+                            // 403: 인가 실패 (로그인했지만 권한 없음)
+                            log.info("Authorization failed - status: 403");
+                            context.getExchange().getAttributes().put("AUTH_ERROR_TYPE", "ACCESS_DENIED");
+                            context.getExchange().getAttributes().put("AUTH_STATUS_CODE", statusCode);
+                        } else {
+                            // 기타 오류 (기본값으로 401 처리)
+                            log.warn("Unknown auth failure - status: {}, defaulting to 401", statusCode);
+                            context.getExchange().getAttributes().put("AUTH_ERROR_TYPE", "AUTHENTICATION_REQUIRED");
+                            context.getExchange().getAttributes().put("AUTH_STATUS_CODE", HttpStatus.UNAUTHORIZED.value());
+                        }
                     }
                     
                     log.info("Security AuthorizationDecision granted={}", granted);
@@ -112,6 +135,9 @@ public class ReactiveAuthorization implements ReactiveAuthorizationManager<Autho
                 })
                 .onErrorResume(throwable -> {
                     log.error("인가 서비스 호출 실패: {}", throwable.getMessage());
+                    // 인가 서비스 호출 실패는 인증 실패로 처리
+                    context.getExchange().getAttributes().put("AUTH_ERROR_TYPE", "AUTHENTICATION_REQUIRED");
+                    context.getExchange().getAttributes().put("AUTH_STATUS_CODE", HttpStatus.UNAUTHORIZED.value());
                     return Mono.just(new AuthorizationDecision(false));
                 });
     }

@@ -32,7 +32,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                    HttpServletResponse response,
                                    FilterChain filterChain) throws ServletException, IOException {
-
+        log.info("------AuthenticationFilter");
         // 1. X-Session-ID 헤더에서 세션 ID 추출
         String sessionId = request.getHeader("X-Session-ID");
         
@@ -56,7 +56,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                     // 4. SecurityContext에 인증 정보 설정
                     SecurityContextHolder.getContext().setAuthentication(auth);
 
-                    log.info("X-Session-Expired TURE");
                 } else {
                     response.setHeader("X-Session-Expired", "true");
                 }

@@ -74,7 +74,8 @@ public class TestPageController {
         // 프로필 섹션
         html.append("<div class='container'>")
                 .append("<h2>프로필</h2>")
-                .append("<button onclick='getProfile()'>내 프로필</button>")
+                .append("<button onclick='getProfile()'>내 프로필 (GET)</button>")
+                .append("<button onclick='getProfilePost()'>내 프로필 (POST)</button>")
                 .append("<button onclick='getAllUsers()'>전체 사용자</button>")
                 .append("<div id='profileResult' class='response'></div>")
                 .append("</div>");
@@ -142,12 +143,28 @@ public class TestPageController {
                 .append("const response=await fetch('/user-service/api/users/profile');")
                 .append("const apiResponse=await response.json();")
                 .append("if(apiResponse.success){")
-                .append("document.getElementById('profileResult').textContent='프로필: '+JSON.stringify(apiResponse.data,null,2);")
+                .append("document.getElementById('profileResult').textContent='프로필 (GET): '+JSON.stringify(apiResponse.data,null,2);")
                 .append("}else{")
                 .append("document.getElementById('profileResult').textContent='프로필 조회 실패: '+apiResponse.message;")
                 .append("}")
                 .append("}catch(e){")
                 .append("document.getElementById('profileResult').textContent='Error: '+e.message;")
+                .append("}}");
+
+        html.append("async function getProfilePost(){")
+                .append("try{")
+                .append("const response=await fetch('/user-service/api/users/profile',{")
+                .append("method:'POST',")
+                .append("headers:{'Content-Type':'application/json'}")
+                .append("});")
+                .append("const apiResponse=await response.json();")
+                .append("if(apiResponse.success){")
+                .append("document.getElementById('profileResult').textContent='프로필 (POST): '+JSON.stringify(apiResponse.data,null,2);")
+                .append("}else{")
+                .append("document.getElementById('profileResult').textContent='프로필 조회 실패 (POST): '+apiResponse.message;")
+                .append("}")
+                .append("}catch(e){")
+                .append("document.getElementById('profileResult').textContent='Error (POST): '+e.message;")
                 .append("}}");
 
         html.append("async function getAllUsers(){")
