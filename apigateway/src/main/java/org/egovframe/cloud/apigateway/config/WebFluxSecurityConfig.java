@@ -2,6 +2,7 @@ package org.egovframe.cloud.apigateway.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.egovframe.cloud.apigateway.dto.ApiResponse;
 import org.egovframe.cloud.apigateway.exception.dto.ErrorCode;
@@ -40,9 +41,10 @@ public class WebFluxSecurityConfig {
     private final ObjectMapper objectMapper;
     private final MessageSource messageSource;
 
-    public WebFluxSecurityConfig(MessageSource messageSource) {
+    public WebFluxSecurityConfig(MessageSource messageSource, ObjectMapper objectMapper) {
         this.messageSource = messageSource;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = objectMapper;
+        this.objectMapper.registerModule(new JavaTimeModule());
     }
 
     /**
@@ -72,6 +74,7 @@ public class WebFluxSecurityConfig {
     /**
      * 인증 실패 시 JSON 응답을 반환하는 커스텀 EntryPoint를 생성한다
      * user-service의 status 코드를 확인하여 적절한 응답을 반환한다
+     * GatewayErrorWebExceptionHandler와 동일한 ApiResponse 형식 사용
      *
      * @return ServerAuthenticationEntryPoint 인증 실패 처리 핸들러
      */
@@ -82,44 +85,48 @@ public class WebFluxSecurityConfig {
             
             // Exchange attributes에서 status 코드 확인
             Object statusCodeAttr = exchange.getAttributes().get("AUTH_STATUS_CODE");
-            Object errorTypeAttr = exchange.getAttributes().get("AUTH_ERROR_TYPE");
             
-            HttpStatus httpStatus;
-            String message;
-            String errorCode;
+            ErrorCode errorCode;
             
             if (statusCodeAttr instanceof Integer) {
                 int statusCode = (Integer) statusCodeAttr;
                 if (statusCode == HttpStatus.FORBIDDEN.value()) {
                     // 403: 인가 실패 (로그인했지만 권한 없음)
-                    httpStatus = HttpStatus.FORBIDDEN;
-                    message = "접근 권한이 없습니다";
-                    errorCode = "ACCESS_DENIED";
+                    errorCode = ErrorCode.ACCESS_DENIED;
                     log.info("Returning 403 - Access denied for authenticated user");
                 } else {
                     // 401: 인증 실패 (기본값)
-                    httpStatus = HttpStatus.UNAUTHORIZED;
-                    message = "인증이 필요합니다";
-                    errorCode = "AUTHENTICATION_REQUIRED";
+                    errorCode = ErrorCode.UNAUTHORIZED;
                     log.info("Returning 401 - Authentication required");
                 }
             } else {
                 // 기본값: 401
-                httpStatus = HttpStatus.UNAUTHORIZED;
-                message = "인증이 필요합니다";
-                errorCode = "AUTHENTICATION_REQUIRED";
+                errorCode = ErrorCode.UNAUTHORIZED;
                 log.info("Returning 401 - Default authentication required");
             }
             
-            response.setStatusCode(httpStatus);
+            response.setStatusCode(HttpStatus.valueOf(errorCode.getStatus()));
             response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
             // WWW-Authenticate 헤더 제거로 브라우저 로그인 다이얼로그 방지
             response.getHeaders().remove("WWW-Authenticate");
             
-            String json = String.format("{\"success\":false,\"message\":\"%s\",\"errorCode\":\"%s\",\"timestamp\":\"%s\"}", 
-                    message, errorCode, java.time.LocalDateTime.now());
+            // 🆕 ErrorCode enum과 MessageSource 활용
+            String message = messageSource.getMessage(errorCode.getMessage(), null, 
+                    LocaleContextHolder.getLocale());
+            ApiResponse<Void> apiResponse = ApiResponse.error(message, errorCode.getCode());
             
-            log.info("Auth response: status={}, message={}", httpStatus.value(), message);
+            String json;
+            try {
+                json = objectMapper.writeValueAsString(apiResponse);
+            } catch (JsonProcessingException e) {
+                // Fallback JSON
+                json = String.format("{\"success\":false,\"message\":\"%s\",\"errorCode\":\"%s\",\"timestamp\":\"%s\"}", 
+                        message, errorCode.getCode(), java.time.LocalDateTime.now());
+                log.error("Error writing auth JSON response", e);
+            }
+            
+            log.info("Auth response: status={}, code={}, message={}", 
+                    errorCode.getStatus(), errorCode.getCode(), message);
             
             DataBuffer buffer = response.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
             return response.writeWith(Mono.just(buffer));
@@ -129,6 +136,7 @@ public class WebFluxSecurityConfig {
     /**
      * 인가 실패 시 JSON 응답을 반환하는 커스텀 AccessDeniedHandler를 생성한다
      * 이 핸들러는 주로 Spring Security 내부에서 사용되는 경우를 위한 fallback
+     * GatewayErrorWebExceptionHandler와 동일한 ApiResponse 형식 사용
      *
      * @return ServerAccessDeniedHandler 인가 실패 처리 핸들러
      */
@@ -140,25 +148,23 @@ public class WebFluxSecurityConfig {
             // Exchange attributes에서 status 코드 확인
             Object statusCodeAttr = exchange.getAttributes().get("AUTH_STATUS_CODE");
             
-            HttpStatus httpStatus = HttpStatus.FORBIDDEN;
-            String message = "접근 권한이 없습니다";
-            String errorCode = "ACCESS_DENIED";
+            ErrorCode errorCode = ErrorCode.ACCESS_DENIED; // 기본값: 403
             
             // user-service의 status 코드가 있다면 그것을 우선 사용
             if (statusCodeAttr instanceof Integer) {
                 int statusCode = (Integer) statusCodeAttr;
                 if (statusCode == HttpStatus.UNAUTHORIZED.value()) {
-                    httpStatus = HttpStatus.UNAUTHORIZED;
-                    message = "인증이 필요합니다";
-                    errorCode = "AUTHENTICATION_REQUIRED";
+                    errorCode = ErrorCode.UNAUTHORIZED;
                 }
             }
             
-            response.setStatusCode(httpStatus);
+            response.setStatusCode(HttpStatus.valueOf(errorCode.getStatus()));
             response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
 
-            // user-service와 동일한 ApiResponse 구조 사용
-            ApiResponse<Void> apiResponse = ApiResponse.error(message, errorCode);
+            // 🆕 ErrorCode enum과 MessageSource 활용
+            String message = messageSource.getMessage(errorCode.getMessage(), null, 
+                    LocaleContextHolder.getLocale());
+            ApiResponse<Void> apiResponse = ApiResponse.error(message, errorCode.getCode());
 
             String json;
             try {
@@ -166,10 +172,12 @@ public class WebFluxSecurityConfig {
             } catch (JsonProcessingException e) {
                 // Fallback JSON
                 json = String.format("{\"success\":false,\"message\":\"%s\",\"errorCode\":\"%s\",\"timestamp\":\"%s\"}",
-                        message, errorCode, java.time.LocalDateTime.now());
+                        message, errorCode.getCode(), java.time.LocalDateTime.now());
+                log.error("Error writing access denied JSON response", e);
             }
 
-            log.info("Access denied response: status={}, message={}", httpStatus.value(), message);
+            log.info("Access denied response: status={}, code={}, message={}", 
+                    errorCode.getStatus(), errorCode.getCode(), message);
 
             DataBuffer buffer = response.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
             return response.writeWith(Mono.just(buffer));

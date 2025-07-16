@@ -47,6 +47,8 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
     public GatewayErrorWebExceptionHandler(MessageSource messageSource, ObjectMapper objectMapper) {
         this.messageSource = messageSource;
         this.objectMapper = objectMapper;
+        // 🆕 Java 8 LocalDateTime 직렬화 지원 (혹시 모를 경우를 대비)
+        this.objectMapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
     }
 
     /**
