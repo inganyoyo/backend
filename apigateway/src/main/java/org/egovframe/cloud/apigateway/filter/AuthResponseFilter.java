@@ -1,192 +1,99 @@
 package org.egovframe.cloud.apigateway.filter;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.StandardCharsets;
+import java.net.URI;
 
-/**
- * org.egovframe.cloud.apigateway.filter.AuthResponseFilter
- * <p>
- * 로그인 응답에서 sessionId를 쿠키로 설정하고, 세션 만료 시 쿠키를 제거하는 필터
- *
- * @version 1.0
- * @since 2025/07/14
- */
 @Slf4j
 @Component
 public class AuthResponseFilter implements GlobalFilter, Ordered {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    /**
-     * 필터를 적용하여 인증 요청에 대한 응답을 처리한다
-     *
-     * @param exchange 서버 웹 교환 객체
-     * @param chain 게이트웨이 필터 체인
-     * @return Mono<Void> 필터 처리 결과
-     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("AuthResponseFilter start");
         ServerHttpRequest request = exchange.getRequest();
-        
-        // 🆕 세션 만료 체크를 위해 모든 요청에 대해 응답을 확인
-        ServerHttpResponseDecorator decoratedResponse = new ServerHttpResponseDecorator(exchange.getResponse()) {
-            @Override
-            public Mono<Void> writeWith(org.reactivestreams.Publisher<? extends DataBuffer> body) {
-                
-                // 🆕 세션 만료 또는 오류 헤더 체크 (모든 응답에 대해)
-                String sessionExpired = getDelegate().getHeaders().getFirst("X-Session-Expired");
 
-                // 기존 인증 요청 처리는 그대로 유지
-                if (!isAuthRequest(request) && "false".equals(sessionExpired)) {
-                    return super.writeWith(body);
-                }
+        return chain.filter(exchange).then(
+                Mono.defer(() -> {
+                    ServerHttpResponse response = exchange.getResponse();
+                    String sessionExpired = response.getHeaders().getFirst("X-Session-Expired");
 
-                log.info("Processing auth request: {}", request.getPath());
+                    if (isLoginRequest(request)) {
+                        String sessionId = request.getHeaders().getFirst("X-Session-Id"); // 임시 방식
+                        if (sessionId != null && !sessionId.isEmpty()) {
+                            log.info("Login detected, setting session cookie");
 
-                // 응답을 가로채서 sessionId를 쿠키로 설정
-                if (body instanceof Flux) {
-                    Flux<? extends DataBuffer> fluxBody = (Flux<? extends DataBuffer>) body;
-                    return super.writeWith(fluxBody.collectList().map(dataBuffers -> {
-                        // 응답 본문을 문자열로 변환
-                        StringBuilder responseBodyBuilder = new StringBuilder();
-                        for (DataBuffer dataBuffer : dataBuffers) {
-                            byte[] content = new byte[dataBuffer.readableByteCount()];
-                            dataBuffer.read(content);
-                            responseBodyBuilder.append(new String(content, StandardCharsets.UTF_8));
-                            DataBufferUtils.release(dataBuffer);
+                            ResponseCookie sessionCookie = ResponseCookie.from("GSNS-SESSION", sessionId)
+                                    .httpOnly(true)
+                                    .secure(false)
+                                    .sameSite("Strict")
+                                    .path("/")
+                                    .maxAge(-1)
+                                    .build();
+
+                            response.addCookie(sessionCookie);
                         }
 
-                        String responseBody = responseBodyBuilder.toString();
-                        log.info("Auth response body: {}", responseBody);
+                        response.setStatusCode(HttpStatus.FOUND);
+                        response.getHeaders().setLocation(URI.create("/main"));
+                        return response.setComplete();
+                    }
 
-                        // JSON에서 성공 여부 확인하고 쿠키 처리
-                        try {
-                            JsonNode jsonNode = objectMapper.readTree(responseBody);
+                    if (isLogoutRequest(request)) {
+                        log.info("Logout detected, clearing session cookie");
+                        clearSessionCookie(response);
+                        response.setStatusCode(HttpStatus.FOUND);
+                        response.getHeaders().setLocation(URI.create("/login"));
+                        return response.setComplete();
+                    }
 
-                            if (isLoginRequest(request)) {
-                                // 🆕 ApiResponse 구조에 맞게 수정: data.sessionId로 접근
-                                if (jsonNode.has("success") && jsonNode.get("success").asBoolean() 
-                                        && jsonNode.has("data") && jsonNode.get("data").has("sessionId")) {
+                    if ("true".equalsIgnoreCase(sessionExpired)) {
+                        log.info("Session expired, clearing session cookie");
+                        clearSessionCookie(response);
+                        response.setStatusCode(HttpStatus.FOUND);
+                        response.getHeaders().setLocation(URI.create("/login"));
+                        return response.setComplete();
+                    }
 
-                                    String sessionId = jsonNode.get("data").get("sessionId").asText();
-                                    log.info("Login successful, setting session cookie: {}", 
-                                            sessionId.substring(0, Math.min(8, sessionId.length())) + "...");
-
-                                    // 세션 쿠키 설정
-                                    ResponseCookie sessionCookie = ResponseCookie.from("GSNS-SESSION", sessionId)
-                                            .httpOnly(true)
-                                            .secure(false) // 개발환경에서는 false, 운영환경에서는 true
-                                            .sameSite("Strict")
-                                            .path("/")
-                                            .maxAge(-1) // 브라우저 세션 종료 시까지 유지
-                                            .build();
-
-                                    getDelegate().addCookie(sessionCookie);
-                                    log.info("Session cookie set successfully");
-                                }
-                            } else if (isLogoutRequest(request) || "true".equals(sessionExpired)) {
-                                // 🆕 ApiResponse 구조: success 필드 확인
-                                if (jsonNode.has("success") && jsonNode.get("success").asBoolean()) {
-                                    log.info("Logout successful, removing session cookie");
-
-                                    // 세션 쿠키 삭제 (maxAge=0으로 설정)
-                                    ResponseCookie deleteCookie = ResponseCookie.from("GSNS-SESSION", "")
-                                            .httpOnly(true)
-                                            .secure(false)
-                                            .sameSite("Strict")
-                                            .path("/")
-                                            .maxAge(0) // 즉시 만료
-                                            .build();
-
-                                    getDelegate().addCookie(deleteCookie);
-                                    log.info("Session cookie cleared successfully");
-                                }
-                            }
-                        } catch (Exception e) {
-                            log.error("Failed to parse auth response", e);
-                        }
-
-                        // 원본 응답 본문을 새로운 DataBuffer로 생성
-                        return getDelegate().bufferFactory().wrap(responseBody.getBytes(StandardCharsets.UTF_8));
-                    }));
-                }
-                return super.writeWith(body);
-            }
-        };
-
-        return chain.filter(exchange.mutate().response(decoratedResponse).build());
+                    return Mono.empty();
+                })
+        );
     }
 
-    /**
-     * 로그인 또는 로그아웃 요청인지 확인한다
-     *
-     * @param request HTTP 요청 객체
-     * @return boolean 인증 요청 여부
-     */
-    private boolean isAuthRequest(ServerHttpRequest request) {
-        String path = request.getPath().toString();
-        String method = request.getMethod().toString();
-
-        boolean isAuth = "POST".equals(method) &&
-                (path.contains("/user-service/api/auth/login") ||
-                        path.contains("/user-service/api/auth/logout"));
-        log.debug("Request path: {}, method: {}, isAuth: {}", path, method, isAuth);
-        return isAuth;
+    private void clearSessionCookie(ServerHttpResponse response) {
+        ResponseCookie deleteCookie = ResponseCookie.from("GSNS-SESSION", "")
+                .httpOnly(true)
+                .secure(false)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(0)
+                .build();
+        response.addCookie(deleteCookie);
     }
 
-    /**
-     * 로그인 요청인지 확인한다
-     *
-     * @param request HTTP 요청 객체
-     * @return boolean 로그인 요청 여부
-     */
     private boolean isLoginRequest(ServerHttpRequest request) {
         String path = request.getPath().toString();
-        String method = request.getMethod().toString();
-
-        boolean isLogin = "POST".equals(method) && path.contains("/user-service/api/auth/login");
-        log.debug("Request path: {}, method: {}, isLogin: {}", path, method, isLogin);
-        return isLogin;
+        String method = request.getMethodValue();
+        return "POST".equalsIgnoreCase(method) && path.contains("/user-service/api/auth/login");
     }
 
-    /**
-     * 로그아웃 요청인지 확인한다
-     *
-     * @param request HTTP 요청 객체
-     * @return boolean 로그아웃 요청 여부
-     */
     private boolean isLogoutRequest(ServerHttpRequest request) {
         String path = request.getPath().toString();
-        String method = request.getMethod().toString();
-
-        boolean isLogout = "POST".equals(method) && path.contains("/user-service/api/auth/logout");
-        log.debug("Request path: {}, method: {}, isLogout: {}", path, method, isLogout);
-        return isLogout;
+        String method = request.getMethodValue();
+        return "POST".equalsIgnoreCase(method) && path.contains("/user-service/api/auth/logout");
     }
 
-    /**
-     * 필터의 실행 순서를 반환한다
-     *
-     * @return int 필터 실행 순서 (낮을수록 먼저 실행)
-     */
     @Override
     public int getOrder() {
-        return -1; // GlobalFilter보다 먼저 실행
+        return -1;
     }
 }
