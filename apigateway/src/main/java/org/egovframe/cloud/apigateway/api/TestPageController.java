@@ -29,6 +29,11 @@ public class TestPageController {
         return buildSimpleTestPage();
     }
 
+    @GetMapping(value = "/test2", produces = MediaType.TEXT_HTML_VALUE)
+    public String testPage2() {
+        log.info("Test page requested22");
+        return buildSimpleTestPage();
+    }
     /**
      * 간단한 로그인 및 프로필 테스트 페이지를 생성한다 (개발용)
      *

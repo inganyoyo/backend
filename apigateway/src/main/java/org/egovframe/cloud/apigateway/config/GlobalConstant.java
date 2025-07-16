@@ -55,7 +55,7 @@ public interface GlobalConstant {
           "/auth-service/api/auth/login", // 로그인은 권한 확인 불필요
           "/auth-service/api/auth/logout", // 로그인아웃은 권한 확인 불필요
           "/auth-service/api/auth/validate", // 세션 검증 API 허용
-          "/test", "/test/**", // 테스트 페이지 허용
+          "/test2","/test", "/test/**", // 테스트 페이지 허용
   };
 
 final String USER_SERVICE_URI = "/user-service";

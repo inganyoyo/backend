@@ -7,6 +7,16 @@
       "method": "POST",
       "path": "/api/auth/login",
       "description": "로그인 API"
+    },{
+      "service": "user-service",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "description": "로그인 API"
+    },{
+      "service": "user-service",
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "description": "로그인 API"
     },
     {
       "service": "auth-service",
