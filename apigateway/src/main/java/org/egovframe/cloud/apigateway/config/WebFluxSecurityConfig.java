@@ -15,8 +15,6 @@ import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
-import org.springframework.security.web.server.authentication.HttpStatusServerEntryPoint;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
 import reactor.core.publisher.Mono;
@@ -52,60 +50,25 @@ public class WebFluxSecurityConfig {
      * @param http  ServerHttpSecurity 객체
      * @param check 인증/인가 체크 매니저
      * @return SecurityWebFilterChain 설정된 보안 필터 체인
-     * @throws Exception 설정 중 오류 발생 시
      * @see ReactiveAuthorization
      */
     @Bean
-    public SecurityWebFilterChain configure(ServerHttpSecurity http, ReactiveAuthorizationManager<AuthorizationContext> check) throws Exception {
-        http
+    public SecurityWebFilterChain configure(ServerHttpSecurity http, ReactiveAuthorizationManager<AuthorizationContext> check) {
+        return http
                 .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
                 .formLogin().disable()
-                .httpBasic().authenticationEntryPoint(new HttpStatusServerEntryPoint(HttpStatus.UNAUTHORIZED)) // login dialog disabled & 401 HttpStatus return
-                .and()
+                .httpBasic().disable()
                 .authorizeExchange()
                 .pathMatchers(PERMITALL_ANTPATTERNS).permitAll()
                 .anyExchange().access(check)
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(customAuthenticationEntryPoint()) // 인증 실패 시 JSON
-                .accessDeniedHandler(customAccessDeniedHandler()); // 인가 실패 시 JSON
-        return http.build();
+                .accessDeniedHandler(customAccessDeniedHandler())
+                .and()
+                .build();
     }
-
-    /**
-     * 인증 실패 시 JSON 응답을 반환하는 커스텀 EntryPoint를 생성한다
-     *
-     * @return ServerAuthenticationEntryPoint 인증 실패 처리 핸들러
-     */
-    @Bean
-    public ServerAuthenticationEntryPoint customAuthenticationEntryPoint() {
-        return (exchange, ex) -> {
-            ServerHttpResponse response = exchange.getResponse();
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-
-            ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
-            String message = messageSource.getMessage(errorCode.getMessage(), null, LocaleContextHolder.getLocale());
-
-            // user-service와 동일한 ApiResponse 구조 사용
-            ApiResponse<Void> apiResponse = ApiResponse.error(message, errorCode.getCode());
-
-            String json;
-            try {
-                json = objectMapper.writeValueAsString(apiResponse);
-            } catch (JsonProcessingException e) {
-                // Fallback JSON
-                json = String.format("{\"success\":false,\"message\":\"%s\",\"errorCode\":\"%s\",\"timestamp\":\"%s\"}",
-                        message, errorCode.getCode(), java.time.LocalDateTime.now());
-            }
-
-            DataBuffer buffer = response.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
-            return response.writeWith(Mono.just(buffer));
-        };
-    }
-
 
     /**
      * 인가 실패 시 JSON 응답을 반환하는 커스텀 AccessDeniedHandler를 생성한다
