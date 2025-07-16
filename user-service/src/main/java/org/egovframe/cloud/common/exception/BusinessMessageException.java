@@ -1,6 +1,7 @@
 package org.egovframe.cloud.common.exception;
 
-import org.egovframe.cloud.common.exception.dto.ErrorCode;
+
+import org.egovframe.cloud.common.code.CommonErrorCode;
 
 /**
  * org.egovframe.cloud.common.exception.BusinessMessageException
@@ -22,12 +23,14 @@ import org.egovframe.cloud.common.exception.dto.ErrorCode;
 public class BusinessMessageException extends BusinessException {
 
     /**
-     * 사용자에게 표시될 메시지와 상태코드 400 을 넘긴다
+     * 사용자에게 표시될 메시지를 넘기고, 상태코드는 400으로 처리
      *
-     * @param customMessage
+     * @param customMessage 사용자에게 보여질 커스텀 메시지
      */
     public BusinessMessageException(String customMessage) {
-        super(ErrorCode.BUSINESS_CUSTOM_MESSAGE, customMessage);
+        super(BusinessException.builder(CommonErrorCode.BUSINESS_CUSTOM_MESSAGE)
+                .customMessage(customMessage)
+                .build());
     }
 
 }

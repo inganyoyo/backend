@@ -1,8 +1,8 @@
 package org.egovframe.cloud.common.service;
 
-import static org.egovframe.cloud.common.config.GlobalConstant.*;
 
 import javax.annotation.Resource;
+
 import org.egovframe.cloud.common.util.MessageUtil;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 

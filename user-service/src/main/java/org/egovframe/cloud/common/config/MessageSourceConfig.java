@@ -34,10 +34,10 @@ public class MessageSourceConfig {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 
-        // resources 디렉토리의 messages.properties 사용
-        messageSource.setBasenames("classpath:messages");
+        // resources 디렉토리의 common-messages.properties 사용
+        messageSource.setBasenames("classpath:messages", "classpath:common-messages");
 
-        log.info("MessageSource configured with classpath:messages");
+        log.info("MessageSource configured with classpath:common-messages");
 
         messageSource.setCacheSeconds(60); // 메세지 파일 변경 감지 간격 (개발시에만)
         messageSource.setUseCodeAsDefaultMessage(true); // 메세지가 없으면 코드를 메세지로 사용

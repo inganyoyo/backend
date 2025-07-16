@@ -7,6 +7,7 @@ plugins {
 
 group = 'org.egovframe.cloud'
 version = '1.0.0'
+description = '게시판 관리 마이크로서비스'
 sourceCompatibility = '1.8'
 
 configurations {
