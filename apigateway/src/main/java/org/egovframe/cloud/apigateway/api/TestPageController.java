@@ -94,22 +94,26 @@ public class TestPageController {
 
         // JavaScript
         html.append("<script>");
-        html.append("async function doLogin(){")
+        html.append("function doLogin(){")
                 .append("const username=document.getElementById('username').value;")
                 .append("const password=document.getElementById('password').value;")
-                .append("try{")
-                .append("const response=await fetch('/user-service/api/auth/login',{")
-                .append("method:'POST',headers:{'Content-Type':'application/json'},")
-                .append("body:JSON.stringify({username,password})});")
-                .append("const apiResponse=await response.json();")
-                .append("if(apiResponse.success){")
-                .append("document.getElementById('authResult').textContent='로그인 성공: '+JSON.stringify(apiResponse.data,null,2);")
-                .append("}else{")
-                .append("document.getElementById('authResult').textContent='로그인 실패: '+apiResponse.message;")
-                .append("}")
-                .append("}catch(e){")
-                .append("document.getElementById('authResult').textContent='Error: '+e.message;")
-                .append("}}");
+                .append("const form=document.createElement('form');")
+                .append("form.method='POST';")
+                .append("form.action='/user-service/api/auth/login';")
+                .append("form.enctype='application/x-www-form-urlencoded';")
+                .append("const usernameInput=document.createElement('input');")
+                .append("usernameInput.type='hidden';")
+                .append("usernameInput.name='username';")
+                .append("usernameInput.value=username;")
+                .append("const passwordInput=document.createElement('input');")
+                .append("passwordInput.type='hidden';")
+                .append("passwordInput.name='password';")
+                .append("passwordInput.value=password;")
+                .append("form.appendChild(usernameInput);")
+                .append("form.appendChild(passwordInput);")
+                .append("document.body.appendChild(form);")
+                .append("form.submit();")
+                .append("}");
 
         html.append("async function doLogout(){")
                 .append("try{")
@@ -174,6 +178,39 @@ public class TestPageController {
                 .append("}}");
 
         html.append("</script>");
+        
+        // 페이지 로드 시 URL 파라미터 확인 스크립트 추가
+        html.append("<script>");
+        html.append("window.addEventListener('load',function(){")
+                .append("const urlParams=new URLSearchParams(window.location.search);")
+                .append("const success=urlParams.get('success');")
+                .append("const error=urlParams.get('error');")
+                .append("const username=urlParams.get('username');")
+                .append("if(success){")
+                .append("let message='';")
+                .append("if(success==='login_success'){")
+                .append("message='🎉 로그인 성공! 사용자: '+(username||'unknown');")
+                .append("}")
+                .append("document.getElementById('authResult').textContent=message;")
+                .append("document.getElementById('authResult').style.background='#d4edda';")
+                .append("document.getElementById('authResult').style.color='#155724';")
+                .append("}else if(error){")
+                .append("let message='';")
+                .append("if(error==='missing_credentials'){")
+                .append("message='❌ 로그인 실패: 사용자명과 비밀번호가 필요합니다.';")
+                .append("}else if(error==='invalid_credentials'){")
+                .append("message='❌ 로그인 실패: 사용자명 또는 비밀번호가 잘못되었습니다.';")
+                .append("}else if(error==='processing_failed'){")
+                .append("message='❌ 로그인 실패: 서버 처리 중 오류가 발생했습니다.';")
+                .append("}else{")
+                .append("message='❌ 로그인 실패: '+error;")
+                .append("}")
+                .append("document.getElementById('authResult').textContent=message;")
+                .append("document.getElementById('authResult').style.background='#f8d7da';")
+                .append("document.getElementById('authResult').style.color='#721c24';")
+                .append("}")
+                .append("});")
+                .append("</script>");
         html.append("</body></html>");
 
         return html.toString();

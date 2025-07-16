@@ -21,6 +21,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 간단한 인증 API Controller 헤더 기반 권한 검증 지원
  */
@@ -62,9 +65,9 @@ public class AuthController {
     }
 
     /**
-     * 로그인
+     * 로그인 (JSON 요청용)
      */
-    @PostMapping("/api/auth/login")
+    @PostMapping(value = "/api/auth/login", consumes = "application/json")
     public ResponseEntity<ApiResponse<Map<String, Object>>> login(@RequestBody Map<String, String> loginRequest) {
         String username = loginRequest.get("username");
         String password = loginRequest.get("password");
@@ -87,6 +90,48 @@ public class AuthController {
                 .data(loginData)
                 .args("로그인", "완료")
                 .build();
+    }
+
+    /**
+     * 로그인 (Form POST용 - 페이지 전체 이동)
+     */
+    @PostMapping(value = "/api/auth/login")
+    public void loginWithForm(
+            @RequestParam String username,
+            @RequestParam String password,
+            HttpServletResponse response) throws Exception {
+        
+        log.info("Form POST 로그인 시도: {}", username);
+        
+        try {
+            if (username == null || password == null) {
+                response.sendRedirect("/test?error=missing_credentials");
+                return;
+            }
+
+            String sessionId = authService.login(username, password);
+            
+            if (sessionId == null) {
+                response.sendRedirect("/test?error=invalid_credentials");
+                return;
+            }
+
+            // 세션 쿠키 설정
+            Cookie sessionCookie = new Cookie("GSNS-SESSION", sessionId);
+            sessionCookie.setPath("/");
+            sessionCookie.setMaxAge(-1); // 30분
+            sessionCookie.setHttpOnly(true);
+            response.addCookie(sessionCookie);
+
+            log.info("Form POST 로그인 성공: {}, 세션: {}", username, sessionId);
+            
+            // 성공 페이지로 리다이렉트
+            response.sendRedirect("http://localhost:8010/test?success=login_success&username=" + username);
+            
+        } catch (Exception e) {
+            log.error("Form POST 로그인 처리 중 오류", e);
+            response.sendRedirect("/test?error=processing_failed");
+        }
     }
 
     /**
