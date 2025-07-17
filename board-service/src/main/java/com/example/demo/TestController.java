@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -30,8 +32,27 @@ public class TestController {
     @GetMapping(value = "/api/board/hello", produces = "application/json")
     public ResponseEntity<ApiResponse<Map<String, Object>>> helloGet(
             @RequestHeader(value = "X-User-ID", required = false) String userId,
-            @RequestHeader(value = "X-Session-ID", required = false) String sessionId
+            @RequestHeader(value = "X-Session-ID", required = false) String sessionId,
+            HttpServletRequest request
     ) {
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0) {
+            System.out.println("No cookies found.");
+
+        }else {
+            for (Cookie cookie : cookies) {
+                System.out.println("Cookie Name : " + cookie.getName());
+                System.out.println("Cookie Value: " + cookie.getValue());
+                System.out.println("Domain      : " + cookie.getDomain());
+                System.out.println("Path        : " + cookie.getPath());
+                System.out.println("Max-Age     : " + cookie.getMaxAge());
+                System.out.println("Secure      : " + cookie.getSecure());
+                System.out.println("HttpOnly    : " + cookie.isHttpOnly());
+                System.out.println("------------------------------------");
+            }
+        }
+
         UserContext user = UserContextHolder.getContext();
 
         log.info("userId = {}, sessionId = {}", userId, sessionId);

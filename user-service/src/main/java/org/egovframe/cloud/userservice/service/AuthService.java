@@ -68,7 +68,7 @@ public class AuthService {
     /**
      * 사용자 로그인
      */
-    public String login(String username, String password) {
+    public User login(String username, String password) {
         log.info("로그인 시도: {}", username);
         
         if (!USERS.containsKey(username)) {
@@ -97,15 +97,15 @@ public class AuthService {
                 .build();
         
         // Redis에 세션 저장 (30분 TTL)
-        String sessionKey = "session:" + sessionId;
-        redisTemplate.opsForValue().set(sessionKey, user, 30, TimeUnit.MINUTES);
+//        String sessionKey = "session:" + sessionId;
+//        redisTemplate.opsForValue().set(sessionKey, user, 30, TimeUnit.MINUTES);
         
         // 캐시에 저장
-        userCache.put(sessionId, user);
-        sessionExistsCache.put(sessionId, true);
-        
+//        userCache.put(sessionId, user);
+//        sessionExistsCache.put(sessionId, true);
+//
         log.info("로그인 성공: {} (세션: {})", username, sessionId);
-        return sessionId;
+        return user;
     }
     
     /**

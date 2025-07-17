@@ -7,11 +7,13 @@ server:
       force: true
       force-request: true
       force-response: true
+    cookie:
+      name: GSNS-SESSION
 
 spring:
   application:
     name: user-service
-  
+
   # Jackson 설정 (UTF-8 및 한글 처리)
   jackson:
     default-property-inclusion: non_null
@@ -45,6 +47,8 @@ spring:
   # Session 설정
   session:
     store-type: redis
+    cookie:
+      name: GSNS-SESSION
     redis:
       flush-mode: on_save
       namespace: spring:session

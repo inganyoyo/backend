@@ -16,6 +16,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * User Service Spring Security 설정
  * 세션 기반 인증과 동적 권한 검증
@@ -45,16 +47,27 @@ public class SecurityConfig {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager, authService);
         
         http
+                .logout(logout -> logout
+                        .logoutUrl("/api/auth/logout")
+                        .logoutSuccessUrl("http://localhost:8010/test?logout") // 로그아웃 성공 시 이동할 경로
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            log.info("Logout Success");
+                            response.setStatus(HttpServletResponse.SC_OK);
+                        })
+                        .deleteCookies("GSNS-SESSION") // 세션 쿠키 삭제
+                        .invalidateHttpSession(true)   // 세션 무효화
+                )
                 .csrf().disable()
                 .headers().frameOptions().disable()
+
             .and()
                 .formLogin().disable() // 폼 로그인 완전 비활성화
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             .and()
                 .anonymous() // 🆕 익명 사용자 지원 명시적 활성화
             .and()
-                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class) // 🆕 addFilterBefore 사용
+             //   .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class) // 🆕 addFilterBefore 사용
                 .authorizeRequests()
                 .antMatchers(PERMIT_ALL_PATTERNS).permitAll()
                 .anyRequest().authenticated(); // 🆕 상수 사용

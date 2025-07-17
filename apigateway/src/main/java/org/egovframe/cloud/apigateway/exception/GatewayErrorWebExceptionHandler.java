@@ -4,11 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.egovframe.cloud.apigateway.exception.dto.ErrorCode;
+import org.egovframe.cloud.apigateway.utils.MessageUtil;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.cloud.gateway.support.TimeoutException;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -35,19 +34,19 @@ import java.time.LocalDateTime;
 @Component
 public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler {
 
-    private final MessageSource messageSource;
     private final ObjectMapper objectMapper;
+    private final MessageUtil messageUtil;
 
     /**
      * GatewayErrorWebExceptionHandler 생성자
      *
-     * @param messageSource 메시지 소스 객체
      * @param objectMapper JSON 매퍼 객체
+     * @param messageUtil 메시지 유틸리티 객체
      */
-    public GatewayErrorWebExceptionHandler(MessageSource messageSource, ObjectMapper objectMapper) {
-        this.messageSource = messageSource;
+    public GatewayErrorWebExceptionHandler(ObjectMapper objectMapper, MessageUtil messageUtil) {
         this.objectMapper = objectMapper;
-        // 🆕 Java 8 LocalDateTime 직렬화 지원 (혹시 모를 경우를 대비)
+        this.messageUtil = messageUtil;
+        // Java 8 LocalDateTime 직렬화 지원 (혹시 모를 경우를 대비)
         this.objectMapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
     }
 
@@ -62,7 +61,7 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         ServerHttpResponse response = exchange.getResponse();
-        
+
         // 이미 커밋된 응답이면 처리하지 않음
         if (response.isCommitted()) {
             return Mono.error(ex);
@@ -70,20 +69,20 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
 
         ErrorCode errorCode = determineErrorCode(ex);
         HttpStatus httpStatus = HttpStatus.valueOf(errorCode.getStatus());
-        
+
         // 로깅 (상세 에러는 DEBUG 레벨에서만)
         String path = exchange.getRequest().getPath().value();
-        log.warn("Gateway Error - Status: {}, Code: {}, Path: {}, Error: {}", 
+        log.warn("Gateway Error - Status: {}, Code: {}, Path: {}, Error: {}",
             httpStatus.value(), errorCode.getCode(), path, ex.getClass().getSimpleName());
         log.debug("Detailed error information", ex);
 
         response.setStatusCode(httpStatus);
         response.getHeaders().add("Content-Type", MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
 
-        String message = messageSource.getMessage(errorCode.getMessage(), null, LocaleContextHolder.getLocale());
-        
+        String message = messageUtil.getMessage(errorCode.getMessage());
+
         // ApiResponse 구조 사용
-        org.egovframe.cloud.apigateway.dto.ApiResponse<Void> apiResponse = 
+        org.egovframe.cloud.apigateway.dto.ApiResponse<Void> apiResponse =
             org.egovframe.cloud.apigateway.dto.ApiResponse.error(message, errorCode.getCode());
 
         try {
@@ -112,12 +111,12 @@ public class GatewayErrorWebExceptionHandler implements ErrorWebExceptionHandler
         if (ex.getCause() instanceof java.net.ConnectException) {
             return ErrorCode.SERVICE_UNAVAILABLE;
         }
-        
+
         // Gateway timeout
         if (ex instanceof TimeoutException) {
             return ErrorCode.SERVICE_UNAVAILABLE;
         }
-        
+
         // Gateway not found (라우트 없음)
         if (ex instanceof NotFoundException) {
             return ErrorCode.NOT_FOUND;
