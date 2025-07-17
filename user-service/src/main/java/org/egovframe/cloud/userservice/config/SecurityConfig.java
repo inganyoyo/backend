@@ -30,21 +30,21 @@ public class SecurityConfig {
 
     private final AuthService authService;
 
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
-        return authConfiguration.getAuthenticationManager();
-    }
+//    @Bean
+//    AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
+//        return authConfiguration.getAuthenticationManager();
+//    }
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
-        AuthenticationManager authenticationManager = authenticationManager(http.getSharedObject(AuthenticationConfiguration.class));
+//        AuthenticationManager authenticationManager = authenticationManager(http.getSharedObject(AuthenticationConfiguration.class));
         
         /**
          * 세션 기반 인증정보를 받아 Authentication 객체를 설정할 수 있도록 필터를 등록해준다.
          */
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager, authService);
+//        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager, authService);
         
         http
                 .logout(logout -> logout
