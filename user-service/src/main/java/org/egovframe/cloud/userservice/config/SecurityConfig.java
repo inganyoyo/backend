@@ -4,7 +4,6 @@ import static org.egovframe.cloud.userservice.config.SecurityConstants.PERMIT_AL
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.egovframe.cloud.userservice.filter.AuthenticationFilter;
 import org.egovframe.cloud.userservice.service.AuthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

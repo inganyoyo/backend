@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # PostgreSQL 데이터베이스
+  postgres:
+    image: postgres:15-alpine
+    container_name: egovframe-postgres
+    environment:
+      POSTGRES_DB: egovframe_user
+      POSTGRES_USER: egovframe
+      POSTGRES_PASSWORD: egovframe123
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./user-service/src/main/resources/db/init:/docker-entrypoint-initdb.d
+    networks:
+      - egovframe-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U egovframe -d egovframe_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis (기존에 사용 중인 것 같아서 추가)
+  redis:
+    image: redis:7-alpine
+    container_name: egovframe-redis
+    ports:
+      - "6380:6379"  # 포트 충돌 방지: 6380:6379로 변경
+    command: redis-server --appendonly yes --requirepass egovframe123
+    volumes:
+      - redis_data:/data
+    networks:
+      - egovframe-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  egovframe-network:
+    driver: bridge

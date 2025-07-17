@@ -31,10 +31,11 @@ spring:
   messages:
     encoding: UTF-8
   
-  # Redis 설정 (성능 최적화)
+  # Redis 설정 (성능 최적화) - 포트 충돌 방지
   redis:
     host: localhost
-    port: 6379
+    port: 6380                                      # 6380 포트로 통일
+    password: egovframe123                          # 추가: Redis 비밀번호
     timeout: 5000ms                 # 3000ms → 5000ms로 증가 (네트워크 지연 대응)
     lettuce:
       pool:
@@ -44,9 +45,9 @@ spring:
         min-idle: 2                 # 0 → 2로 설정 (미리 연결 유지)
       shutdown-timeout: 200ms       # 추가: Graceful Shutdown
   
-  # Session 설정
+  # Session 설정 - Redis 사용 (DB 준비 완료 후 활성화)
   session:
-    store-type: redis
+    store-type: redis  # none → redis로 다시 변경 
     cookie:
       name: GSNS-SESSION
     redis:
@@ -59,6 +60,34 @@ spring:
     type: caffeine
     caffeine:
       spec: maximumSize=5000,expireAfterWrite=10m,expireAfterAccess=5m  # 성능 향상된 설정
+
+  # PostgreSQL 데이터베이스 설정
+  datasource:
+    url: jdbc:postgresql://localhost:5432/egovframe_user
+    username: egovframe
+    password: egovframe123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+
+# 권한 관리 설정
+permission:
+  database:
+    enabled: true  # DB 기반 권한 관리 활성화
+
+# MyBatis 설정
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: org.egovframe.cloud.userservice.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
 
 
 # Actuator 설정

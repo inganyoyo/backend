@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.egovframe.cloud.userservice.mapper.PermissionMapper">
+
+    <!-- Permission 결과 매핑 -->
+    <resultMap id="PermissionResultMap" type="org.egovframe.cloud.userservice.domain.Permission">
+        <result column="service_name" property="service"/>
+        <result column="http_method" property="method"/>
+        <result column="path_pattern" property="path"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <!-- 특정 역할의 직접 권한 조회 (상속 제외) -->
+    <select id="findDirectPermissionsByRole" parameterType="string" resultMap="PermissionResultMap">
+        SELECT DISTINCT 
+            p.service_name,
+            p.http_method,
+            p.path_pattern,
+            p.description
+        FROM permissions p
+        INNER JOIN role_permissions rp ON p.permission_id = rp.permission_id
+        INNER JOIN roles r ON rp.role_id = r.role_id
+        WHERE r.role_name = #{roleName}
+        ORDER BY p.service_name, p.http_method, p.path_pattern
+    </select>
+
+    <!-- 특정 역할의 모든 권한 조회 (상속 포함) -->
+    <select id="findAllPermissionsByRole" parameterType="string" resultMap="PermissionResultMap">
+        WITH RECURSIVE role_tree AS (
+            -- 1. 시작점: 요청된 역할
+            SELECT role_id, role_name, 0 as level
+            FROM roles 
+            WHERE role_name = #{roleName}
+            
+            UNION ALL
+            
+            -- 2. 재귀: 상속받는 부모 역할들 찾기  
+            SELECT r.role_id, r.role_name, rt.level + 1
+            FROM roles r
+            INNER JOIN role_hierarchy rh ON r.role_id = rh.parent_role_id
+            INNER JOIN role_tree rt ON rh.child_role_id = rt.role_id
+            WHERE rt.level &lt; 10  -- 무한 재귀 방지
+        )
+        SELECT DISTINCT 
+            p.service_name,
+            p.http_method,
+            p.path_pattern,
+            p.description
+        FROM permissions p
+        INNER JOIN role_permissions rp ON p.permission_id = rp.permission_id
+        INNER JOIN role_tree rt ON rp.role_id = rt.role_id
+        ORDER BY p.service_name, p.http_method, p.path_pattern
+    </select>
+
+    <!-- 모든 역할명 조회 -->
+    <select id="findAllRoleNames" resultType="string">
+        SELECT role_name 
+        FROM roles 
+        ORDER BY role_name
+    </select>
+
+<!--    &lt;!&ndash; 권한 데이터 해시값 조회 &ndash;&gt;-->
+<!--    <select id="getPermissionDataHash" resultType="string">-->
+<!--        SELECT get_permission_data_hash()-->
+<!--    </select>-->
+
+</mapper>

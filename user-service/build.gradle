@@ -51,6 +51,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.github.ben-manes.caffeine:caffeine'
 
+    // 데이터베이스 관련 (PostgreSQL + MyBatis)
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.postgresql:postgresql'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1'
+
     // OpenAPI 문서
     implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.7.0'
 

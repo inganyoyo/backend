@@ -60,7 +60,7 @@ public class AuthCheckGatewayFilterFactory extends AbstractGatewayFilterFactory<
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
-            log.info("[GlobalFilter Start] request ID: {}, method: {}, path: {}",
+            log.info("[AuthCheckGatewayFilter Start] request ID: {}, method: {}, path: {}",
                 request.getId(), request.getMethod(), request.getPath());
             
             String path = request.getPath().value();
@@ -77,12 +77,12 @@ public class AuthCheckGatewayFilterFactory extends AbstractGatewayFilterFactory<
                 + "&requestPath=" + serviceAndPath.getRequestPath();
 
             if (path.equals(LOGIN_URI) || path.equals(LOGOUT_URI)) {
-                log.info("[AuthCheck Skip] Skipping auth check for path: {}", path);
-                log.info("[AuthCheck Skip] Cookies: {}", exchange.getRequest().getCookies());
+                log.info("[AuthCheckGatewayFilter Skip] Skipping auth check for path: {}", path);
+                log.info("[AuthCheckGatewayFilter Skip] Cookies: {}", exchange.getRequest().getCookies());
                 return chain.filter(exchange);
             }
 
-            log.info("[AuthCheck Process] Processing auth check for path: {}", path);
+            log.info("[AuthCheckGatewayFilter Process] Processing auth check for path: {}", path);
 
             // AUTH-SERVICE로 세션 검증 요청
             return webClient.get()
@@ -108,6 +108,7 @@ public class AuthCheckGatewayFilterFactory extends AbstractGatewayFilterFactory<
                                 .build());
                     })
                     .flatMap(authCheckResponse -> {
+                        log.info("[AuthCheckGatewayFilter] authCheckResponse: {}", authCheckResponse);
                         int status = authCheckResponse.getStatus();
 
                         if (status == 200 && authCheckResponse.isAuthorized()) {

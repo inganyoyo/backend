@@ -225,9 +225,7 @@ public class AuthController {
             }
         }
 
-        if (sessionId != null) {
-            authService.logout(sessionId);
-        }
+
 
         return successResponseUtil.success(SuccessCode.ACTION_SUCCESS)
                 .args("로그아웃", "완료")
@@ -244,9 +242,9 @@ public class AuthController {
         if (sessionId == null || sessionId.trim().isEmpty()) {
             return ResponseEntity.ok(false);
         }
-
-        User user = authService.getUser(sessionId);
-        log.info(user.toString());
+//
+        User user = null;//authService.getUser(sessionId);
+//        log.info(user.toString());
         boolean isValid = (user != null);
 
         log.debug("세션 검증: sessionId={}, valid={}", sessionId.substring(0, 8) + "...", isValid);
