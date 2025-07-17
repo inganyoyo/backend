@@ -72,7 +72,8 @@ public class SecurityConfig {
                 .antMatchers(PERMIT_ALL_PATTERNS).permitAll()
                 .anyRequest().authenticated(); // 🆕 상수 사용
                 //.anyRequest().access("@authorizationService.isAuthorization(authentication, request.requestURI, request.method, request.getHeader('X-Service-ID'))");
-
+//          .authorizeRequests()
+//                .anyRequest().permitAll();
 
         return http.build();
     }
