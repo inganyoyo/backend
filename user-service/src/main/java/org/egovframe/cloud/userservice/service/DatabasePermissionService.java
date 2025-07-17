@@ -33,7 +33,6 @@ public class DatabasePermissionService {
 
     // 간단한 인메모리 캐시 (Caffeine 캐시와 별도)
     private final ConcurrentHashMap<String, List<Permission>> rolePermissionCache = new ConcurrentHashMap<>();
-    private String lastPermissionHash = "";
 
     /**
      * 🚀 애플리케이션 시작 시 초기 권한 로드
@@ -146,7 +145,7 @@ public class DatabasePermissionService {
      * 📊 캐시 상태 정보
      */
     public String getCacheStatus() {
-        return String.format("캐시된 역할 수: %d, 마지막 해시: %s",
-                rolePermissionCache.size(), lastPermissionHash);
+        return String.format("캐시된 역할 수: %d",
+                rolePermissionCache.size());
     }
 }

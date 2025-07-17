@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service;
 public class AuthorizationService extends EgovAbstractServiceImpl {
 
   // Gateway에서 전달하는 서비스 ID 헤더명
-  private static final String SERVICE_ID_HEADER = "X-Service-ID";
   private static final String DEFAULT_SERVICE_ID = "user-service";
   
   private final AuthService authService;
@@ -58,67 +57,36 @@ public class AuthorizationService extends EgovAbstractServiceImpl {
     return checkPermission(roles, serviceId, httpMethod, requestPath);
   }
 
-  /**
-   * 세션 기반 권한 검증
-   *
-   * @param sessionId 세션 ID
-   * @param serviceId 서비스 ID (Gateway에서 검증됨)
-   * @param requestPath 요청 경로
-   * @param httpMethod HTTP 메서드
-   * @return 권한 여부
-   */
-  public boolean hasPermissionBySession(
-      String sessionId, String serviceId, String requestPath, String httpMethod) {
-    if (sessionId == null || sessionId.trim().isEmpty()) {
-      log.warn("세션 ID가 비어있음");
-      return false;
-    }
-
-    // 세션에서 사용자 정보 조회
-    User user = null;//authService.getUser(sessionId);
-    if (user == null) {
-      log.warn("유효하지 않은 세션: {}", sessionId);
-      return false;
-    }
-
-    // 서비스 ID 검증 및 기본값 설정
-    String validServiceId =
-        (serviceId != null && !serviceId.trim().isEmpty()) ? serviceId.trim() : DEFAULT_SERVICE_ID;
-
-    return checkPermission(
-        Collections.singletonList(user.getRole()), validServiceId, httpMethod, requestPath);
-  }
-
-  /**
-   * 사용자 ID 기반 권한 검증 (DB에서 조회)
-   *
-   * @param userId 사용자 ID
-   * @param serviceId 서비스 ID
-   * @param httpMethod HTTP 메서드
-   * @param requestPath 요청 경로
-   * @return 권한 여부
-   */
-  public boolean hasPermissionByUserId(
-      String userId, String serviceId, String httpMethod, String requestPath) {
-    if (userId == null || userId.trim().isEmpty()) {
-      log.warn("사용자 ID가 비어있음");
-      return false;
-    }
-
-    // DB에서 사용자 정보 조회
-    User user = authService.getUserByUsername(userId);
-    if (user == null) {
-      log.warn("사용자를 찾을 수 없음: {}", userId);
-      return false;
-    }
-
-    // 서비스 ID 검증 및 기본값 설정
-    String validServiceId =
-        (serviceId != null && !serviceId.trim().isEmpty()) ? serviceId.trim() : DEFAULT_SERVICE_ID;
-
-    return checkPermission(
-        Collections.singletonList(user.getRole()), validServiceId, httpMethod, requestPath);
-  }
+//  /**
+//   * 사용자 ID 기반 권한 검증 (DB에서 조회)
+//   *
+//   * @param userId 사용자 ID
+//   * @param serviceId 서비스 ID
+//   * @param httpMethod HTTP 메서드
+//   * @param requestPath 요청 경로
+//   * @return 권한 여부
+//   */
+//  public boolean hasPermissionByUserId(
+//      String userId, String serviceId, String httpMethod, String requestPath) {
+//    if (userId == null || userId.trim().isEmpty()) {
+//      log.warn("사용자 ID가 비어있음");
+//      return false;
+//    }
+//
+//    // DB에서 사용자 정보 조회
+//    User user = authService.getUserByUsername(userId);
+//    if (user == null) {
+//      log.warn("사용자를 찾을 수 없음: {}", userId);
+//      return false;
+//    }
+//
+//    // 서비스 ID 검증 및 기본값 설정
+//    String validServiceId =
+//        (serviceId != null && !serviceId.trim().isEmpty()) ? serviceId.trim() : DEFAULT_SERVICE_ID;
+//
+//    return checkPermission(
+//        Collections.singletonList(user.getRole()), validServiceId, httpMethod, requestPath);
+//  }
 
   /**
    * 🆕 핵심 권한 검증 로직 (DB 기반 우선, JSON 폴백)
